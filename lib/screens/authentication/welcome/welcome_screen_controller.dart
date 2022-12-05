@@ -3,17 +3,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:finder/constant/app_endpoints.dart';
 import 'package:finder/constant/storage_key.dart';
-import 'package:finder/models/branches_model.dart';
 import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/home/main_home_screen.dart';
 import 'package:finder/utils/network_dio.dart';
 
-class SignUpController extends GetxController {
+class WelcomeScreenController extends GetxController {
   GetStorage box = GetStorage();
-  RxList<Branches> branchesList = <Branches>[].obs;
-  List<String> typeList = <String>['Business Customer', 'Person'];
-  RxString type = ''.obs;
-  RxString branchId = ''.obs;
 
   Future<void> signUpOnTap({
     required String firstName,
@@ -61,10 +56,11 @@ class SignUpController extends GetxController {
       );
       final UserModel model =
           UserModel.fromJson(response['data'] as Map<String, dynamic>);
-      box..write(StorageKey.apiToken, response['token'])
-      ..write(StorageKey.currentUser, model.toJson())
-      ..write(StorageKey.userId, model.userId)
-      ..write(StorageKey.isLogedIn, true);
+      box
+        ..write(StorageKey.apiToken, response['token'])
+        ..write(StorageKey.currentUser, model.toJson())
+        ..write(StorageKey.userId, model.userId)
+        ..write(StorageKey.isLogedIn, true);
       Get.offAll(
         () => MainHomeScreen(),
       );
