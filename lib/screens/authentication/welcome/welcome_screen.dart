@@ -7,6 +7,7 @@ import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/default_images.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -93,7 +94,11 @@ class SignUpScreen extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                       ),
-                      onPressed: () async {},
+                      onPressed: () async {
+                        final GoogleSignInAccount? credntials =
+                            await GoogleSignIn().signIn();
+                        print(credntials);
+                      },
                       child: Row(
                         children: <Widget>[
                           const CircleAvatar(

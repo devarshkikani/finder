@@ -45,6 +45,7 @@ dependencies:
   qr_code_scanner: ^1.0.1
   timelines: ^0.1.0
   sign_in_with_apple: ^4.2.0
+  google_sign_in: ^5.4.2
 
 dev_dependencies:
   flutter_test:
