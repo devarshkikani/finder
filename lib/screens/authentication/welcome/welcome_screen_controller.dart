@@ -6,6 +6,7 @@ import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/home/main_home_screen.dart';
 import 'package:finder/utils/network_dio.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class WelcomeScreenController extends GetxController {
   GetStorage box = GetStorage();
@@ -65,5 +66,22 @@ class WelcomeScreenController extends GetxController {
         () => MainHomeScreen(),
       );
     }
+  }
+
+  Future<void> handleAppleButtonClick() async {
+    final AuthorizationCredentialAppleID credential =
+        await SignInWithApple.getAppleIDCredential(
+      scopes: <AppleIDAuthorizationScopes>[
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      webAuthenticationOptions: WebAuthenticationOptions(
+        clientId: 'de.lunaone.flutter.signinwithappleexample.service',
+        redirectUri: Uri.parse(
+          'https://flutter-sign-in-with-apple-example.glitch.me/callbacks/sign_in_with_apple',
+        ),
+      ),
+    );
+    print(credential.email);
   }
 }

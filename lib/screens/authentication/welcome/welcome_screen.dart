@@ -57,7 +57,9 @@ class SignUpScreen extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.handleAppleButtonClick();
+                        },
                         child: Row(
                           children: <Widget>[
                             Image.asset(
@@ -91,7 +93,7 @@ class SignUpScreen extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {},
                       child: Row(
                         children: <Widget>[
                           const CircleAvatar(

@@ -44,6 +44,7 @@ dependencies:
   get_storage: ^2.0.3
   qr_code_scanner: ^1.0.1
   timelines: ^0.1.0
+  sign_in_with_apple: ^4.2.0
 
 dev_dependencies:
   flutter_test:

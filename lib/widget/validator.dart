@@ -10,7 +10,7 @@ class Validators {
   //         .replaceAll('{0}', type);
   //   } else if (value.length != length) {
   //     String replace1 =
-  //         currentLanguage['valid_typeLen'].toString().replaceAll('{0}', type);
+  //       currentLanguage['valid_typeLen'].toString().replaceAll('{0}', type);
   //     String replace2 = replace1.replaceAll('{1}', '$length');
   //     return replace2;
   //   } else if (!regExp.hasMatch(value)) {
@@ -24,9 +24,9 @@ class Validators {
   // }
 
   static String? validateEmail(String? value) {
-    String pattern =
+    const String pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regExp = RegExp(pattern);
+    final RegExp regExp = RegExp(pattern);
     if (value == null || value.isEmpty) {
       return 'Email is required';
     } else if (!regExp.hasMatch(value)) {
@@ -85,7 +85,7 @@ class Validators {
   //   }
   //   if (value.length < 9) {
   //     String replace1 =
-  //         currentLanguage['valid_textLenMin'].toString().replaceAll('{0}', '');
+  //       currentLanguage['valid_textLenMin'].toString().replaceAll('{0}', '');
   //     String replace2 = replace1.replaceAll('{1}', '8');
   //     return replace2;
   //   } else {
