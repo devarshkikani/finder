@@ -12,10 +12,8 @@ import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 
 class VerifyCodeScreen extends GetView<VerifyCodeController> {
-  VerifyCodeScreen({super.key});
-  static RxBool isValid = false.obs;
-  RxString otpValue = ''.obs;
-  OtpFieldController otpController = OtpFieldController();
+  const VerifyCodeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +22,8 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            isValid.value = false;
-            otpValue.value = '';
+            controller.isValid.value = false;
+            controller.otpValue.value = '';
             Get.back();
           },
           icon: Icon(
@@ -50,8 +48,8 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
                   ),
                   IconButton(
                     onPressed: () {
-                      isValid.value = false;
-                      otpValue.value = '';
+                      controller.isValid.value = false;
+                      controller.otpValue.value = '';
                       Get.back();
                     },
                     iconSize: 18,
@@ -69,7 +67,7 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
               ),
               height10,
               OTPTextField(
-                controller: otpController,
+                controller: controller.otpController,
                 length: 6,
                 width: MediaQuery.of(context).size.width,
                 textFieldAlignment: MainAxisAlignment.spaceAround,
@@ -84,12 +82,13 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
                 ),
                 onChanged: (String value) {
                   if (value.length < 6) {
-                    isValid.value = false;
+                    controller.isValid.value = false;
                   }
                 },
-                onCompleted: (String pin) {
-                  isValid.value = true;
-                  otpValue.value = pin;
+                onCompleted: (String pin) async {
+                  controller.isValid.value = true;
+                  controller.otpValue.value = pin;
+                  await controller.verifyOtp(context: context);
                 },
               ),
               height20,
@@ -106,7 +105,11 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
                   ),
-                  onPressed: isValid.value ? () {} : null,
+                  onPressed: controller.isValid.value
+                      ? () {
+                          controller.verifyOtp(context: context);
+                        }
+                      : null,
                   child: Center(
                     child: Text(
                       'Continue',

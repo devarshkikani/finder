@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:finder/constant/app_endpoints.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/utils/internet_error.dart';
 import 'package:finder/utils/progress_indicator.dart';
@@ -48,11 +47,11 @@ class NetworkDio {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'X-API-KEY': apiToken,
-        'X-AUTH-KEY': ApiEndPoints.authKey,
+        // 'X-AUTH-KEY': ApiEndPoints.authKey,
       };
     } else {
       return <String, String>{
-        'X-AUTH-KEY': ApiEndPoints.authKey,
+        // 'X-AUTH-KEY': ApiEndPoints.authKey,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       };
@@ -106,7 +105,7 @@ class NetworkDio {
             responseBody = response.data as Map<String, dynamic>;
           }
           if (responseBody['status'] == 200) {
-            return responseBody;
+            return responseBody['data'] as Map<String, dynamic>;
           } else {
             showError(
               title: 'Error',
@@ -181,7 +180,7 @@ class NetworkDio {
             responseBody = response.data as Map<String, dynamic>;
           }
           if (responseBody['status'] == 200) {
-            return responseBody;
+            return responseBody['data'] as Map<String, dynamic>;
           } else {
             showError(
               title: 'Error',

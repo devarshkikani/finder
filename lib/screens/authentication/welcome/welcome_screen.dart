@@ -169,7 +169,9 @@ class SignUpScreen extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        Get.to(() => MobileScreen());
+                        Get.to(
+                          () => const MobileScreen(),
+                        );
                       },
                       child: Row(
                         children: <Widget>[
