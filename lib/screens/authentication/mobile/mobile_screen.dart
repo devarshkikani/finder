@@ -1,6 +1,9 @@
-import 'dart:io';
+// ignore_for_file: must_be_immutable
 
+import 'dart:io';
 import 'package:finder/constant/sizedbox.dart';
+import 'package:finder/screens/authentication/verify_code/verify_code_bindings.dart';
+import 'package:finder/screens/authentication/verify_code/verify_code_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +12,9 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class MobileScreen extends StatelessWidget {
   MobileScreen({super.key});
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   static RxBool isValid = false.obs;
   final TextEditingController phoneController = TextEditingController();
-  final String initialCountry = 'US';
-  final PhoneNumber number = PhoneNumber(isoCode: 'US');
+  late PhoneNumber phoneNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class MobileScreen extends StatelessWidget {
               height10,
               InternationalPhoneNumberInput(
                 selectorTextStyle: regularText14,
-                initialValue: number,
+                initialValue: PhoneNumber(isoCode: 'US'),
                 textFieldController: phoneController,
                 formatInput: false,
                 keyboardType: const TextInputType.numberWithOptions(
@@ -88,7 +89,7 @@ class MobileScreen extends StatelessWidget {
                   ),
                 ),
                 onInputChanged: (PhoneNumber number) {
-                  print(number.phoneNumber);
+                  phoneNumber = number;
                 },
                 onInputValidated: (bool value) {
                   isValid.value = value;
@@ -102,7 +103,7 @@ class MobileScreen extends StatelessWidget {
                   useEmoji: true,
                 ),
                 onSaved: (PhoneNumber number) {
-                  print('On Saved: $number');
+                  phoneNumber = number;
                 },
               ),
               height10,
@@ -125,7 +126,16 @@ class MobileScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                     ),
-                    onPressed: isValid.value ? () {} : null,
+                    onPressed: isValid.value
+                        ? () {
+                            Get.to(
+                              () => VerifyCodeScreen(),
+                              binding: VerifyCodeBinding(
+                                  dialCode: phoneNumber.dialCode,
+                                  phoneNumber: phoneNumber.phoneNumber),
+                            );
+                          }
+                        : null,
                     child: Center(
                       child: Text(
                         'Continue',
