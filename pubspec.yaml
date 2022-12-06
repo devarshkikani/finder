@@ -42,10 +42,12 @@ dependencies:
   dio_http_cache: ^0.3.0
   get: ^4.6.5
   get_storage: ^2.0.3
-  qr_code_scanner: ^1.0.1
-  timelines: ^0.1.0
-  sign_in_with_apple: ^4.2.0
   google_sign_in: ^5.4.2
+  intl_phone_number_input: ^0.7.1
+  qr_code_scanner: ^1.0.1
+  sign_in_with_apple: ^4.2.0
+  timelines: ^0.1.0
+  
 
 dev_dependencies:
   flutter_test:

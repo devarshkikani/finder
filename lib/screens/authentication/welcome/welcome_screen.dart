@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:finder/screens/authentication/mobile/mobile_screen.dart';
 import 'package:finder/screens/authentication/welcome/welcome_screen_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -167,7 +168,9 @@ class SignUpScreen extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(() => MobileScreen());
+                      },
                       child: Row(
                         children: <Widget>[
                           Image.asset(

@@ -22,6 +22,31 @@ TextStyle blackText20 = const TextStyle(
   color: Colors.black,
 );
 
+TextStyle boldText28 = const TextStyle(
+  fontSize: 28,
+  fontWeight: FontWeight.w700,
+  color: Colors.black,
+);
+TextStyle boldText26 = const TextStyle(
+  fontSize: 26,
+  fontWeight: FontWeight.w700,
+  color: Colors.black,
+);
+TextStyle boldText24 = const TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.w700,
+  color: Colors.black,
+);
+TextStyle boldText22 = const TextStyle(
+  fontSize: 22,
+  fontWeight: FontWeight.w700,
+  color: Colors.black,
+);
+TextStyle boldText20 = const TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w700,
+  color: Colors.black,
+);
 TextStyle boldText18 = const TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w700,

@@ -107,7 +107,7 @@ TextFormField textFormField({
       ),
 
       errorMaxLines: 5,
-      fillColor: filledColor ?? offWhite,
+      fillColor: filledColor ?? whiteColor,
       filled: true,
       hintStyle: hintStyle,
       hintText: hintText,
