@@ -21,7 +21,7 @@ class UserModel {
     required this.gender,
     required this.height,
     required this.photos,
-    required this.profileComplete,
+    required this.isProfileCompleted,
     required this.ethnicity,
     required this.work,
     required this.jobTitle,
@@ -64,7 +64,7 @@ class UserModel {
         gender: json['gender'].toString(),
         height: json['height'],
         photos: List<dynamic>.from((json['photos'] as List).map((x) => x)),
-        profileComplete: json['profileComplete'] as bool,
+        isProfileCompleted: json['isProfileCompleted'] as bool,
         ethnicity: json['ethnicity'],
         work: json['work'],
         jobTitle: json['jobTitle'],
@@ -107,7 +107,7 @@ class UserModel {
   String gender;
   dynamic height;
   List<dynamic> photos;
-  bool profileComplete;
+  bool isProfileCompleted;
   dynamic ethnicity;
   dynamic work;
   dynamic jobTitle;
@@ -149,7 +149,7 @@ class UserModel {
         'gender': gender,
         'height': height,
         'photos': List<dynamic>.from(photos.map((x) => x)),
-        'profileComplete': profileComplete,
+        'isProfileCompleted': isProfileCompleted,
         'ethnicity': ethnicity,
         'work': work,
         'jobTitle': jobTitle,

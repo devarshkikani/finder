@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:finder/constant/sizedbox.dart';
+import 'package:finder/screens/authentication/mobile/mobile_screen_controller.dart';
 import 'package:finder/screens/authentication/verify_code/verify_code_controller.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
@@ -122,7 +123,10 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
               ),
               height10,
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.find<MobileScreenController>().sendOtp(context);
+                  controller.otpController.clear();
+                },
                 child: Center(
                   child: Text(
                     'Resend',

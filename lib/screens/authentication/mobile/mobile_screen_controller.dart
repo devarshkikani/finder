@@ -24,7 +24,7 @@ class MobileScreenController extends GetxController {
     if (response != null) {
       NetworkDio.showSuccess(
         title: 'Success',
-        sucessMessage: response['message'].toString(),
+        sucessMessage: 'OTP has been sent successfully to your mobile number',
       );
       Get.to(
         () => const VerifyCodeScreen(),

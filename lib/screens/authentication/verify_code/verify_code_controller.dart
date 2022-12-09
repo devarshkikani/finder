@@ -31,10 +31,6 @@ class VerifyCodeController extends GetxController {
       },
     );
     if (response != null) {
-      NetworkDio.showSuccess(
-        title: 'Success',
-        sucessMessage: response['message'].toString(),
-      );
       final UserModel model =
           UserModel.fromJson(response['response'] as Map<String, dynamic>);
       box
