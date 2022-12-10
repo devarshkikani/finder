@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
+import 'package:finder/screens/user_info_screen/language_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:flutter/material.dart';
@@ -99,6 +100,7 @@ class StatusScreen extends StatelessWidget {
                               StorageKey.currentUser,
                               userModel.toJson(),
                             );
+                            Get.to(() => const LanguageScreen());
                           }
                         : null,
                     child: Center(
