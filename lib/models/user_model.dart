@@ -147,7 +147,8 @@ class UserModel {
         'countryCode': countryCode,
         'phoneNumber': phoneNumber,
         'password': password,
-        'birthDate': birthDate,
+        'birthDate':
+            birthDate != null ? birthDate!.toIso8601String() : birthDate,
         'gender': gender,
         'height': height,
         'photos': List<dynamic>.from(photos.map((x) => x)),
