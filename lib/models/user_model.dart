@@ -64,7 +64,7 @@ class UserModel {
             ? DateTime.parse(json['birthDate'] as String)
             : null,
         gender: json['gender'].toString(),
-        height: json['height'],
+        height: json['height'].toString(),
         photos: List<dynamic>.from((json['photos'] as List).map((x) => x)),
         isProfileCompleted: json['isProfileCompleted'] as bool,
         ethnicity: json['ethnicity'],
@@ -107,7 +107,7 @@ class UserModel {
   dynamic password;
   DateTime? birthDate;
   String gender;
-  dynamic height;
+  String height;
   List<dynamic> photos;
   bool isProfileCompleted;
   dynamic ethnicity;
