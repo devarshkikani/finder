@@ -94,44 +94,51 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
               ),
               height20,
               Obx(
-                () => ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primary,
-                    disabledBackgroundColor: darkGrey,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 12,
-                      horizontal: 20,
+                () => Center(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primary,
+                      maximumSize: Size(Get.width / 2, 50),
+                      disabledBackgroundColor: darkGrey,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ),
                     ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                  ),
-                  onPressed: controller.isValid.value
-                      ? () {
-                          controller.verifyOtp(context: context);
-                        }
-                      : null,
-                  child: Center(
-                    child: Text(
-                      'Continue',
-                      style: mediumText16.copyWith(
-                        color: whiteColor,
+                    onPressed: controller.isValid.value
+                        ? () {
+                            controller.verifyOtp(context: context);
+                          }
+                        : null,
+                    child: Center(
+                      child: Text(
+                        'Continue',
+                        style: mediumText16.copyWith(
+                          color: whiteColor,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
               height10,
-              TextButton(
-                onPressed: () {
-                  Get.find<MobileScreenController>().sendOtp(context);
-                  controller.otpController.clear();
-                },
-                child: Center(
-                  child: Text(
-                    'Resend',
-                    style: mediumText16.copyWith(
-                      color: blackColor,
+              Center(
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                    ),
+                    maximumSize: Size(Get.width / 2, 50),
+                  ),
+                  onPressed: () {
+                    Get.find<MobileScreenController>().sendOtp(context);
+                    controller.otpController.clear();
+                  },
+                  child: Center(
+                    child: Text(
+                      'Resend',
+                      style: mediumText16.copyWith(
+                        color: blackColor,
+                      ),
                     ),
                   ),
                 ),

@@ -38,6 +38,7 @@ TextFormField textFormField({
   final BorderSide? focusBorder,
   final BorderSide? enabledBorder,
   final BorderSide? border,
+  final EdgeInsetsGeometry? contentPadding,
 }) {
   return TextFormField(
     key: fieldKey,
@@ -67,7 +68,8 @@ TextFormField textFormField({
     readOnly: readOnly ?? false,
     decoration: InputDecoration(
       prefixIcon: prefixIcon,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+      contentPadding:
+          contentPadding ?? const EdgeInsets.symmetric(horizontal: 10),
       // border: const UnderlineInputBorder(),
       // enabledBorder: const UnderlineInputBorder(),
       // disabledBorder: const UnderlineInputBorder(),
@@ -321,6 +323,8 @@ class TextFormFieldWidget extends StatelessWidget {
     this.border,
     this.enabledBorder,
     this.cursorColor,
+    this.contentPadding,
+    this.autofocus,
     this.textAlign = TextAlign.left,
   });
 
@@ -338,6 +342,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final FocusNode? focusNode;
   final GestureTapCallback? onTap;
   final bool? enabled;
+  final bool? autofocus;
   final int? maxLines;
   final int? maxLength;
   final TextInputAction? textInputAction;
@@ -350,11 +355,13 @@ class TextFormFieldWidget extends StatelessWidget {
   final BorderSide? focusBorder;
   final BorderSide? border;
   final BorderSide? enabledBorder;
+  final EdgeInsetsGeometry? contentPadding;
 
   @override
   Widget build(BuildContext context) {
     return textFormField(
       fieldKey: fieldKey,
+      autofocus: autofocus ?? false,
       focusNode: focusNode,
       hintText: hintText,
       filledColor: filledColor,
@@ -379,6 +386,7 @@ class TextFormFieldWidget extends StatelessWidget {
       onChanged: onChanged,
       focusBorder: focusBorder,
       border: border,
+      contentPadding: contentPadding,
       enabledBorder: enabledBorder,
     );
   }
