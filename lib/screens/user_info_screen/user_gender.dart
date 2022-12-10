@@ -1,18 +1,25 @@
 import 'dart:io';
 
 import 'package:finder/constant/sizedbox.dart';
+import 'package:finder/constant/storage_key.dart';
+import 'package:finder/models/user_model.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class UserGender extends StatelessWidget {
   const UserGender({super.key});
 
   static RxString gender = ''.obs;
+  static GetStorage box = GetStorage();
+  static late UserModel userModel;
 
   @override
   Widget build(BuildContext context) {
+    userModel = UserModel.fromJson(
+        box.read(StorageKey.currentUser) as Map<String, dynamic>);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -118,7 +125,15 @@ class UserGender extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                     ),
-                    onPressed: gender.value != '' ? () {} : null,
+                    onPressed: gender.value != ''
+                        ? () {
+                            userModel.gender = gender.value;
+                            box.write(
+                              StorageKey.currentUser,
+                              userModel.toJson(),
+                            );
+                          }
+                        : null,
                     child: Center(
                       child: Text(
                         'Continue',
