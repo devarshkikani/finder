@@ -1,6 +1,7 @@
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
+import 'package:finder/screens/user_info_screen/birth_date_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:finder/widget/input_text_field.dart';
@@ -42,6 +43,7 @@ class NameScreen extends StatelessWidget {
               TextFormFieldWidget(
                 hintText: 'First name',
                 autofocus: true,
+                cursorHeight: 25,
                 controller: firstNameController,
                 textInputAction: TextInputAction.next,
                 style: regularText20,
@@ -62,6 +64,7 @@ class NameScreen extends StatelessWidget {
                 hintText: 'Last name',
                 controller: lastNameController,
                 style: regularText20,
+                cursorHeight: 25,
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
                 hintStyle: regularText20.copyWith(color: greyColor),
@@ -73,6 +76,14 @@ class NameScreen extends StatelessWidget {
                     isValid.value = false;
                   }
                 },
+                onFieldSubmitted: isValid.value
+                    ? (String? value) {
+                        userModel.firstName = firstNameController.text;
+                        userModel.lastName = lastNameController.text;
+                        box.write(StorageKey.currentUser, userModel.toJson());
+                        Get.to(() => const BirthDateScreen());
+                      }
+                    : null,
               ),
               height20,
               Center(
@@ -92,6 +103,7 @@ class NameScreen extends StatelessWidget {
                             userModel.lastName = lastNameController.text;
                             box.write(
                                 StorageKey.currentUser, userModel.toJson());
+                            Get.to(() => const BirthDateScreen());
                           }
                         : null,
                     child: Center(

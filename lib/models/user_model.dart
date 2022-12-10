@@ -60,7 +60,9 @@ class UserModel {
         countryCode: json['countryCode'] as int,
         phoneNumber: json['phoneNumber'].toString(),
         password: json['password'],
-        birthDate: json['birthDate'],
+        birthDate: json['birthDate'] != null
+            ? DateTime.parse(json['birthDate'] as String)
+            : null,
         gender: json['gender'].toString(),
         height: json['height'],
         photos: List<dynamic>.from((json['photos'] as List).map((x) => x)),
@@ -103,7 +105,7 @@ class UserModel {
   int countryCode;
   String phoneNumber;
   dynamic password;
-  dynamic birthDate;
+  DateTime? birthDate;
   String gender;
   dynamic height;
   List<dynamic> photos;

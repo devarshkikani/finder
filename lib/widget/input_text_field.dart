@@ -38,6 +38,7 @@ TextFormField textFormField({
   final BorderSide? focusBorder,
   final BorderSide? enabledBorder,
   final BorderSide? border,
+  final double? cursorHeight,
   final EdgeInsetsGeometry? contentPadding,
 }) {
   return TextFormField(
@@ -63,7 +64,7 @@ TextFormField textFormField({
     autofocus: autofocus,
     textAlign: textAlign,
     cursorColor: cursorColor ?? primary,
-    cursorHeight: 20,
+    cursorHeight: cursorHeight ?? 20,
     style: style,
     readOnly: readOnly ?? false,
     decoration: InputDecoration(
@@ -309,6 +310,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.maxLength,
     this.suffixIcon,
     this.onTap,
+    this.cursorHeight,
     this.enabled,
     this.readOnly,
     this.onChanged,
@@ -332,6 +334,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final String? hintText;
   final String? labelText;
   final bool? readOnly;
+  final double? cursorHeight;
   final FormFieldValidator<String?>? validator;
   final ValueChanged<String?>? onFieldSubmitted;
   final List<TextInputFormatter>? inputFormatters;
@@ -380,6 +383,7 @@ class TextFormFieldWidget extends StatelessWidget {
       maxLines: maxLines,
       textInputAction: textInputAction,
       textAlign: textAlign,
+      cursorHeight: cursorHeight,
       onTap: onTap,
       enabled: enabled,
       onFieldSubmitted: onFieldSubmitted,

@@ -98,7 +98,6 @@ class SignUpScreen extends StatelessWidget {
                       onPressed: () async {
                         final GoogleSignInAccount? credntials =
                             await GoogleSignIn().signIn();
-                        print(credntials);
                       },
                       child: Row(
                         children: <Widget>[
