@@ -110,20 +110,20 @@ class UserModel {
   String height;
   List<dynamic> photos;
   bool isProfileCompleted;
-  dynamic ethnicity;
+  dynamic ethnicity; //
   dynamic work;
   dynamic jobTitle;
   dynamic school;
   dynamic educationLevel;
   dynamic religious;
   dynamic homeTown;
-  dynamic politics;
+  dynamic politics; //*
   dynamic languageSpoken;
-  dynamic datingIntentions;
+  dynamic datingIntentions; //
   dynamic relationType;
   dynamic drinking;
   dynamic smoking;
-  dynamic marijuana;
+  dynamic marijuana; //
   dynamic drugs;
   dynamic phoneOtp;
   int authToken;
