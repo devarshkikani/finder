@@ -5,7 +5,6 @@ import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -18,7 +17,6 @@ class UserHeightScreen extends StatefulWidget {
 }
 
 class _UserHeightScreenState extends State<UserHeightScreen> {
-  static RxString height = "3'1''".obs;
   static GetStorage box = GetStorage();
   static late UserModel userModel;
   static List<String> heightList = <String>[
@@ -117,70 +115,45 @@ class _UserHeightScreenState extends State<UserHeightScreen> {
                 ),
               ),
               height20,
-              SizedBox(
-                height: 250,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: CupertinoPicker(
-                        itemExtent: 40,
-                        magnification: 1.33,
-                        squeeze: 1.2,
-                        useMagnifier: true,
-                        looping: false,
-                        onSelectedItemChanged: (int value) {
-                          height.value = heightList[value];
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: List<Widget>.generate(
+                      heightList.length,
+                      (int index) => InkWell(
+                        onTap: () {
+                          userModel.height = heightList[index];
+                          box.write(
+                            StorageKey.currentUser,
+                            userModel.toJson(),
+                          );
                         },
-                        children: List<Widget>.generate(
-                          heightList.length,
-                          (int index) => Padding(
-                            padding: const EdgeInsets.only(top: 8),
-                            child: Text(
-                              heightList[index],
-                              style: mediumText18.copyWith(
-                                color: blackColor,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 20),
+                              child: Text(
+                                heightList[index],
+                                style: mediumText20.copyWith(
+                                  color: blackColor,
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              height20,
-              Center(
-                child: Obx(
-                  () => ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primary,
-                      maximumSize: Size(Get.width / 2, 50),
-                      disabledBackgroundColor: darkGrey,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                      ),
-                    ),
-                    onPressed: height.value != ''
-                        ? () {
-                            userModel.height = height.value;
-                            box.write(
-                              StorageKey.currentUser,
-                              userModel.toJson(),
-                            );
-                          }
-                        : null,
-                    child: Center(
-                      child: Text(
-                        'Continue',
-                        style: mediumText16.copyWith(
-                          color: whiteColor,
+                            Container(
+                              height: 0.2,
+                              color: blackColor,
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
+              height20,
             ],
           ),
         ),
