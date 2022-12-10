@@ -10,6 +10,7 @@ const Color success = Color(0xff4CAF50);
 const Color surface = Color(0xff2196F3);
 const Color greyColor = Color.fromARGB(255, 171, 171, 171);
 const Color darkGrey = Color(0xffC3C8D3);
+const Color lightBlue = Color(0xff666F80);
 const Color orangeColor = Color(0xffFF8C00);
 const Color googleColor = Color(0xff4285F4);
 const Color facebookColor = Color(0xff3b5998);

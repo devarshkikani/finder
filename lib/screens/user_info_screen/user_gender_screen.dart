@@ -53,7 +53,7 @@ class UserGenderScreen extends StatelessWidget {
               height20,
               Container(
                 decoration: BoxDecoration(
-                  color: darkGrey.withOpacity(0.2),
+                  color: darkGrey.withOpacity(0.5),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Obx(
@@ -75,7 +75,7 @@ class UserGenderScreen extends StatelessWidget {
                       ),
                       Container(
                         height: 0.5,
-                        color: darkGrey,
+                        color: blackColor,
                       ),
                       CheckboxListTile(
                         value: gender.value == 'Female',
@@ -93,7 +93,7 @@ class UserGenderScreen extends StatelessWidget {
                       ),
                       Container(
                         height: 0.5,
-                        color: darkGrey,
+                        color: blackColor,
                       ),
                       CheckboxListTile(
                         value: gender.value == 'Other',
@@ -114,7 +114,7 @@ class UserGenderScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              height20,
+              height30,
               Center(
                 child: Obx(
                   () => ElevatedButton(

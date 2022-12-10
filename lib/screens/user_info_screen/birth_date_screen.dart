@@ -75,7 +75,7 @@ class _BirthDateScreenState extends State<BirthDateScreen> {
                   pickerTheme: DateTimePickerTheme(
                     backgroundColor: Colors.transparent,
                     itemTextStyle: regularText20,
-                    dividerColor: primary,
+                    dividerColor: darkGrey,
                   ),
                 ),
               ),
