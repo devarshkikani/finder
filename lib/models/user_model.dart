@@ -56,7 +56,7 @@ class UserModel {
         id: json['_id'].toString(),
         firstName: json['firstName'],
         lastName: json['lastName'],
-        email: json['email'],
+        email: json['email'].toString(),
         countryCode: json['countryCode'] as int,
         phoneNumber: json['phoneNumber'].toString(),
         password: json['password'],
@@ -101,7 +101,7 @@ class UserModel {
   String id;
   dynamic firstName;
   dynamic lastName;
-  dynamic email;
+  String? email;
   int countryCode;
   String phoneNumber;
   dynamic password;
