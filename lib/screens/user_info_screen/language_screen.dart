@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
-import 'package:finder/screens/user_info_screen/status_screen.dart';
+import 'package:finder/screens/user_info_screen/graduation_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +87,7 @@ class LanguageScreen extends StatelessWidget {
                             StorageKey.currentUser,
                             userModel.toJson(),
                           );
-                          Get.to(() => const StatusScreen());
+                          Get.to(() => const GraduationScreen());
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
