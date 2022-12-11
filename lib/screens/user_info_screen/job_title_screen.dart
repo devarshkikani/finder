@@ -85,6 +85,7 @@ class JobTitleScreen extends StatelessWidget {
                 onFieldSubmitted: isValid.value
                     ? (String? value) {
                         userModel.jobTitle = jobTitleController.text;
+                        userModel.work = jobPlaceController.text;
                         box.write(StorageKey.currentUser, userModel.toJson());
                         Get.to(() => const DrinkingScreen());
                       }
@@ -98,6 +99,7 @@ class JobTitleScreen extends StatelessWidget {
                     onTap: isValid.value
                         ? () {
                             userModel.jobTitle = jobTitleController.text;
+                            userModel.work = jobPlaceController.text;
                             box.write(
                                 StorageKey.currentUser, userModel.toJson());
                             Get.to(() => const DrinkingScreen());
