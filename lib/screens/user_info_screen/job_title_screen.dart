@@ -13,6 +13,7 @@ import 'package:get_storage/get_storage.dart';
 class JobTitleScreen extends StatelessWidget {
   JobTitleScreen({super.key});
   final TextEditingController jobTitleController = TextEditingController();
+  final TextEditingController jobPlaceController = TextEditingController();
   static RxBool isValid = false.obs;
   static GetStorage box = GetStorage();
   static late UserModel userModel;
@@ -43,7 +44,7 @@ class JobTitleScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "What's your\njob title?",
+                "What's your job?",
                 style: boldText34.copyWith(
                   color: primary,
                   fontFamily: 'source_serif_pro',
@@ -51,8 +52,28 @@ class JobTitleScreen extends StatelessWidget {
               ),
               height20,
               TextFormFieldWidget(
-                hintText: 'job title',
+                hintText: 'Job title',
                 controller: jobTitleController,
+                style: regularText20,
+                autofocus: true,
+                cursorHeight: 25,
+                textInputAction: TextInputAction.next,
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
+                hintStyle: regularText20.copyWith(color: greyColor),
+                onChanged: (String? value) {
+                  if (jobTitleController.text.length >= 3 &&
+                      jobPlaceController.text.length >= 3) {
+                    isValid.value = true;
+                  } else {
+                    isValid.value = false;
+                  }
+                },
+              ),
+              height10,
+              TextFormFieldWidget(
+                hintText: 'Work place',
+                controller: jobPlaceController,
                 style: regularText20,
                 autofocus: true,
                 cursorHeight: 25,
@@ -61,7 +82,7 @@ class JobTitleScreen extends StatelessWidget {
                 hintStyle: regularText20.copyWith(color: greyColor),
                 onChanged: (String? value) {
                   if (jobTitleController.text.length >= 3 &&
-                      jobTitleController.text.length >= 3) {
+                      jobPlaceController.text.length >= 3) {
                     isValid.value = true;
                   } else {
                     isValid.value = false;
@@ -70,6 +91,7 @@ class JobTitleScreen extends StatelessWidget {
                 onFieldSubmitted: isValid.value
                     ? (String? value) {
                         userModel.jobTitle = jobTitleController.text;
+                        userModel.politics = jobPlaceController.text;
                         box.write(StorageKey.currentUser, userModel.toJson());
                         // Get.to(() => const BirthDateScreen());
                       }
