@@ -14,8 +14,8 @@ class GraduationScreen extends StatelessWidget {
   const GraduationScreen({super.key});
   static GetStorage box = GetStorage();
   static late UserModel userModel;
-  static RxString status = ''.obs;
-  static List<String> statusList = <String>[
+  static RxString graduation = ''.obs;
+  static List<String> graduationList = <String>[
     'In grand school',
     'In Colleage',
     'Bachelors',
@@ -64,11 +64,11 @@ class GraduationScreen extends StatelessWidget {
                 child: Obx(
                   () => Column(
                     children: List<Widget>.generate(
-                      statusList.length,
+                      graduationList.length,
                       (int index) => Column(
                         children: <Widget>[
-                          itemWidget(statusList[index]),
-                          if (index + 1 != statusList.length)
+                          itemWidget(graduationList[index]),
+                          if (index + 1 != graduationList.length)
                             Container(
                               height: 0.5,
                               color: blackColor,
@@ -91,9 +91,9 @@ class GraduationScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                     ),
-                    onPressed: status.value != ''
+                    onPressed: graduation.value != ''
                         ? () {
-                            userModel.educationLevel = status.value;
+                            userModel.educationLevel = graduation.value;
                             box.write(
                               StorageKey.currentUser,
                               userModel.toJson(),
@@ -121,7 +121,7 @@ class GraduationScreen extends StatelessWidget {
 
   Widget itemWidget(String item) {
     return CheckboxListTile(
-      value: status.value == item,
+      value: graduation.value == item,
       title: Text(
         item,
         style: regularText16,
@@ -132,7 +132,7 @@ class GraduationScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(3),
       ),
       onChanged: (bool? value) {
-        status.value = item;
+        graduation.value = item;
       },
     );
   }
