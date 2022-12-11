@@ -52,76 +52,78 @@ class EthnicityScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "What's your ethnicity?",
-                style: boldText34.copyWith(
-                  color: primary,
-                  fontFamily: 'source_serif_pro',
-                ),
-              ),
-              height20,
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: lightBlue,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Obx(
-                  () => Column(
-                    children: List<Widget>.generate(
-                      ethnicityList.length,
-                      (int index) => Column(
-                        children: <Widget>[
-                          itemWidget(ethnicityList[index]),
-                          if (index + 1 != ethnicityList.length)
-                            Container(
-                              height: 0.5,
-                              color: lightBlue,
-                            ),
-                        ],
-                      ),
-                    ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "What's your ethnicity?",
+                  style: boldText34.copyWith(
+                    color: primary,
+                    fontFamily: 'source_serif_pro',
                   ),
                 ),
-              ),
-              height30,
-              Center(
-                child: Obx(
-                  () => ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primary,
-                      maximumSize: Size(Get.width / 2, 50),
-                      disabledBackgroundColor: lightBlue,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                      ),
+                height20,
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: lightBlue,
                     ),
-                    onPressed: ethnicity.value != ''
-                        ? () {
-                            userModel.ethnicity = ethnicity.value;
-                            box.write(
-                              StorageKey.currentUser,
-                              userModel.toJson(),
-                            );
-                            Get.to(() => const UserHeightScreen());
-                          }
-                        : null,
-                    child: Center(
-                      child: Text(
-                        'Continue',
-                        style: mediumText16.copyWith(
-                          color: whiteColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Obx(
+                    () => Column(
+                      children: List<Widget>.generate(
+                        ethnicityList.length,
+                        (int index) => Column(
+                          children: <Widget>[
+                            itemWidget(ethnicityList[index]),
+                            if (index + 1 != ethnicityList.length)
+                              Container(
+                                height: 0.5,
+                                color: lightBlue,
+                              ),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                height30,
+                Center(
+                  child: Obx(
+                    () => ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primary,
+                        maximumSize: Size(Get.width / 2, 50),
+                        disabledBackgroundColor: lightBlue,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                      ),
+                      onPressed: ethnicity.value != ''
+                          ? () {
+                              userModel.ethnicity = ethnicity.value;
+                              box.write(
+                                StorageKey.currentUser,
+                                userModel.toJson(),
+                              );
+                              Get.to(() => const UserHeightScreen());
+                            }
+                          : null,
+                      child: Center(
+                        child: Text(
+                          'Continue',
+                          style: mediumText16.copyWith(
+                            color: whiteColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
