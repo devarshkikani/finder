@@ -104,7 +104,7 @@ class JobTitleScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primary,
                       maximumSize: Size(Get.width / 2, 50),
-                      disabledBackgroundColor: darkGrey,
+                      disabledBackgroundColor: lightBlue,
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),

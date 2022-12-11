@@ -33,7 +33,7 @@ class UserGenderScreen extends StatelessWidget {
             Platform.isIOS
                 ? Icons.arrow_back_ios_new_rounded
                 : Icons.arrow_back_rounded,
-            color: blackColor,
+            color: lightBlue,
           ),
         ),
       ),
@@ -53,7 +53,9 @@ class UserGenderScreen extends StatelessWidget {
               height20,
               Container(
                 decoration: BoxDecoration(
-                  color: darkGrey.withOpacity(0.5),
+                  border: Border.all(
+                    color: lightBlue,
+                  ),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Obx(
@@ -75,7 +77,7 @@ class UserGenderScreen extends StatelessWidget {
                       ),
                       Container(
                         height: 0.5,
-                        color: blackColor,
+                        color: lightBlue,
                       ),
                       CheckboxListTile(
                         value: gender.value == 'Female',
@@ -93,7 +95,7 @@ class UserGenderScreen extends StatelessWidget {
                       ),
                       Container(
                         height: 0.5,
-                        color: blackColor,
+                        color: lightBlue,
                       ),
                       CheckboxListTile(
                         value: gender.value == 'Other',
@@ -121,7 +123,7 @@ class UserGenderScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primary,
                       maximumSize: Size(Get.width / 2, 50),
-                      disabledBackgroundColor: darkGrey,
+                      disabledBackgroundColor: lightBlue,
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),

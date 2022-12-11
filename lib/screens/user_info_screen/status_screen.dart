@@ -60,7 +60,9 @@ class StatusScreen extends StatelessWidget {
               height20,
               Container(
                 decoration: BoxDecoration(
-                  color: darkGrey.withOpacity(0.5),
+                  border: Border.all(
+                    color: lightBlue,
+                  ),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Obx(
@@ -73,7 +75,7 @@ class StatusScreen extends StatelessWidget {
                           if (index + 1 != statusList.length)
                             Container(
                               height: 0.5,
-                              color: blackColor,
+                              color: lightBlue,
                             ),
                         ],
                       ),
@@ -88,7 +90,7 @@ class StatusScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primary,
                       maximumSize: Size(Get.width / 2, 50),
-                      disabledBackgroundColor: darkGrey,
+                      disabledBackgroundColor: lightBlue,
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),

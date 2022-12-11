@@ -141,7 +141,7 @@ class UserHeightScreen extends StatelessWidget {
                             ),
                             Container(
                               height: 0.5,
-                              color: darkGrey,
+                              color: lightBlue,
                             ),
                           ],
                         ),
