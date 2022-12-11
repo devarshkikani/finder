@@ -3,20 +3,19 @@ import 'dart:io';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
-import 'package:finder/screens/user_info_screen/smoking_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-class DrinkingScreen extends StatelessWidget {
-  const DrinkingScreen({super.key});
+class SmokingScreen extends StatelessWidget {
+  const SmokingScreen({super.key});
 
-  static RxString areYouDrinking = ''.obs;
+  static RxString areYouSmoking = ''.obs;
   static GetStorage box = GetStorage();
   static late UserModel userModel;
-  static List<String> drinkingList = <String>[
+  static List<String> smokingList = <String>[
     'Yes',
     'Sometimes',
     'Never',
@@ -51,7 +50,7 @@ class DrinkingScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Do you drinking?',
+                  'Do you smoking?',
                   style: boldText34.copyWith(
                     color: primary,
                     fontFamily: 'source_serif_pro',
@@ -68,11 +67,11 @@ class DrinkingScreen extends StatelessWidget {
                   child: Obx(
                     () => Column(
                       children: List<Widget>.generate(
-                        drinkingList.length,
+                        smokingList.length,
                         (int index) => Column(
                           children: <Widget>[
-                            itemWidget(drinkingList[index]),
-                            if (index + 1 != drinkingList.length)
+                            itemWidget(smokingList[index]),
+                            if (index + 1 != smokingList.length)
                               Container(
                                 height: 0.5,
                                 color: lightBlue,
@@ -95,14 +94,14 @@ class DrinkingScreen extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                         ),
                       ),
-                      onPressed: areYouDrinking.value != ''
+                      onPressed: areYouSmoking.value != ''
                           ? () {
-                              userModel.drinking = areYouDrinking.value;
+                              userModel.smoking = areYouSmoking.value;
                               box.write(
                                 StorageKey.currentUser,
                                 userModel.toJson(),
                               );
-                              Get.to(() => const SmokingScreen());
+                              // Get.to(() => const UserHeightScreen());
                             }
                           : null,
                       child: Center(
@@ -126,7 +125,7 @@ class DrinkingScreen extends StatelessWidget {
 
   Widget itemWidget(String item) {
     return CheckboxListTile(
-      value: areYouDrinking.value == item,
+      value: areYouSmoking.value == item,
       title: Text(
         item,
         style: regularText16,
@@ -137,7 +136,7 @@ class DrinkingScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(3),
       ),
       onChanged: (bool? value) {
-        areYouDrinking.value = item;
+        areYouSmoking.value = item;
       },
     );
   }
