@@ -6,6 +6,7 @@ import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/user_info_screen/ethnicity_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/widget/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -42,7 +43,7 @@ class SelectSexualScreen extends StatelessWidget {
             Platform.isIOS
                 ? Icons.arrow_back_ios_new_rounded
                 : Icons.arrow_back_rounded,
-            color: lightBlue,
+            color: blackColor,
           ),
         ),
       ),
@@ -88,16 +89,9 @@ class SelectSexualScreen extends StatelessWidget {
               height30,
               Center(
                 child: Obx(
-                  () => ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primary,
-                      maximumSize: Size(Get.width / 2, 50),
-                      disabledBackgroundColor: lightBlue,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                      ),
-                    ),
-                    onPressed: sexuality.value != ''
+                  () => elevatedButton(
+                    title: 'Continue',
+                    onTap: sexuality.value != ''
                         ? () {
                             userModel.marijuana = sexuality.value;
                             box.write(
@@ -107,14 +101,6 @@ class SelectSexualScreen extends StatelessWidget {
                             Get.to(() => const EthnicityScreen());
                           }
                         : null,
-                    child: Center(
-                      child: Text(
-                        'Continue',
-                        style: mediumText16.copyWith(
-                          color: whiteColor,
-                        ),
-                      ),
-                    ),
                   ),
                 ),
               ),

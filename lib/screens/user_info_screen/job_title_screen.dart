@@ -6,6 +6,7 @@ import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/user_info_screen/drinking_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/widget/elevated_button.dart';
 import 'package:finder/widget/input_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,12 @@ class JobTitleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     userModel = UserModel.fromJson(
         box.read(StorageKey.currentUser) as Map<String, dynamic>);
+    if (jobTitleController.text.length >= 3 &&
+        jobPlaceController.text.length >= 3) {
+      isValid.value = true;
+    } else {
+      isValid.value = false;
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -74,6 +81,7 @@ class JobTitleScreen extends StatelessWidget {
               height10,
               TextFormFieldWidget(
                 hintText: 'Work place',
+                textInputAction: TextInputAction.done,
                 controller: jobPlaceController,
                 style: regularText20,
                 autofocus: true,
@@ -92,25 +100,17 @@ class JobTitleScreen extends StatelessWidget {
                 onFieldSubmitted: isValid.value
                     ? (String? value) {
                         userModel.jobTitle = jobTitleController.text;
-                        userModel.politics = jobPlaceController.text;
                         box.write(StorageKey.currentUser, userModel.toJson());
-                        // Get.to(() => const BirthDateScreen());
+                        Get.to(() => const DrinkingScreen());
                       }
                     : null,
               ),
               height20,
               Center(
                 child: Obx(
-                  () => ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primary,
-                      maximumSize: Size(Get.width / 2, 50),
-                      disabledBackgroundColor: lightBlue,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                      ),
-                    ),
-                    onPressed: isValid.value
+                  () => elevatedButton(
+                    title: 'Continue',
+                    onTap: isValid.value
                         ? () {
                             userModel.jobTitle = jobTitleController.text;
                             box.write(
@@ -118,14 +118,6 @@ class JobTitleScreen extends StatelessWidget {
                             Get.to(() => const DrinkingScreen());
                           }
                         : null,
-                    child: Center(
-                      child: Text(
-                        'Continue',
-                        style: mediumText16.copyWith(
-                          color: whiteColor,
-                        ),
-                      ),
-                    ),
                   ),
                 ),
               ),

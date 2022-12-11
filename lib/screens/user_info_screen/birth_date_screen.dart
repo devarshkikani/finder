@@ -6,6 +6,7 @@ import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/user_info_screen/user_gender_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/widget/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:get/get.dart';
@@ -90,16 +91,9 @@ class _BirthDateScreenState extends State<BirthDateScreen> {
                   : const SizedBox(),
               height20,
               Center(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primary,
-                    maximumSize: Size(Get.width / 2, 50),
-                    disabledBackgroundColor: darkGrey,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                  ),
-                  onPressed: selectedDate != null
+                child: elevatedButton(
+                  title: 'Continue',
+                  onTap: selectedDate != null
                       ? () {
                           userModel.birthDate = selectedDate;
                           box.write(
@@ -109,14 +103,6 @@ class _BirthDateScreenState extends State<BirthDateScreen> {
                           Get.to(() => const UserGenderScreen());
                         }
                       : null,
-                  child: Center(
-                    child: Text(
-                      'Continue',
-                      style: mediumText16.copyWith(
-                        color: whiteColor,
-                      ),
-                    ),
-                  ),
                 ),
               ),
             ],
