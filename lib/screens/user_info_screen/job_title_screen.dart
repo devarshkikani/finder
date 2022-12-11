@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
+import 'package:finder/screens/user_info_screen/drinking_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:finder/widget/input_text_field.dart';
@@ -114,7 +115,7 @@ class JobTitleScreen extends StatelessWidget {
                             userModel.jobTitle = jobTitleController.text;
                             box.write(
                                 StorageKey.currentUser, userModel.toJson());
-                            // Get.to(() => const BirthDateScreen());
+                            Get.to(() => const DrinkingScreen());
                           }
                         : null,
                     child: Center(
