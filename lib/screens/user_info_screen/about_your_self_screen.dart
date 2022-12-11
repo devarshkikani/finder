@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/widget/app_bar_widget.dart';
 import 'package:finder/widget/elevated_button.dart';
 import 'package:finder/widget/input_text_field.dart';
 import 'package:flutter/material.dart';
@@ -28,22 +27,7 @@ class WriteAboutYouScreen extends StatelessWidget {
       isValid.value = false;
     }
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Platform.isIOS
-                ? Icons.arrow_back_ios_new_rounded
-                : Icons.arrow_back_rounded,
-            color: blackColor,
-          ),
-        ),
-      ),
+      appBar: appbarWidget(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),

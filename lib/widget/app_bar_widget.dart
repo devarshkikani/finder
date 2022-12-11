@@ -7,7 +7,7 @@ import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 
 AppBar appbarWidget({
-  required String title,
+  String? title,
   Function()? onTap,
   bool? centerTitle,
   Color? backgroundColor,
@@ -24,14 +24,16 @@ AppBar appbarWidget({
         Platform.isAndroid
             ? Icons.arrow_back_rounded
             : Icons.arrow_back_ios_rounded,
-        color: primary,
+        color: blackColor,
       ),
     ),
     centerTitle: centerTitle ?? true,
-    title: Text(
-      title,
-      style: regularText20,
-    ),
+    title: title != null
+        ? Text(
+            title,
+            style: regularText20,
+          )
+        : null,
   );
 }
 
