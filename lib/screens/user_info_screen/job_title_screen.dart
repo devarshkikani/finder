@@ -3,25 +3,19 @@ import 'dart:io';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
-import 'package:finder/screens/user_info_screen/job_title_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/widget/input_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-class GraduationScreen extends StatelessWidget {
-  const GraduationScreen({super.key});
+class JobTitleScreen extends StatelessWidget {
+  JobTitleScreen({super.key});
+  final TextEditingController jobTitleController = TextEditingController();
+  static RxBool isValid = false.obs;
   static GetStorage box = GetStorage();
   static late UserModel userModel;
-  static RxString status = ''.obs;
-  static List<String> statusList = <String>[
-    'In grand school',
-    'In Colleage',
-    'Bachelors',
-    'Masters',
-    'PHD',
-  ];
   @override
   Widget build(BuildContext context) {
     userModel = UserModel.fromJson(
@@ -49,37 +43,39 @@ class GraduationScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "What's the highest level you attained?",
+                "What's your\njob title?",
                 style: boldText34.copyWith(
                   color: primary,
                   fontFamily: 'source_serif_pro',
                 ),
               ),
               height20,
-              Container(
-                decoration: BoxDecoration(
-                  color: darkGrey.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Obx(
-                  () => Column(
-                    children: List<Widget>.generate(
-                      statusList.length,
-                      (int index) => Column(
-                        children: <Widget>[
-                          itemWidget(statusList[index]),
-                          if (index + 1 != statusList.length)
-                            Container(
-                              height: 0.5,
-                              color: blackColor,
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+              TextFormFieldWidget(
+                hintText: 'job title',
+                controller: jobTitleController,
+                style: regularText20,
+                autofocus: true,
+                cursorHeight: 25,
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
+                hintStyle: regularText20.copyWith(color: greyColor),
+                onChanged: (String? value) {
+                  if (jobTitleController.text.length >= 3 &&
+                      jobTitleController.text.length >= 3) {
+                    isValid.value = true;
+                  } else {
+                    isValid.value = false;
+                  }
+                },
+                onFieldSubmitted: isValid.value
+                    ? (String? value) {
+                        userModel.jobTitle = jobTitleController.text;
+                        box.write(StorageKey.currentUser, userModel.toJson());
+                        // Get.to(() => const BirthDateScreen());
+                      }
+                    : null,
               ),
-              height30,
+              height20,
               Center(
                 child: Obx(
                   () => ElevatedButton(
@@ -91,14 +87,12 @@ class GraduationScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                     ),
-                    onPressed: status.value != ''
+                    onPressed: isValid.value
                         ? () {
-                            userModel.educationLevel = status.value;
+                            userModel.jobTitle = jobTitleController.text;
                             box.write(
-                              StorageKey.currentUser,
-                              userModel.toJson(),
-                            );
-                            Get.to(() => JobTitleScreen());
+                                StorageKey.currentUser, userModel.toJson());
+                            // Get.to(() => const BirthDateScreen());
                           }
                         : null,
                     child: Center(
@@ -116,24 +110,6 @@ class GraduationScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget itemWidget(String item) {
-    return CheckboxListTile(
-      value: status.value == item,
-      title: Text(
-        item,
-        style: regularText16,
-      ),
-      visualDensity: VisualDensity.compact,
-      activeColor: primary,
-      checkboxShape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(3),
-      ),
-      onChanged: (bool? value) {
-        status.value = item;
-      },
     );
   }
 }
