@@ -23,6 +23,7 @@ class UserModel {
     required this.photos,
     required this.isProfileCompleted,
     required this.ethnicity,
+    required this.sexuality,
     required this.work,
     required this.jobTitle,
     required this.school,
@@ -52,12 +53,12 @@ class UserModel {
         fullAddress:
             FullAddress.fromJson(json['fullAddress'] as Map<String, dynamic>),
         id: json['_id'].toString(),
-        firstName: json['firstName'],
-        lastName: json['lastName'],
+        firstName: json['firstName'].toString(),
+        lastName: json['lastName'].toString(),
         email: json['email'].toString(),
         countryCode: json['countryCode'] as int,
         phoneNumber: json['phoneNumber'].toString(),
-        password: json['password'],
+        password: json['password'].toString(),
         birthDate: json['birthDate'] != null
             ? DateTime.parse(json['birthDate'] as String)
             : null,
@@ -65,20 +66,21 @@ class UserModel {
         height: json['height'].toString(),
         photos: List<dynamic>.from((json['photos'] as List).map((x) => x)),
         isProfileCompleted: json['isProfileCompleted'] as bool,
-        ethnicity: json['ethnicity'],
-        work: json['work'],
-        jobTitle: json['jobTitle'],
-        school: json['school'],
-        educationLevel: json['educationLevel'],
-        religious: json['religious'],
-        homeTown: json['homeTown'],
-        languageSpoken: json['languageSpoken'],
-        datingIntentions: json['datingIntentions'],
-        relationType: json['relationType'],
-        drinking: json['drinking'],
-        smoking: json['smoking'],
-        drugs: json['drugs'],
-        phoneOtp: json['phoneOTP'],
+        ethnicity: json['ethnicity'].toString(),
+        sexuality: json['sexuality'].toString(),
+        work: json['work'].toString(),
+        jobTitle: json['jobTitle'].toString(),
+        school: json['school'].toString(),
+        educationLevel: json['educationLevel'].toString(),
+        religious: json['religious'].toString(),
+        homeTown: json['homeTown'].toString(),
+        languageSpoken: json['languageSpoken'].toString(),
+        datingIntentions: json['datingIntentions'].toString(),
+        relationType: json['relationType'].toString(),
+        drinking: json['drinking'].toString(),
+        smoking: json['smoking'].toString(),
+        drugs: json['drugs'].toString(),
+        phoneOtp: json['phoneOTP'].toString(),
         authToken: json['authToken'] as int,
         deviceToken:
             List<dynamic>.from((json['deviceToken'] as List).map((x) => x)),
@@ -95,31 +97,32 @@ class UserModel {
 
   FullAddress fullAddress;
   String id;
-  dynamic firstName;
-  dynamic lastName;
+  String firstName;
+  String lastName;
   String? email;
   int countryCode;
   String phoneNumber;
-  dynamic password;
+  String password;
   DateTime? birthDate;
   String gender;
   String height;
   List<dynamic> photos;
   bool isProfileCompleted;
-  dynamic ethnicity;
-  dynamic work;
-  dynamic jobTitle;
-  dynamic school;
-  dynamic educationLevel;
-  dynamic religious;
-  dynamic homeTown;
-  dynamic languageSpoken;
-  dynamic datingIntentions;
-  dynamic relationType;
-  dynamic drinking;
-  dynamic smoking;
-  dynamic drugs;
-  dynamic phoneOtp;
+  String ethnicity;
+  String sexuality;
+  String work;
+  String jobTitle;
+  String school;
+  String educationLevel;
+  String religious;
+  String homeTown;
+  String languageSpoken;
+  String datingIntentions;
+  String relationType;
+  String drinking;
+  String smoking;
+  String drugs;
+  String phoneOtp;
   int authToken;
   List<dynamic> deviceToken;
   int loginType;
@@ -148,6 +151,7 @@ class UserModel {
         'photos': List<dynamic>.from(photos.map((x) => x)),
         'isProfileCompleted': isProfileCompleted,
         'ethnicity': ethnicity,
+        'sexuality': sexuality,
         'work': work,
         'jobTitle': jobTitle,
         'school': school,

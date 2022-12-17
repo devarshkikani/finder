@@ -78,7 +78,7 @@ class SelectSexualScreen extends StatelessWidget {
                     title: 'Continue',
                     onTap: sexuality.value != ''
                         ? () {
-                            userModel.marijuana = sexuality.value;
+                            userModel.sexuality = sexuality.value;
                             box.write(
                               StorageKey.currentUser,
                               userModel.toJson(),

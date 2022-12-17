@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -16,6 +17,8 @@ class WelcomeScreenController extends GetxController {
         ),
       ),
     );
-    print(credential.email);
+    if (kDebugMode) {
+      print(credential.email);
+    }
   }
 }

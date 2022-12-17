@@ -18,7 +18,6 @@ class LocationScreen extends StatelessWidget {
       body: GetBuilder<LocationScreenController>(
         init: LocationScreenController(),
         builder: (LocationScreenController controller) {
-          print('INTIALIZE');
           controller.getCurrentPosition(isNavigate: true);
           return SafeArea(
             child: Padding(

@@ -3,6 +3,7 @@
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
 import 'package:finder/widget/location_permission_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -64,7 +65,9 @@ class LocationScreenController extends GetxController {
       _currentPosition = position;
       return _getAddressFromLatLng(_currentPosition!);
     } on Position catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return false;
     }
   }
@@ -74,7 +77,9 @@ class LocationScreenController extends GetxController {
       final List<Placemark> placemarks = await placemarkFromCoordinates(
               _currentPosition!.latitude, _currentPosition!.longitude)
           .catchError((e) {
-        print(e);
+        if (kDebugMode) {
+          print(e);
+        }
       });
       final Placemark place = placemarks[0];
 
@@ -86,7 +91,9 @@ class LocationScreenController extends GetxController {
           longitude: _currentPosition!.longitude.toString());
       return true;
     } on Placemark catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return false;
     }
   }
