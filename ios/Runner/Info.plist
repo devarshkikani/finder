@@ -26,12 +26,22 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open and in the background.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app needs access to location when in the background.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open.</string>
+	<key>NSAppleMusicUsageDescription</key>
+    <string>Music!</string>
+    <key>kTCCServiceMediaLibrary</key>
+    <string>media</string>
+	<key>NSCameraUsageDescription</key>
+	<string>For taking user profile picture this app taking camera permission</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Need location when in use</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Always and when in use!</string>
+    <key>NSLocationUsageDescription</key>
+    <string>Older devices need location.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Can I have location always?</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>For uploading user profile picture this app want to access Photo library</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

@@ -2,6 +2,7 @@
 
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
+import 'package:finder/screens/user_info_screen/add_photos_screen.dart';
 import 'package:finder/widget/location_permission_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -104,5 +105,6 @@ class LocationScreenController extends GetxController {
     userModel.fullAddress.address = cityController.text;
     userModel.homeTown = cityController.text;
     box.write(StorageKey.currentUser, userModel.toJson());
+    Get.to(() => const AddPhotos());
   }
 }

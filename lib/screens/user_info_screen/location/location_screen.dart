@@ -39,7 +39,7 @@ class LocationScreen extends StatelessWidget {
                       autofocus: true,
                       cursorHeight: 25,
                       controller: controller.cityController,
-                      textInputAction: TextInputAction.next,
+                      textInputAction: TextInputAction.done,
                       style: regularText20,
                       hintStyle: regularText20.copyWith(color: greyColor),
                       contentPadding: const EdgeInsets.symmetric(

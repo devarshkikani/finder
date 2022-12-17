@@ -45,7 +45,7 @@ class EmailScreen extends StatelessWidget {
                 autofocus: true,
                 cursorHeight: 25,
                 controller: emailController,
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.done,
                 validator: (String? value) => Validators.validateEmail(value),
                 style: regularText20,
                 hintStyle: regularText20.copyWith(color: greyColor),
