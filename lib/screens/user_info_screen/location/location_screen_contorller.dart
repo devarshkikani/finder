@@ -85,10 +85,12 @@ class LocationScreenController extends GetxController {
 
       currentAddress.value =
           '''${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}''';
-      userModel.fullAddress = FullAddress(
-          address: place.subLocality.toString(),
-          latitude: _currentPosition!.latitude.toString(),
-          longitude: _currentPosition!.longitude.toString());
+      userModel
+        ..fullAddress = FullAddress(
+            address: place.subLocality.toString(),
+            latitude: _currentPosition!.latitude.toString(),
+            longitude: _currentPosition!.longitude.toString())
+        ..homeTown = place.subLocality.toString();
       return true;
     } on Placemark catch (e) {
       if (kDebugMode) {
@@ -100,6 +102,7 @@ class LocationScreenController extends GetxController {
 
   void continueOnTap() {
     userModel.fullAddress.address = cityController.text;
+    userModel.homeTown = cityController.text;
     box.write(StorageKey.currentUser, userModel.toJson());
   }
 }

@@ -31,7 +31,7 @@ class UserModel {
     required this.religious,
     required this.homeTown,
     required this.languageSpoken,
-    required this.datingIntentions,
+    required this.datingIntentions, //
     required this.relationType,
     required this.drinking,
     required this.smoking,
