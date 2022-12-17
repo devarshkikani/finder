@@ -1,7 +1,7 @@
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
-import 'package:finder/screens/user_info_screen/dating_intentions_screen.dart';
+import 'package:finder/screens/user_info_screen/language_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:finder/widget/app_bar_widget.dart';
@@ -10,19 +10,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-class StatusScreen extends StatelessWidget {
-  const StatusScreen({super.key});
+class DatingIntentionsScreen extends StatelessWidget {
+  const DatingIntentionsScreen({super.key});
   static GetStorage box = GetStorage();
   static late UserModel userModel;
-  static RxString status = ''.obs;
-  static List<String> statusList = <String>[
-    'Single',
-    'Married',
-    'Divorced',
-    'Separated',
-    'Widowed',
-    'Divorced with kids',
-    'Widowed with kids',
+  static RxString datingIntentions = ''.obs;
+  static List<String> intentionsList = <String>[
+    'Hookups',
+    'Life partner',
+    'Long-term relationship',
+    'Sort-term relationship',
+    'Figuring out my dating goals',
   ];
   @override
   Widget build(BuildContext context) {
@@ -37,7 +35,7 @@ class StatusScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "What's your status?",
+                "What's your dating Intentions?",
                 style: boldText34.copyWith(
                   color: primary,
                   fontFamily: 'source_serif_pro',
@@ -54,11 +52,11 @@ class StatusScreen extends StatelessWidget {
                 child: Obx(
                   () => Column(
                     children: List<Widget>.generate(
-                      statusList.length,
+                      intentionsList.length,
                       (int index) => Column(
                         children: <Widget>[
-                          itemWidget(statusList[index]),
-                          if (index + 1 != statusList.length)
+                          itemWidget(intentionsList[index]),
+                          if (index + 1 != intentionsList.length)
                             Container(
                               height: 0.5,
                               color: lightBlue,
@@ -74,14 +72,14 @@ class StatusScreen extends StatelessWidget {
                 child: Obx(
                   () => elevatedButton(
                     title: 'Continue',
-                    onTap: status.value != ''
+                    onTap: datingIntentions.value != ''
                         ? () {
-                            userModel.relationType = status.value;
+                            userModel.datingIntentions = datingIntentions.value;
                             box.write(
                               StorageKey.currentUser,
                               userModel.toJson(),
                             );
-                            Get.to(() => const DatingIntentionsScreen());
+                            Get.to(() => const LanguageScreen());
                           }
                         : null,
                   ),
@@ -96,7 +94,7 @@ class StatusScreen extends StatelessWidget {
 
   Widget itemWidget(String item) {
     return CheckboxListTile(
-      value: status.value == item,
+      value: datingIntentions.value == item,
       title: Text(
         item,
         style: regularText16,
@@ -107,7 +105,7 @@ class StatusScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(3),
       ),
       onChanged: (bool? value) {
-        status.value = item;
+        datingIntentions.value = item;
       },
     );
   }
