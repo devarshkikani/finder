@@ -29,13 +29,11 @@ class UserModel {
     required this.educationLevel,
     required this.religious,
     required this.homeTown,
-    required this.politics,
     required this.languageSpoken,
     required this.datingIntentions,
     required this.relationType,
     required this.drinking,
     required this.smoking,
-    required this.marijuana,
     required this.drugs,
     required this.phoneOtp,
     required this.authToken,
@@ -74,13 +72,11 @@ class UserModel {
         educationLevel: json['educationLevel'],
         religious: json['religious'],
         homeTown: json['homeTown'],
-        politics: json['politics'],
         languageSpoken: json['languageSpoken'],
         datingIntentions: json['datingIntentions'],
         relationType: json['relationType'],
         drinking: json['drinking'],
         smoking: json['smoking'],
-        marijuana: json['marijuana'],
         drugs: json['drugs'],
         phoneOtp: json['phoneOTP'],
         authToken: json['authToken'] as int,
@@ -110,20 +106,18 @@ class UserModel {
   String height;
   List<dynamic> photos;
   bool isProfileCompleted;
-  dynamic ethnicity; //
+  dynamic ethnicity;
   dynamic work;
   dynamic jobTitle;
   dynamic school;
   dynamic educationLevel;
   dynamic religious;
   dynamic homeTown;
-  dynamic politics; //*
   dynamic languageSpoken;
-  dynamic datingIntentions; //
+  dynamic datingIntentions;
   dynamic relationType;
   dynamic drinking;
   dynamic smoking;
-  dynamic marijuana; //
   dynamic drugs;
   dynamic phoneOtp;
   int authToken;
@@ -160,13 +154,11 @@ class UserModel {
         'educationLevel': educationLevel,
         'religious': religious,
         'homeTown': homeTown,
-        'politics': politics,
         'languageSpoken': languageSpoken,
         'datingIntentions': datingIntentions,
         'relationType': relationType,
         'drinking': drinking,
         'smoking': smoking,
-        'marijuana': marijuana,
         'drugs': drugs,
         'phoneOTP': phoneOtp,
         'authToken': authToken,

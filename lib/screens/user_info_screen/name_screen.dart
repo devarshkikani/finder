@@ -29,88 +29,90 @@ class NameScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "What's your\nname?",
-                style: boldText34.copyWith(
-                  color: primary,
-                  fontFamily: 'source_serif_pro',
-                ),
-              ),
-              height20,
-              TextFormFieldWidget(
-                hintText: 'First name',
-                autofocus: true,
-                cursorHeight: 25,
-                controller: firstNameController,
-                textInputAction: TextInputAction.next,
-                style: regularText20,
-                hintStyle: regularText20.copyWith(color: greyColor),
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
-                onChanged: (String? value) {
-                  if (firstNameController.text.length >= 3 &&
-                      lastNameController.text.length >= 3) {
-                    isValid.value = true;
-                  } else {
-                    isValid.value = false;
-                  }
-                },
-              ),
-              height10,
-              TextFormFieldWidget(
-                hintText: 'Last name',
-                controller: lastNameController,
-                style: regularText20,
-                textInputAction: TextInputAction.done,
-                cursorHeight: 25,
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
-                hintStyle: regularText20.copyWith(color: greyColor),
-                onChanged: (String? value) {
-                  if (firstNameController.text.length >= 3 &&
-                      lastNameController.text.length >= 3) {
-                    isValid.value = true;
-                  } else {
-                    isValid.value = false;
-                  }
-                },
-                onFieldSubmitted: isValid.value
-                    ? (String? value) {
-                        userModel.firstName = firstNameController.text;
-                        userModel.lastName = lastNameController.text;
-                        box.write(StorageKey.currentUser, userModel.toJson());
-                        Get.to(() => const BirthDateScreen());
-                      }
-                    : null,
-              ),
-              height20,
-              Center(
-                child: Obx(
-                  () => elevatedButton(
-                    title: 'Continue',
-                    onTap: isValid.value
-                        ? () {
-                            userModel.firstName = firstNameController.text;
-                            userModel.lastName = lastNameController.text;
-                            box.write(
-                                StorageKey.currentUser, userModel.toJson());
-                            if (userModel.email != '' &&
-                                userModel.email != 'null') {
-                              Get.to(() => const BirthDateScreen());
-                            } else {
-                              Get.to(() => EmailScreen());
-                            }
-                          }
-                        : null,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "What's your\nname?",
+                  style: boldText34.copyWith(
+                    color: primary,
+                    fontFamily: 'source_serif_pro',
                   ),
                 ),
-              ),
-            ],
+                height20,
+                TextFormFieldWidget(
+                  hintText: 'First name',
+                  autofocus: true,
+                  cursorHeight: 25,
+                  controller: firstNameController,
+                  textInputAction: TextInputAction.next,
+                  style: regularText20,
+                  hintStyle: regularText20.copyWith(color: greyColor),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
+                  onChanged: (String? value) {
+                    if (firstNameController.text.length >= 3 &&
+                        lastNameController.text.length >= 3) {
+                      isValid.value = true;
+                    } else {
+                      isValid.value = false;
+                    }
+                  },
+                ),
+                height10,
+                TextFormFieldWidget(
+                  hintText: 'Last name',
+                  controller: lastNameController,
+                  style: regularText20,
+                  textInputAction: TextInputAction.done,
+                  cursorHeight: 25,
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
+                  hintStyle: regularText20.copyWith(color: greyColor),
+                  onChanged: (String? value) {
+                    if (firstNameController.text.length >= 3 &&
+                        lastNameController.text.length >= 3) {
+                      isValid.value = true;
+                    } else {
+                      isValid.value = false;
+                    }
+                  },
+                  onFieldSubmitted: isValid.value
+                      ? (String? value) {
+                          userModel.firstName = firstNameController.text;
+                          userModel.lastName = lastNameController.text;
+                          box.write(StorageKey.currentUser, userModel.toJson());
+                          Get.to(() => const BirthDateScreen());
+                        }
+                      : null,
+                ),
+                height20,
+                Center(
+                  child: Obx(
+                    () => elevatedButton(
+                      title: 'Continue',
+                      onTap: isValid.value
+                          ? () {
+                              userModel.firstName = firstNameController.text;
+                              userModel.lastName = lastNameController.text;
+                              box.write(
+                                  StorageKey.currentUser, userModel.toJson());
+                              if (userModel.email != '' &&
+                                  userModel.email != 'null') {
+                                Get.to(() => const BirthDateScreen());
+                              } else {
+                                Get.to(() => EmailScreen());
+                              }
+                            }
+                          : null,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

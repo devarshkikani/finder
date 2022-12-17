@@ -1,6 +1,7 @@
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
+import 'package:finder/screens/user_info_screen/location/location_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:finder/widget/app_bar_widget.dart';
@@ -48,6 +49,7 @@ class WriteAboutYouScreen extends StatelessWidget {
                 cursorHeight: 25,
                 maxLines: 3,
                 controller: aboutYouController,
+                textCapitalization: TextCapitalization.sentences,
                 textInputAction: TextInputAction.next,
                 style: regularText20,
                 hintStyle: regularText20.copyWith(color: greyColor),
@@ -64,7 +66,7 @@ class WriteAboutYouScreen extends StatelessWidget {
                     ? (String? value) {
                         userModel.firstName = aboutYouController.text;
                         box.write(StorageKey.currentUser, userModel.toJson());
-                        // Get.to(() => const BirthDateScreen());
+                        Get.to(() => const LocationScreen());
                       }
                     : null,
               ),
@@ -78,7 +80,7 @@ class WriteAboutYouScreen extends StatelessWidget {
                             userModel.firstName = aboutYouController.text;
                             box.write(
                                 StorageKey.currentUser, userModel.toJson());
-                            // Get.to(() => const BirthDateScreen());
+                            Get.to(() => const LocationScreen());
                           }
                         : null,
                   ),

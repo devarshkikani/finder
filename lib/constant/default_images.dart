@@ -5,3 +5,4 @@ const String facebookLogo = 'assets/images/facebook_logo.png';
 const String appleLogo = 'assets/images/apple_logo.png';
 const String callIcon = 'assets/images/call_icon.png';
 const String offline = 'assets/images/offline.jpeg';
+const String locationRequired = 'assets/images/location_required.png';

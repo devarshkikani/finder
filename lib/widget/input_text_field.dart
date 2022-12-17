@@ -327,6 +327,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.cursorColor,
     this.contentPadding,
     this.autofocus,
+    this.textCapitalization = TextCapitalization.words,
     this.textAlign = TextAlign.left,
   });
 
@@ -359,6 +360,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final BorderSide? border;
   final BorderSide? enabledBorder;
   final EdgeInsetsGeometry? contentPadding;
+  final TextCapitalization textCapitalization;
 
   @override
   Widget build(BuildContext context) {
@@ -370,6 +372,7 @@ class TextFormFieldWidget extends StatelessWidget {
       filledColor: filledColor,
       style: style,
       readOnly: readOnly,
+      textCapitalization: textCapitalization,
       labelText: labelText,
       inputFormatters: inputFormatters,
       hintStyle: hintStyle,

@@ -36,61 +36,63 @@ class _BirthDateScreenState extends State<BirthDateScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "What's your date\nof birth?",
-                style: boldText34.copyWith(
-                  color: primary,
-                  fontFamily: 'source_serif_pro',
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: DatePickerWidget(
-                  looping: false,
-                  lastDate: DateTime.now(),
-                  initialDate: DateTime(1994),
-                  dateFormat: 'dd/MMMM/yyyy',
-                  onChange: (DateTime newDate, _) {
-                    setState(() {
-                      selectedDate = newDate;
-                    });
-                  },
-                  pickerTheme: DateTimePickerTheme(
-                    backgroundColor: Colors.transparent,
-                    itemTextStyle: regularText20,
-                    dividerColor: darkGrey,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "What's your date\nof birth?",
+                  style: boldText34.copyWith(
+                    color: primary,
+                    fontFamily: 'source_serif_pro',
                   ),
                 ),
-              ),
-              selectedDate != null
-                  ? Text(
-                      '''Make sure ${DateTime.now().year - selectedDate!.year} is your correct age as you can't change it later''',
-                      style: lightText18.copyWith(
-                        color: greyColor,
-                      ),
-                      textAlign: TextAlign.center,
-                    )
-                  : const SizedBox(),
-              height20,
-              Center(
-                child: elevatedButton(
-                  title: 'Continue',
-                  onTap: selectedDate != null
-                      ? () {
-                          userModel.birthDate = selectedDate;
-                          box.write(
-                            StorageKey.currentUser,
-                            userModel.toJson(),
-                          );
-                          Get.to(() => const UserGenderScreen());
-                        }
-                      : null,
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: DatePickerWidget(
+                    looping: false,
+                    lastDate: DateTime.now(),
+                    initialDate: DateTime(1994),
+                    dateFormat: 'dd/MMMM/yyyy',
+                    onChange: (DateTime newDate, _) {
+                      setState(() {
+                        selectedDate = newDate;
+                      });
+                    },
+                    pickerTheme: DateTimePickerTheme(
+                      backgroundColor: Colors.transparent,
+                      itemTextStyle: regularText20,
+                      dividerColor: darkGrey,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+                selectedDate != null
+                    ? Text(
+                        '''Make sure ${DateTime.now().year - selectedDate!.year} is your correct age as you can't change it later''',
+                        style: lightText18.copyWith(
+                          color: greyColor,
+                        ),
+                        textAlign: TextAlign.center,
+                      )
+                    : const SizedBox(),
+                height20,
+                Center(
+                  child: elevatedButton(
+                    title: 'Continue',
+                    onTap: selectedDate != null
+                        ? () {
+                            userModel.birthDate = selectedDate;
+                            box.write(
+                              StorageKey.currentUser,
+                              userModel.toJson(),
+                            );
+                            Get.to(() => const UserGenderScreen());
+                          }
+                        : null,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
