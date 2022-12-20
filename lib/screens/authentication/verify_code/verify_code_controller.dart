@@ -1,3 +1,4 @@
+import 'package:finder/screens/user_info_screen/name_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -36,11 +37,18 @@ class VerifyCodeController extends GetxController {
       box
         ..write(StorageKey.apiToken, response['token'])
         ..write(StorageKey.currentUser, model.toJson())
-        ..write(StorageKey.userId, model.id)
+        ..write(StorageKey.userId, response['response']['_id'])
         ..write(StorageKey.isLogedIn, true);
-      Get.offAll(
-        () => MainHomeScreen(),
-      );
+      await NetworkDio.setDynamicHeader();
+      if (model.isProfileCompleted) {
+        Get.offAll(
+          () => MainHomeScreen(),
+        );
+      } else {
+        Get.offAll(
+          () => NameScreen(),
+        );
+      }
     }
   }
 }

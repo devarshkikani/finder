@@ -46,12 +46,11 @@ class NetworkDio {
       return <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'X-API-KEY': apiToken,
+        'authorization': apiToken,
         // 'X-AUTH-KEY': ApiEndPoints.authKey,
       };
     } else {
       return <String, String>{
-        // 'X-AUTH-KEY': ApiEndPoints.authKey,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       };
@@ -122,12 +121,13 @@ class NetworkDio {
         }
       } on DioError catch (e) {
         if (kDebugMode) {
-          print('DioError +++ $e');
+          print('DioError +++ ${e.response?.data['message']}');
         }
         if (context != null) {
           processIndicator.hide(context);
         }
-        showError(title: 'Error', errorMessage: e.toString());
+        showError(
+            title: 'Error', errorMessage: '${e.response?.data['message']}');
         return null;
       } catch (e) {
         if (kDebugMode) {
@@ -197,12 +197,92 @@ class NetworkDio {
         }
       } on DioError catch (e) {
         if (kDebugMode) {
-          print('DioError +++ $e');
+          print('DioError +++ ${e.response?.data['message']}');
+        }
+        if (context != null) {
+          processIndicator.hide(context);
+        }
+        showError(
+            title: 'Error', errorMessage: '${e.response?.data['message']}');
+        return null;
+      } catch (e) {
+        if (kDebugMode) {
+          print('Catch +++ $e');
         }
         if (context != null) {
           processIndicator.hide(context);
         }
         showError(title: 'Error', errorMessage: e.toString());
+        return null;
+      }
+    } else {
+      if (context != null) {
+        InternetError.addOverlayEntry(context);
+      }
+      return null;
+    }
+  }
+
+  static Future<Map<String, dynamic>?> putDioHttpMethod({
+    BuildContext? context,
+    required String url,
+    required dynamic data,
+  }) async {
+    final bool internet = await check();
+    if (internet) {
+      if (context != null) {
+        processIndicator.show(context);
+      }
+      try {
+        if (kDebugMode) {
+          print('+++URL : $url');
+          print('+++Data: $data');
+        }
+        final dio.Response<dynamic> response = await _dio.put(
+          url,
+          data: data,
+          options: cacheOptions,
+        );
+        if (kDebugMode) {
+          print('+++Response: ' '$response');
+        }
+        Map<String, dynamic> responseBody = <String, dynamic>{};
+        if (context != null) {
+          processIndicator.hide(context);
+        }
+
+        if (response.statusCode == 200) {
+          try {
+            responseBody =
+                json.decode(response.data.toString()) as Map<String, dynamic>;
+          } catch (e) {
+            responseBody = response.data as Map<String, dynamic>;
+          }
+          if (responseBody['status'] == 200) {
+            return responseBody['data'] as Map<String, dynamic>;
+          } else {
+            showError(
+              title: 'Error',
+              errorMessage: responseBody['message'].toString(),
+            );
+            return null;
+          }
+        } else {
+          showError(
+            title: 'Error',
+            errorMessage: response.statusMessage.toString(),
+          );
+          return null;
+        }
+      } on DioError catch (e) {
+        if (kDebugMode) {
+          print('DioError +++ ${e.response?.data['message']}');
+        }
+        if (context != null) {
+          processIndicator.hide(context);
+        }
+        showError(
+            title: 'Error', errorMessage: '${e.response?.data['message']}');
         return null;
       } catch (e) {
         if (kDebugMode) {

@@ -4,4 +4,6 @@ class ApiEndPoints {
   late String imageEndPoint;
   static String sendOtp = 'user/signIn';
   static String otpVerify = 'user/otpVerification';
+  static String registerUserDetails = 'user/register_user_details';
+  static String uploadImages = 'upload/profile';
 }

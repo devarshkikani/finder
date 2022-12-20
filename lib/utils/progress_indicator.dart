@@ -1,3 +1,5 @@
+import 'package:finder/constant/default_images.dart';
+import 'package:finder/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:finder/utils/internet_error.dart';
 
@@ -56,12 +58,17 @@ class ProcessIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Material(
+    return Material(
       color: Colors.transparent,
       child: Center(
         child: Material(
           color: Colors.transparent,
-          child: CircularProgressIndicator(),
+          child: Image.asset(
+            spinnerGIF,
+            color: blackColor,
+            height: 50,
+            width: 50,
+          ),
         ),
       ),
     );

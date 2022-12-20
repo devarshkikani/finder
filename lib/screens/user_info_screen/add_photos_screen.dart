@@ -2,19 +2,23 @@
 
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:dotted_border/dotted_border.dart';
+import 'package:finder/constant/app_endpoints.dart';
 
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
-import 'package:finder/screens/home/main_home_screen.dart';
+import 'package:finder/screens/user_info_screen/complete_profile_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/utils/network_dio.dart';
 import 'package:finder/widget/app_bar_widget.dart';
 import 'package:finder/widget/elevated_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -38,6 +42,25 @@ class _AddPhotosState extends State<AddPhotos> {
     super.initState();
     userModel = UserModel.fromJson(
         box.read(StorageKey.currentUser) as Map<String, dynamic>);
+  }
+
+  Future<String?> getImageUrl(File file, BuildContext context) async {
+    final data = dio.FormData.fromMap({
+      'image': await dio.MultipartFile.fromFile(
+        file.path,
+        filename: file.path.split('/').last,
+      )
+    });
+    final Map<String, dynamic>? response = await NetworkDio.postDioHttpMethod(
+      context: context,
+      url: ApiEndPoints.apiEndPoint + ApiEndPoints.uploadImages,
+      data: data,
+    );
+    if (response != null) {
+      return response['image'].toString();
+    } else {
+      return null;
+    }
   }
 
   @override
@@ -88,8 +111,16 @@ class _AddPhotosState extends State<AddPhotos> {
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
-                              child: Image.file(
-                                File(xFile),
+                              child: CachedNetworkImage(
+                                imageUrl: xFile,
+                                placeholder: (context, url) => Padding(
+                                  padding: const EdgeInsets.all(70),
+                                  child: Platform.isAndroid
+                                      ? const CircularProgressIndicator()
+                                      : const CupertinoActivityIndicator(),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
                                 fit: BoxFit.cover,
                               ),
                             )
@@ -138,7 +169,7 @@ class _AddPhotosState extends State<AddPhotos> {
                 height20,
                 Center(
                   child: elevatedButton(
-                    title: 'Done',
+                    title: 'Continue',
                     backgroundColor: Colors.green,
                     onTap: images.length < 2
                         ? null
@@ -148,7 +179,7 @@ class _AddPhotosState extends State<AddPhotos> {
                               StorageKey.currentUser,
                               userModel.toJson(),
                             );
-                            Get.to(() => MainHomeScreen());
+                            Get.to(() => const CompleteProfileScreen());
                           },
                   ),
                 ),
@@ -234,9 +265,17 @@ class _AddPhotosState extends State<AddPhotos> {
       );
       if (croppedImage != null) {
         if (index != null) {
-          images[index] = croppedImage.path;
+          final String? imageUrl =
+              await getImageUrl(File(croppedImage.path), context);
+          if (imageUrl != null) {
+            images[index] = imageUrl;
+          }
         } else {
-          images.add(croppedImage.path);
+          final String? imageUrl =
+              await getImageUrl(File(croppedImage.path), context);
+          if (imageUrl != null) {
+            images.add(imageUrl);
+          }
         }
       }
     }

@@ -6,3 +6,5 @@ const String appleLogo = 'assets/images/apple_logo.png';
 const String callIcon = 'assets/images/call_icon.png';
 const String offline = 'assets/images/offline.jpeg';
 const String locationRequired = 'assets/images/location_required.png';
+const String checkGIF = 'assets/images/check.gif';
+const String spinnerGIF = 'assets/images/spinner.gif';

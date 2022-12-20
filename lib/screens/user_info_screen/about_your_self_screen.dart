@@ -64,7 +64,7 @@ class WriteAboutYouScreen extends StatelessWidget {
                 },
                 onFieldSubmitted: isValid.value
                     ? (String? value) {
-                        userModel.firstName = aboutYouController.text;
+                        userModel.aboutYourSelf = aboutYouController.text;
                         box.write(StorageKey.currentUser, userModel.toJson());
                         Get.to(() => const LocationScreen());
                       }
