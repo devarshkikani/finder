@@ -1,3 +1,5 @@
+import 'package:finder/screens/chat/chat_screen.dart';
+import 'package:finder/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:finder/constant/default_images.dart';
@@ -9,10 +11,8 @@ class MainHomeScreen extends StatelessWidget {
   static RxInt selectedIndex = 0.obs;
   final List<Widget> pages = <Widget>[
     Container(),
-    Container(),
-    Container(),
-    Container(),
-    Container(),
+    const ChatScreen(),
+    const UserProfileScreen(),
   ];
 
   @override
@@ -21,11 +21,11 @@ class MainHomeScreen extends StatelessWidget {
       () => Scaffold(
         body: pages[selectedIndex.value],
         bottomNavigationBar: Container(
-          height: 80,
-          padding: const EdgeInsets.only(top: 10),
-          decoration: BoxDecoration(
-            color: greyColor.withOpacity(0.2),
-            borderRadius: const BorderRadius.only(
+          height: 70,
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          decoration: const BoxDecoration(
+            color: whiteColor,
+            borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             ),
@@ -39,10 +39,10 @@ class MainHomeScreen extends StatelessWidget {
                     selectedIndex.value = 0;
                   },
                   child: Image.asset(
-                    appLogo,
-                    color: selectedIndex.value == 0 ? null : Colors.grey,
-                    height: 24,
-                    width: 24,
+                    homeIcon,
+                    color: selectedIndex.value == 0 ? primary : darkGrey,
+                    height: 40,
+                    width: 40,
                   ),
                 ),
                 GestureDetector(
@@ -50,10 +50,10 @@ class MainHomeScreen extends StatelessWidget {
                     selectedIndex.value = 1;
                   },
                   child: Image.asset(
-                    appLogo,
-                    color: selectedIndex.value == 1 ? null : Colors.grey,
-                    height: 24,
-                    width: 24,
+                    chatIcon,
+                    color: selectedIndex.value == 1 ? primary : darkGrey,
+                    height: 30,
+                    width: 30,
                   ),
                 ),
                 GestureDetector(
@@ -61,31 +61,10 @@ class MainHomeScreen extends StatelessWidget {
                     selectedIndex.value = 2;
                   },
                   child: Image.asset(
-                    appLogo,
-                    color: selectedIndex.value == 2 ? null : Colors.grey,
-                    height: 24,
-                    width: 24,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    selectedIndex.value = 3;
-                  },
-                  child: Image.asset(
-                    appLogo,
-                    color: selectedIndex.value == 3 ? null : Colors.grey,
-                    height: 24,
-                    width: 24,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    selectedIndex.value = 4;
-                  },
-                  child: Icon(
-                    Icons.more_horiz_rounded,
-                    color: selectedIndex.value == 4 ? primary : Colors.grey,
-                    size: 30,
+                    userPeople,
+                    color: selectedIndex.value == 2 ? primary : darkGrey,
+                    height: 40,
+                    width: 40,
                   ),
                 ),
               ],
