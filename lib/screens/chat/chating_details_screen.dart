@@ -34,17 +34,11 @@ class _ChatDetaisScreenState extends State<ChatDetaisScreen> {
                 height10,
                 topView(),
                 height20,
-                const Spacer(),
                 chatView(),
                 height5,
                 Container(
                   height: 50,
-                  padding: const EdgeInsets.fromLTRB(
-                    10,
-                    3,
-                    10,
-                    10,
-                  ),
+                  padding: const EdgeInsets.fromLTRB(10, 3, 10, 10),
                   decoration: const BoxDecoration(
                     color: darkGrey,
                   ),
@@ -144,55 +138,62 @@ class _ChatDetaisScreenState extends State<ChatDetaisScreen> {
   }
 
   Widget chatView() {
-    return ListView.builder(
-      itemCount: 5,
-      shrinkWrap: true,
-      padding: const EdgeInsets.all(10),
-      itemBuilder: (BuildContext context, int index) {
-        return Row(
-          mainAxisAlignment:
-              index.isEven ? MainAxisAlignment.start : MainAxisAlignment.end,
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: index.isEven
-                  ? CrossAxisAlignment.start
-                  : CrossAxisAlignment.end,
+    return Expanded(
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: ListView.builder(
+          itemCount: 5,
+          shrinkWrap: true,
+          padding: const EdgeInsets.all(10),
+          itemBuilder: (BuildContext context, int index) {
+            return Row(
+              mainAxisAlignment: index.isEven
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.end,
               children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(bottom: 5),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: const Radius.circular(20),
-                      bottomRight: const Radius.circular(20),
-                      topLeft: index.isEven
-                          ? Radius.zero
-                          : const Radius.circular(20),
-                      topRight: index.isEven
-                          ? const Radius.circular(20)
-                          : Radius.zero,
+                Column(
+                  crossAxisAlignment: index.isEven
+                      ? CrossAxisAlignment.start
+                      : CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: const Radius.circular(20),
+                          bottomRight: const Radius.circular(20),
+                          topLeft: index.isEven
+                              ? Radius.zero
+                              : const Radius.circular(20),
+                          topRight: index.isEven
+                              ? const Radius.circular(20)
+                              : Radius.zero,
+                        ),
+                        color:
+                            index.isEven ? primary.withOpacity(0.8) : darkGrey,
+                      ),
+                      child: Text(
+                        'Good Night',
+                        style: regularText14.copyWith(
+                          color: index.isEven ? whiteColor : blackColor,
+                        ),
+                      ),
                     ),
-                    color: index.isEven ? primary.withOpacity(0.8) : darkGrey,
-                  ),
-                  child: Text(
-                    'Good Night',
-                    style: regularText14.copyWith(
-                      color: index.isEven ? whiteColor : blackColor,
+                    Text(
+                      '9:21 PM',
+                      style: regularText14.copyWith(
+                        color: darkGrey,
+                      ),
                     ),
-                  ),
-                ),
-                Text(
-                  '9:21 PM',
-                  style: regularText14.copyWith(
-                    color: darkGrey,
-                  ),
+                  ],
                 ),
               ],
-            ),
-          ],
-        );
-      },
+            );
+          },
+        ),
+      ),
     );
   }
 }
