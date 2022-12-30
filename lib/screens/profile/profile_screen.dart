@@ -41,17 +41,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: whiteColor,
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: <Color>[whiteColor, primary.withOpacity(0.4)],
-              begin: const FractionalOffset(1, 0.9),
-              end: const FractionalOffset(3, -3),
-              stops: const <double>[0, 2],
-              tileMode: TileMode.clamp,
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: <Color>[whiteColor, primary.withOpacity(0.4)],
+            begin: const FractionalOffset(1, 0.9),
+            end: const FractionalOffset(3, -3),
+            stops: const <double>[0, 2],
+            tileMode: TileMode.clamp,
           ),
+        ),
+        child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[

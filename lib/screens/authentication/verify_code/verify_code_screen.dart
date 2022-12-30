@@ -38,112 +38,114 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Text(
-                    controller.phoneNumber.toString(),
-                    style: mediumText16,
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      controller.isValid.value = false;
-                      controller.otpValue.value = '';
-                      Get.back();
-                    },
-                    iconSize: 18,
-                    padding: EdgeInsets.zero,
-                    icon: const Icon(Icons.mode_edit_outline_outlined),
-                  ),
-                ],
-              ),
-              Text(
-                'Enter your\nVerification code?',
-                style: boldText28.copyWith(
-                  color: primary,
-                  fontFamily: 'source_serif_pro',
-                ),
-              ),
-              height10,
-              OTPTextField(
-                controller: controller.otpController,
-                length: 6,
-                width: MediaQuery.of(context).size.width,
-                textFieldAlignment: MainAxisAlignment.spaceAround,
-                fieldWidth: 45,
-                fieldStyle: FieldStyle.box,
-                outlineBorderRadius: 15,
-                style: regularText18,
-                otpFieldStyle: OtpFieldStyle(
-                  borderColor: primary,
-                  enabledBorderColor: blackColor,
-                  focusBorderColor: primary.withOpacity(0.8),
-                ),
-                onChanged: (String value) {
-                  if (value.length < 6) {
-                    controller.isValid.value = false;
-                  }
-                },
-                onCompleted: (String pin) async {
-                  controller.isValid.value = true;
-                  controller.otpValue.value = pin;
-                  await controller.verifyOtp(context: context);
-                },
-              ),
-              height20,
-              Obx(
-                () => Center(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primary,
-                      maximumSize: Size(Get.width / 2, 50),
-                      disabledBackgroundColor: darkGrey,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                      ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text(
+                      controller.phoneNumber.toString(),
+                      style: mediumText16,
                     ),
-                    onPressed: controller.isValid.value
-                        ? () {
-                            controller.verifyOtp(context: context);
-                          }
-                        : null,
-                    child: Center(
-                      child: Text(
-                        'Continue',
-                        style: mediumText16.copyWith(
-                          color: whiteColor,
+                    IconButton(
+                      onPressed: () {
+                        controller.isValid.value = false;
+                        controller.otpValue.value = '';
+                        Get.back();
+                      },
+                      iconSize: 18,
+                      padding: EdgeInsets.zero,
+                      icon: const Icon(Icons.mode_edit_outline_outlined),
+                    ),
+                  ],
+                ),
+                Text(
+                  'Enter your\nVerification code?',
+                  style: boldText28.copyWith(
+                    color: primary,
+                    fontFamily: 'source_serif_pro',
+                  ),
+                ),
+                height10,
+                OTPTextField(
+                  controller: controller.otpController,
+                  length: 6,
+                  width: MediaQuery.of(context).size.width,
+                  textFieldAlignment: MainAxisAlignment.spaceAround,
+                  fieldWidth: 45,
+                  fieldStyle: FieldStyle.box,
+                  outlineBorderRadius: 15,
+                  style: regularText18,
+                  otpFieldStyle: OtpFieldStyle(
+                    borderColor: primary,
+                    enabledBorderColor: blackColor,
+                    focusBorderColor: primary.withOpacity(0.8),
+                  ),
+                  onChanged: (String value) {
+                    if (value.length < 6) {
+                      controller.isValid.value = false;
+                    }
+                  },
+                  onCompleted: (String pin) async {
+                    controller.isValid.value = true;
+                    controller.otpValue.value = pin;
+                    await controller.verifyOtp(context: context);
+                  },
+                ),
+                height20,
+                Obx(
+                  () => Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primary,
+                        maximumSize: Size(Get.width / 2, 50),
+                        disabledBackgroundColor: darkGrey,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                      ),
+                      onPressed: controller.isValid.value
+                          ? () {
+                              controller.verifyOtp(context: context);
+                            }
+                          : null,
+                      child: Center(
+                        child: Text(
+                          'Continue',
+                          style: mediumText16.copyWith(
+                            color: whiteColor,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              height10,
-              Center(
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                height10,
+                Center(
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ),
+                      maximumSize: Size(Get.width / 2, 50),
                     ),
-                    maximumSize: Size(Get.width / 2, 50),
-                  ),
-                  onPressed: () {
-                    Get.find<MobileScreenController>().sendOtp(context);
-                    controller.otpController.clear();
-                  },
-                  child: Center(
-                    child: Text(
-                      'Resend',
-                      style: mediumText16.copyWith(
-                        color: blackColor,
+                    onPressed: () {
+                      Get.find<MobileScreenController>().sendOtp(context);
+                      controller.otpController.clear();
+                    },
+                    child: Center(
+                      child: Text(
+                        'Resend',
+                        style: mediumText16.copyWith(
+                          color: blackColor,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
