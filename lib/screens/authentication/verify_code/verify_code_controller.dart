@@ -6,7 +6,7 @@ import 'package:finder/models/user_model.dart';
 import 'package:finder/utils/network_dio.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/constant/app_endpoints.dart';
-import 'package:finder/screens/home/main_home_screen.dart';
+import 'package:finder/screens/main_home/main_home_screen.dart';
 import 'package:otp_text_field/otp_field.dart';
 
 class VerifyCodeController extends GetxController {

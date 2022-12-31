@@ -2,7 +2,7 @@
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:finder/screens/authentication/welcome/welcome_screen.dart';
-import 'package:finder/screens/home/main_home_screen.dart';
+import 'package:finder/screens/main_home/main_home_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';

@@ -77,7 +77,7 @@ class WriteAboutYouScreen extends StatelessWidget {
                     title: 'Continue',
                     onTap: isValid.value
                         ? () {
-                            userModel.firstName = aboutYouController.text;
+                            userModel.aboutYourSelf = aboutYouController.text;
                             box.write(
                                 StorageKey.currentUser, userModel.toJson());
                             Get.to(() => const LocationScreen());

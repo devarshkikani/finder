@@ -1,4 +1,5 @@
 import 'package:finder/screens/chat/chat_screen.dart';
+import 'package:finder/screens/home/home_screen.dart';
 import 'package:finder/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,7 @@ class MainHomeScreen extends StatelessWidget {
 
   static RxInt selectedIndex = 0.obs;
   final List<Widget> pages = <Widget>[
-    Container(),
+    const HomeScreen(),
     const ChatScreen(),
     const UserProfileScreen(),
   ];

@@ -121,7 +121,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget profileView() {
     return Column(
       children: <Widget>[
-        width20,
         Container(
           height: 130,
           width: 130,
