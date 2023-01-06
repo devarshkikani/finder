@@ -1,15 +1,10 @@
-// ignore_for_file: prefer_final_locals
-
 import 'dart:io';
-// import 'dart:js';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
-// import 'package:finder/constant/app_endpoints.dart';
 import 'package:finder/constant/const_variable.dart';
 import 'package:finder/constant/default_images.dart';
 import 'package:finder/constant/sizedbox.dart';
-// import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/home/home_screen_controller.dart';
 import 'package:finder/theme/colors.dart';
@@ -19,43 +14,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
-// import 'package:get_storage/get_storage.dart';
 
 class HomeScreen extends GetView<HomeScreenController> {
-//   const HomeScreen({super.key});
-
-//   @override
-//   State<HomeScreen> createState() => _HomeScreenState();
-// }
-
-// class _HomeScreenState extends State<HomeScreen> {
-  // static GetStorage box = GetStorage();
-  // static late UserModel currentUser;
-  // static RxList<UserModel> usersList = <UserModel>[].obs;
-
-  // PageController pageController = PageController();
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // currentUser = UserModel.fromJson(
-  //   //     box.read(StorageKey.currentUser) as Map<String, dynamic>);
-  //   getUsers();
-  // }
-
-  // Future<void> getUsers() async {
-  //   final Map<String, dynamic>? resposnse = await NetworkDio.getDioHttpMethod(
-  //       url: ApiEndPoints.apiEndPoint + ApiEndPoints.homeAPI, context: context);
-  //   if (resposnse != null) {
-  //     List<UserModel> users = <UserModel>[];
-  //     // ignore: always_specify_types
-  //     for (final element in resposnse['data'] as List) {
-  //       print(element['birthDate'].toString().replaceAll('T', ' ').trim());
-  //       users.add(UserModel.fromJson(element as Map<String, dynamic>));
-  //     }
-  //     usersList.value = users;
-  //   }
-  // }
-
   void showThreeDotDialog(UserModel userModel, BuildContext context) {
     showModalBottomSheet<int>(
       backgroundColor: Colors.transparent,
@@ -194,15 +154,21 @@ class HomeScreen extends GetView<HomeScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: controller.navigatorKey,
       body: SafeArea(
         child: Obx(
-          () => PageView.builder(
-            itemCount: controller.usersList.length,
-            controller: controller.pageController,
-            scrollDirection: Axis.vertical,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (BuildContext context, int index) =>
-                pageViewBuilderView(controller.usersList[index], context),
+          () => Center(
+            child: controller.isLoading.value
+                ? Image.asset(spinnerGIF)
+                : PageView.builder(
+                    itemCount: controller.usersList.length,
+                    controller: controller.pageController,
+                    scrollDirection: Axis.vertical,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) =>
+                        pageViewBuilderView(
+                            controller.usersList[index], context),
+                  ),
           ),
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:finder/constant/app_endpoints.dart';
-import 'package:finder/finder_app.dart';
 import 'package:finder/models/user_model.dart';
 import 'package:finder/utils/network_dio.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +6,20 @@ import 'package:get/get.dart';
 
 class HomeScreenController extends GetxController {
   RxList<UserModel> usersList = <UserModel>[].obs;
-
+  final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>(debugLabel: 'navigator');
   PageController pageController = PageController();
+  RxBool isLoading = true.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    getUsers();
+  }
+
   Future<void> getUsers() async {
     final Map<String, dynamic>? resposnse = await NetworkDio.getDioHttpMethod(
       url: ApiEndPoints.apiEndPoint + ApiEndPoints.homeAPI,
-      context: navigatorKey.currentContext,
     );
     if (resposnse != null) {
       List<UserModel> users = <UserModel>[];
@@ -22,6 +29,7 @@ class HomeScreenController extends GetxController {
         users.add(UserModel.fromJson(element as Map<String, dynamic>));
       }
       usersList.value = users;
+      isLoading.value = false;
     }
   }
 
