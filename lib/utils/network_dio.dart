@@ -165,7 +165,7 @@ class NetworkDio {
           options: cacheOptions,
         );
         if (kDebugMode) {
-          print('+++Response: $response');
+          print('+++Response: ' '$response');
         }
         Map<String, dynamic> responseBody = <String, dynamic>{};
         if (context != null) {
@@ -180,7 +180,7 @@ class NetworkDio {
             responseBody = response.data as Map<String, dynamic>;
           }
           if (responseBody['status'] == 200) {
-            return responseBody['data'] as Map<String, dynamic>;
+            return responseBody;
           } else {
             showError(
               title: 'Error',

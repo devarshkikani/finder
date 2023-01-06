@@ -33,7 +33,7 @@ class UserModel {
     required this.drinking,
     required this.smoking,
     required this.drugs,
-    required this.deviceToken,
+    // required this.deviceToken,
     required this.isActive,
   });
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -64,8 +64,8 @@ class UserModel {
         drinking: json['drinking'].toString(),
         smoking: json['smoking'].toString(),
         drugs: json['drugs'].toString(),
-        deviceToken:
-            List<dynamic>.from((json['deviceToken'] as List).map((x) => x)),
+        // deviceToken:
+        //     List<dynamic>.from((json['deviceToken'] as List).map((x) => x)),
         isActive: json['isActive'] as bool,
       );
 
@@ -93,7 +93,7 @@ class UserModel {
   String drinking;
   String smoking;
   String drugs;
-  List<dynamic> deviceToken;
+  // List<dynamic> deviceToken;
   bool isActive;
 
   Map<String, dynamic> toJson() => {
@@ -122,7 +122,7 @@ class UserModel {
         'drinking': drinking,
         'smoking': smoking,
         'drugs': drugs,
-        'deviceToken': List<dynamic>.from(deviceToken.map((x) => x)),
+        // 'deviceToken': List<dynamic>.from(deviceToken.map((x) => x)),
         'isActive': isActive,
       };
 }

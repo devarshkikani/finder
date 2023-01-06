@@ -6,4 +6,5 @@ class ApiEndPoints {
   static String otpVerify = 'user/otpVerification';
   static String registerUserDetails = 'user/register_user_details';
   static String uploadImages = 'upload/profile';
+  static String homeAPI = 'user/home';
 }

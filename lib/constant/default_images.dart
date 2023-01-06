@@ -32,3 +32,5 @@ const String cigaretteIcon = 'assets/images/cigarette_icon.png';
 const String drugsPillsIcon = 'assets/images/drugs_pills_icon.png';
 const String drinkIcon = 'assets/images/drink_icon.png';
 const String threedotsIcon = 'assets/images/threedots_icon.png';
+const String crossIcon = 'assets/images/cross_icon.png';
+const String likeHeartIcon = 'assets/images/like_heart_icon.png';

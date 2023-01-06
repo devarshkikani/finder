@@ -1,17 +1,23 @@
+// ignore_for_file: prefer_final_locals
+
 import 'dart:io';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:finder/constant/app_endpoints.dart';
+import 'package:finder/constant/const_variable.dart';
 import 'package:finder/constant/default_images.dart';
 import 'package:finder/constant/sizedbox.dart';
-import 'package:finder/constant/storage_key.dart';
+// import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/utils/network_dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:like_button/like_button.dart';
+// import 'package:get_storage/get_storage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,70 +27,315 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static GetStorage box = GetStorage();
-  static late UserModel userModel;
+  // static GetStorage box = GetStorage();
+  // static late UserModel currentUser;
+  static RxList<UserModel> usersList = <UserModel>[].obs;
+
+  PageController pageController = PageController();
   @override
   void initState() {
     super.initState();
-    userModel = UserModel.fromJson(
-        box.read(StorageKey.currentUser) as Map<String, dynamic>);
+    // currentUser = UserModel.fromJson(
+    //     box.read(StorageKey.currentUser) as Map<String, dynamic>);
+    getUsers();
+  }
+
+  Future<void> getUsers() async {
+    final Map<String, dynamic>? resposnse = await NetworkDio.getDioHttpMethod(
+        url: ApiEndPoints.apiEndPoint + ApiEndPoints.homeAPI, context: context);
+    if (resposnse != null) {
+      List<UserModel> users = <UserModel>[];
+      // ignore: always_specify_types
+      for (final element in resposnse['data'] as List) {
+        print(element['birthDate'].toString().replaceAll('T', ' ').trim());
+        users.add(UserModel.fromJson(element as Map<String, dynamic>));
+      }
+      usersList.value = users;
+    }
+  }
+
+  void showThreeDotDialog(UserModel userModel) {
+    showModalBottomSheet<int>(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext ctx) {
+        return SafeArea(
+          child: Container(
+            height: 100,
+            margin: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: whiteColor,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pop(ctx);
+                      showReasonDialog('Remove', userModel);
+                    },
+                    child: Center(
+                      child: Text(
+                        'Remove',
+                        style: regularText16,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 1,
+                  color: darkGrey,
+                ),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pop(ctx);
+                      showReasonDialog('Block', userModel);
+                    },
+                    child: Center(
+                      child: Text(
+                        'Block',
+                        style: regularText16.copyWith(color: primary),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void showReasonDialog(String title, UserModel userModel) {
+    showModalBottomSheet<int>(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext ctx) {
+        return SafeArea(
+          child: Container(
+            height: 380,
+            margin: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: whiteColor,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topRight,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pop(ctx);
+                    },
+                    child: const Icon(
+                      Icons.close,
+                    ),
+                  ),
+                ),
+                Text(
+                  title,
+                  style: mediumText24,
+                ),
+                Text(
+                  'Your reason is private',
+                  style: mediumText16.copyWith(
+                    color: darkGrey,
+                  ),
+                ),
+                height10,
+                ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: ConstVariable.reasonsList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.pop(ctx);
+                          NetworkDio.showError(
+                              title: '$title!!',
+                              errorMessage:
+                                  '''You have been successfully ${title}ed ${userModel.firstName}''');
+                          pageController.nextPage(
+                            duration: const Duration(
+                              seconds: 1,
+                            ),
+                            curve: Curves.easeOutSine,
+                          );
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.only(
+                            bottom: 10,
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 5,
+                          ),
+                          decoration: BoxDecoration(
+                            color: darkGrey,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            ConstVariable.reasonsList[index],
+                            style: regularText14,
+                          ),
+                        ),
+                      );
+                    }),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                profileView(),
-                height20,
-                userDetailsView(),
-                height20,
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: userModel.photos.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      imageView(index),
-                ),
-              ],
-            ),
+        child: Obx(
+          () => PageView.builder(
+            itemCount: usersList.length,
+            controller: pageController,
+            scrollDirection: Axis.vertical,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) =>
+                pageViewBuilderView(usersList[index]),
           ),
         ),
       ),
     );
   }
 
-  Widget profileView() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+  Widget pageViewBuilderView(UserModel userModel) {
+    return Stack(
+      alignment: Alignment.bottomCenter,
       children: <Widget>[
-        height20,
+        SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                profileView(userModel),
+                height20,
+                userDetailsView(userModel),
+                height20,
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: userModel.photos.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      imageView(index, userModel),
+                ),
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      showThreeDotDialog(userModel);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 25),
+                      child: Image.asset(
+                        threedotsIcon,
+                        height: 30,
+                        width: 30,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(
-              '''${userModel.lastName}, ${age(userModel.birthDate.toString())}''',
-              style: mediumText24,
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                ),
+            Container(
+              margin: const EdgeInsets.only(bottom: 10, left: 20),
+              height: 60,
+              width: 60,
+              padding: const EdgeInsets.all(17),
+              decoration: BoxDecoration(
+                color: whiteColor,
+                borderRadius: BorderRadius.circular(60),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 10,
+                    spreadRadius: 0.2,
+                  ),
+                ],
+              ),
+              child: InkWell(
+                onTap: () {
+                  pageController.previousPage(
+                    duration: const Duration(
+                      seconds: 1,
+                    ),
+                    curve: Curves.easeOutSine,
+                  );
+                },
                 child: Image.asset(
-                  threedotsIcon,
-                  height: 24,
-                  width: 24,
+                  crossIcon,
+                  color: blackColor,
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(bottom: 10, right: 20),
+              height: 60,
+              width: 60,
+              decoration: BoxDecoration(
+                color: whiteColor,
+                borderRadius: BorderRadius.circular(60),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 10,
+                    spreadRadius: 0.2,
+                  ),
+                ],
+              ),
+              child: Center(
+                child: LikeButton(
+                  bubblesColor: const BubblesColor(
+                    dotPrimaryColor: primary,
+                    dotSecondaryColor: primary,
+                  ),
+                  animationDuration: const Duration(
+                    milliseconds: 500,
+                  ),
+                  onTap: (bool isLiked) async {
+                    pageController.nextPage(
+                      duration: const Duration(
+                        milliseconds: 1300,
+                      ),
+                      curve: Curves.easeOutSine,
+                    );
+                    return !isLiked;
+                  },
                 ),
               ),
             ),
           ],
+        ),
+      ],
+    );
+  }
+
+  Widget profileView(UserModel userModel) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        height20,
+        Text(
+          '''${userModel.lastName}, ${age(userModel.birthDate.toString())}''',
+          style: mediumText24,
         ),
         height10,
         Container(
@@ -113,7 +364,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget imageView(int index) {
+  Widget imageView(int index, UserModel userModel) {
     return Stack(
       clipBehavior: Clip.none,
       children: <Widget>[
@@ -172,7 +423,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget userDetailsView() {
+  Widget userDetailsView(UserModel userModel) {
     return Wrap(
       alignment: WrapAlignment.start,
       crossAxisAlignment: WrapCrossAlignment.start,
