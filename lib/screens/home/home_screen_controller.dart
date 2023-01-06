@@ -33,12 +33,26 @@ class HomeScreenController extends GetxController {
     }
   }
 
-  void moveNextPage() {
+  Future<void> moveNextPage(String? reciverUserID) async {
     pageController.nextPage(
       duration: const Duration(
         seconds: 1,
       ),
       curve: Curves.easeOutSine,
     );
+    if (reciverUserID != null) {
+      await addRoom(reciverUserID);
+    }
+  }
+
+  Future<void> addRoom(String reciverUserID) async {
+    final Map<String, dynamic>? resposnse = await NetworkDio.postDioHttpMethod(
+        url: ApiEndPoints.apiEndPoint + ApiEndPoints.addRoom,
+        data: <String, dynamic>{
+          'userIds': <String>[reciverUserID]
+        });
+    if (resposnse != null) {
+      print(resposnse);
+    }
   }
 }

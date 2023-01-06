@@ -7,4 +7,5 @@ class ApiEndPoints {
   static String registerUserDetails = 'user/register_user_details';
   static String uploadImages = 'upload/profile';
   static String homeAPI = 'user/home';
+  static String addRoom = 'user/room/add';
 }

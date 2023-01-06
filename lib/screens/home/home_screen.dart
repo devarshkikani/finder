@@ -122,7 +122,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                               title: '$title!!',
                               errorMessage:
                                   '''You have been successfully $title ${userModel.firstName}''');
-                          controller.moveNextPage();
+                          controller.moveNextPage(null);
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -237,7 +237,7 @@ class HomeScreen extends GetView<HomeScreenController> {
               ),
               child: InkWell(
                 onTap: () {
-                  controller.moveNextPage();
+                  controller.moveNextPage(userModel.id);
                 },
                 child: Image.asset(
                   crossIcon,
@@ -270,7 +270,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                     milliseconds: 500,
                   ),
                   onTap: (bool isLiked) async {
-                    controller.moveNextPage();
+                    controller.moveNextPage(userModel.id);
                     return !isLiked;
                   },
                 ),
