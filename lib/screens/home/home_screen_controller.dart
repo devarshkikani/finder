@@ -25,7 +25,6 @@ class HomeScreenController extends GetxController {
       List<UserModel> users = <UserModel>[];
       // ignore: always_specify_types
       for (final element in resposnse['data'] as List) {
-        print(element['birthDate'].toString().replaceAll('T', ' ').trim());
         users.add(UserModel.fromJson(element as Map<String, dynamic>));
       }
       usersList.value = users;

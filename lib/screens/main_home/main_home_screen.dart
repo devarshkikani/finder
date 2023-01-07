@@ -1,4 +1,5 @@
 import 'package:finder/screens/chat/chat_screen.dart';
+import 'package:finder/screens/chat/chat_screen_controller.dart';
 import 'package:finder/screens/home/home_screen.dart';
 import 'package:finder/screens/home/home_screen_controller.dart';
 import 'package:finder/screens/profile/profile_screen.dart';
@@ -16,7 +17,10 @@ class MainHomeScreen extends StatelessWidget {
       init: HomeScreenController(),
       builder: (_) => HomeScreen(),
     ),
-    const ChatScreen(),
+    GetBuilder<ChatScreenController>(
+      init: ChatScreenController(),
+      builder: (_) => ChatScreen(),
+    ),
     const UserProfileScreen(),
   ];
 

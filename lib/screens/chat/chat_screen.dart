@@ -1,19 +1,14 @@
 import 'package:finder/constant/default_images.dart';
 import 'package:finder/constant/sizedbox.dart';
+import 'package:finder/models/chat_room.dart';
+import 'package:finder/screens/chat/chat_screen_controller.dart';
 import 'package:finder/screens/chat/chating_details_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
-
-  @override
-  State<ChatScreen> createState() => _ChatScreenState();
-}
-
-class _ChatScreenState extends State<ChatScreen> {
+class ChatScreen extends GetView<ChatScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,91 +57,103 @@ class _ChatScreenState extends State<ChatScreen> {
                         topRight: Radius.circular(20),
                       ),
                     ),
-                    child: ListView.separated(
-                      itemCount: 4,
-                      shrinkWrap: true,
-                      separatorBuilder: (BuildContext context, int index) {
-                        return Container(
-                          height: 1,
-                          color: darkGrey,
-                          margin: const EdgeInsets.symmetric(
-                            vertical: 10,
-                          ),
-                        );
-                      },
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Get.to(() => const ChatDetaisScreen());
-                          },
-                          child: Container(
+                    child: Obx(
+                      () => ListView.separated(
+                        itemCount: controller.roomsList.length,
+                        shrinkWrap: true,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return Container(
+                            height: 1,
+                            color: darkGrey,
                             margin: const EdgeInsets.symmetric(
-                              horizontal: 10,
+                              vertical: 10,
                             ),
-                            child: Row(
-                              children: <Widget>[
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: Image.network(
-                                    '''https://media.istockphoto.com/id/1311084168/photo/overjoyed-pretty-asian-woman-look-at-camera-with-sincere-laughter.jpg?b=1&s=170667a&w=0&k=20&c=XPuGhP9YyCWquTGT-tUFk6TwI-HZfOr1jNkehKQ17g0=''',
-                                    fit: BoxFit.cover,
-                                    height: 40,
-                                    width: 40,
+                          );
+                        },
+                        itemBuilder: (BuildContext context, int index) {
+                          final ChatRoom chatRoomDetails = ChatRoom.fromJson(
+                              controller.roomsList[index]
+                                  as Map<String, dynamic>);
+                          return GestureDetector(
+                            onTap: () async {
+                              controller.currentChatRoom = chatRoomDetails;
+                              await controller.getMessages(context);
+                              await controller.initSocket(controller
+                                  .currentChatRoom.user.id
+                                  .toString());
+                              Get.to(() => ChatDetaisScreen());
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                              ),
+                              color: Colors.transparent,
+                              child: Row(
+                                children: <Widget>[
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.network(
+                                      chatRoomDetails.user.photos![0]
+                                          .toString(),
+                                      fit: BoxFit.cover,
+                                      height: 40,
+                                      width: 40,
+                                    ),
                                   ),
-                                ),
-                                width10,
-                                Expanded(
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text(
-                                            'Devarsh Kikani',
-                                            style: regularText14,
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.all(4),
-                                            decoration: const BoxDecoration(
-                                              color: primary,
-                                              shape: BoxShape.circle,
+                                  width10,
+                                  Expanded(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              '''${chatRoomDetails.user.firstName} ${chatRoomDetails.user.lastName}''',
+                                              style: regularText14,
                                             ),
-                                            child: Text(
-                                              '3',
-                                              style: regularText12.copyWith(
-                                                color: whiteColor,
+                                            Container(
+                                              padding: const EdgeInsets.all(4),
+                                              decoration: const BoxDecoration(
+                                                color: primary,
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Text(
+                                                '3',
+                                                style: regularText12.copyWith(
+                                                  color: whiteColor,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text(
-                                            'plan is going to suffer',
-                                            style: regularText14.copyWith(
-                                              color: greyColor,
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              'plan is going to suffer',
+                                              style: regularText14.copyWith(
+                                                color: greyColor,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            '5:45 PM',
-                                            style: regularText12.copyWith(
-                                              color: greyColor,
+                                            Text(
+                                              '5:45 PM',
+                                              style: regularText12.copyWith(
+                                                color: greyColor,
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

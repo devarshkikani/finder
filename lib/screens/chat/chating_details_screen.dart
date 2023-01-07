@@ -2,82 +2,84 @@ import 'dart:io';
 
 import 'package:finder/constant/default_images.dart';
 import 'package:finder/constant/sizedbox.dart';
+import 'package:finder/screens/chat/chat_screen_controller.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ChatDetaisScreen extends StatefulWidget {
-  const ChatDetaisScreen({super.key});
-
-  @override
-  State<ChatDetaisScreen> createState() => _ChatDetaisScreenState();
-}
-
-class _ChatDetaisScreenState extends State<ChatDetaisScreen> {
+class ChatDetaisScreen extends GetView<ChatScreenController> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: whiteColor,
-      body: Stack(
-        children: <Widget>[
-          Image.asset(
-            nightSky,
-            fit: BoxFit.cover,
-            height: Get.height,
-            width: Get.width,
-          ),
-          SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                height10,
-                topView(),
-                height20,
-                chatView(),
-                height5,
-                Container(
-                  height: 50,
-                  padding: const EdgeInsets.fromLTRB(10, 3, 10, 10),
-                  decoration: const BoxDecoration(
-                    color: darkGrey,
-                  ),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: TextFormField(
-                          textCapitalization: TextCapitalization.sentences,
-                          textInputAction: TextInputAction.newline,
-                          maxLines: 10,
-                          textAlignVertical: TextAlignVertical.center,
-                          textAlign: TextAlign.left,
-                          decoration: InputDecoration(
-                            hintText: 'Type a message',
-                            isDense: true,
-                            contentPadding: const EdgeInsets.only(top: 8),
-                            border: InputBorder.none,
-                            suffixIconConstraints: const BoxConstraints(
-                              maxHeight: 26,
-                            ),
-                            suffixIcon: GestureDetector(
-                              onTap: () {
-                                FocusScope.of(context).unfocus();
-                              },
-                              child: Image.asset(
-                                sendIcon,
+    return WillPopScope(
+      onWillPop: () async {
+        controller.socket
+          ..disconnect()
+          ..dispose();
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: whiteColor,
+        body: Stack(
+          children: <Widget>[
+            SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  height10,
+                  topView(),
+                  height20,
+                  chatView(),
+                  height5,
+                  Container(
+                    height: 50,
+                    padding: const EdgeInsets.fromLTRB(10, 3, 10, 10),
+                    decoration: const BoxDecoration(
+                      color: darkGrey,
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: TextFormField(
+                            controller: controller.chatController,
+                            textCapitalization: TextCapitalization.sentences,
+                            textInputAction: TextInputAction.newline,
+                            maxLines: 10,
+                            textAlignVertical: TextAlignVertical.center,
+                            textAlign: TextAlign.left,
+                            decoration: InputDecoration(
+                              hintText: 'Type a message',
+                              isDense: true,
+                              contentPadding: const EdgeInsets.only(top: 8),
+                              border: InputBorder.none,
+                              suffixIconConstraints: const BoxConstraints(
+                                maxHeight: 26,
+                              ),
+                              suffixIcon: GestureDetector(
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  controller.sendMessage(
+                                    controller.chatController.text,
+                                    controller.currentChatRoom.user.id
+                                        .toString(),
+                                  );
+                                },
+                                child: Image.asset(
+                                  sendIcon,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      width5,
-                    ],
+                        width5,
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -87,6 +89,9 @@ class _ChatDetaisScreenState extends State<ChatDetaisScreen> {
       children: <Widget>[
         IconButton(
           onPressed: () {
+            controller.socket
+              ..disconnect()
+              ..dispose();
             Get.back();
           },
           padding: EdgeInsets.zero,
@@ -101,7 +106,7 @@ class _ChatDetaisScreenState extends State<ChatDetaisScreen> {
         ClipRRect(
           borderRadius: BorderRadius.circular(100),
           child: Image.network(
-            '''https://media.istockphoto.com/id/1311084168/photo/overjoyed-pretty-asian-woman-look-at-camera-with-sincere-laughter.jpg?b=1&s=170667a&w=0&k=20&c=XPuGhP9YyCWquTGT-tUFk6TwI-HZfOr1jNkehKQ17g0=''',
+            controller.currentChatRoom.user.photos![0].toString(),
             fit: BoxFit.cover,
             height: 40,
             width: 40,
@@ -113,7 +118,7 @@ class _ChatDetaisScreenState extends State<ChatDetaisScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Debra Neugan',
+                '''${controller.currentChatRoom.user.firstName} ${controller.currentChatRoom.user.lastName}''',
                 style: mediumText20.copyWith(
                   color: whiteColor,
                 ),
@@ -141,57 +146,62 @@ class _ChatDetaisScreenState extends State<ChatDetaisScreen> {
     return Expanded(
       child: Align(
         alignment: Alignment.bottomCenter,
-        child: ListView.builder(
-          itemCount: 5,
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(10),
-          itemBuilder: (BuildContext context, int index) {
-            return Row(
-              mainAxisAlignment: index.isEven
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.end,
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: index.isEven
-                      ? CrossAxisAlignment.start
-                      : CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 5),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: const Radius.circular(20),
-                          bottomRight: const Radius.circular(20),
-                          topLeft: index.isEven
-                              ? Radius.zero
-                              : const Radius.circular(20),
-                          topRight: index.isEven
-                              ? const Radius.circular(20)
-                              : Radius.zero,
+        child: Obx(
+          () => ListView.builder(
+            itemCount: controller.messagesList.length,
+            shrinkWrap: true,
+            controller: controller.scrollController,
+            padding: const EdgeInsets.all(10),
+            itemBuilder: (BuildContext context, int index) {
+              final bool isMe = controller.messagesList[index]['senderId'] !=
+                  controller.currentUser.id;
+              return Row(
+                mainAxisAlignment:
+                    isMe ? MainAxisAlignment.start : MainAxisAlignment.end,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: isMe
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Container(
+                        constraints: BoxConstraints(
+                          maxWidth: Get.width / 1.5,
                         ),
-                        color:
-                            index.isEven ? primary.withOpacity(0.8) : darkGrey,
+                        margin: const EdgeInsets.only(bottom: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: const Radius.circular(20),
+                            bottomRight: const Radius.circular(20),
+                            topLeft:
+                                isMe ? Radius.zero : const Radius.circular(20),
+                            topRight:
+                                isMe ? const Radius.circular(20) : Radius.zero,
+                          ),
+                          color: isMe ? primary.withOpacity(0.8) : darkGrey,
+                        ),
+                        child: Text(
+                          controller.messagesList[index]['message'].toString(),
+                          maxLines: 11000,
+                          style: regularText14.copyWith(
+                            color: isMe ? whiteColor : blackColor,
+                          ),
+                        ),
                       ),
-                      child: Text(
-                        'Good Night',
+                      Text(
+                        '9:21 PM',
                         style: regularText14.copyWith(
-                          color: index.isEven ? whiteColor : blackColor,
+                          color: darkGrey,
                         ),
                       ),
-                    ),
-                    Text(
-                      '9:21 PM',
-                      style: regularText14.copyWith(
-                        color: darkGrey,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            );
-          },
+                    ],
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

@@ -237,7 +237,7 @@ class HomeScreen extends GetView<HomeScreenController> {
               ),
               child: InkWell(
                 onTap: () {
-                  controller.moveNextPage(userModel.id);
+                  controller.moveNextPage(null);
                 },
                 child: Image.asset(
                   crossIcon,
