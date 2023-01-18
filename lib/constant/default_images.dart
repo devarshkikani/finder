@@ -1,4 +1,5 @@
 const String appLogo = 'assets/images/finder_white.png';
+const String appLogoTransparent = 'assets/images/finder_transparent.png';
 const String authBackground = 'assets/images/auth_background.jpeg';
 const String googleLogo = 'assets/images/google_logo.jpg';
 const String facebookLogo = 'assets/images/facebook_logo.png';

@@ -155,6 +155,7 @@ class HomeScreen extends GetView<HomeScreenController> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: controller.navigatorKey,
+      backgroundColor: lightBlack,
       body: SafeArea(
         child: Obx(
           () => Center(
@@ -180,6 +181,7 @@ class HomeScreen extends GetView<HomeScreenController> {
       alignment: Alignment.bottomCenter,
       children: <Widget>[
         SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -208,6 +210,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                         threedotsIcon,
                         height: 30,
                         width: 30,
+                        color: whiteColor,
                       ),
                     ),
                   ),
@@ -224,14 +227,14 @@ class HomeScreen extends GetView<HomeScreenController> {
               height: 60,
               width: 60,
               padding: const EdgeInsets.all(17),
-              decoration: BoxDecoration(
-                color: whiteColor,
-                borderRadius: BorderRadius.circular(60),
+              decoration: const BoxDecoration(
+                color: lightBlack,
+                shape: BoxShape.circle,
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
+                    color: lightGrey,
+                    spreadRadius: 0.5,
                     blurRadius: 10,
-                    spreadRadius: 0.2,
                   ),
                 ],
               ),
@@ -241,7 +244,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                 },
                 child: Image.asset(
                   crossIcon,
-                  color: blackColor,
+                  color: greyColor,
                 ),
               ),
             ),
@@ -249,14 +252,14 @@ class HomeScreen extends GetView<HomeScreenController> {
               margin: const EdgeInsets.only(bottom: 10, right: 20),
               height: 60,
               width: 60,
-              decoration: BoxDecoration(
-                color: whiteColor,
-                borderRadius: BorderRadius.circular(60),
+              decoration: const BoxDecoration(
+                color: lightBlack,
+                shape: BoxShape.circle,
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
+                    color: lightGrey,
+                    spreadRadius: 0.5,
                     blurRadius: 10,
-                    spreadRadius: 0.2,
                   ),
                 ],
               ),
@@ -289,7 +292,9 @@ class HomeScreen extends GetView<HomeScreenController> {
         height20,
         Text(
           '''${userModel.lastName}, ${age(userModel.birthDate.toString())}''',
-          style: mediumText24,
+          style: mediumText24.copyWith(
+            color: whiteColor,
+          ),
         ),
         height10,
         Container(
@@ -448,7 +453,7 @@ class HomeScreen extends GetView<HomeScreenController> {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: darkGrey,
+        color: lightGrey,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -458,10 +463,14 @@ class HomeScreen extends GetView<HomeScreenController> {
             image,
             height: 25,
             width: 25,
+            color: whiteColor,
           ),
           width5,
           Text(
             name,
+            style: regularText14.copyWith(
+              color: whiteColor,
+            ),
           ),
         ],
       ),

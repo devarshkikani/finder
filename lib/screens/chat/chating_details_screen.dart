@@ -19,7 +19,7 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: whiteColor,
+        backgroundColor: lightBlack,
         body: Stack(
           children: <Widget>[
             SafeArea(
@@ -34,9 +34,6 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
                   Container(
                     height: 50,
                     padding: const EdgeInsets.fromLTRB(10, 3, 10, 10),
-                    decoration: const BoxDecoration(
-                      color: darkGrey,
-                    ),
                     child: Row(
                       children: <Widget>[
                         Expanded(
@@ -44,14 +41,19 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
                             controller: controller.chatController,
                             textCapitalization: TextCapitalization.sentences,
                             textInputAction: TextInputAction.newline,
-                            maxLines: 10,
+                            maxLines: 11000,
                             textAlignVertical: TextAlignVertical.center,
                             textAlign: TextAlign.left,
+                            style: regularText14.copyWith(color: whiteColor),
                             decoration: InputDecoration(
-                              hintText: 'Type a message',
                               isDense: true,
-                              contentPadding: const EdgeInsets.only(top: 8),
                               border: InputBorder.none,
+                              fillColor: lightBlack,
+                              hintText: 'Type a message...',
+                              hintStyle: regularText14.copyWith(
+                                  color: lightGrey,
+                                  fontFamily: 'source_serif_pro'),
+                              contentPadding: const EdgeInsets.only(top: 8),
                               suffixIconConstraints: const BoxConstraints(
                                 maxHeight: 26,
                               ),
@@ -66,6 +68,7 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
                                 },
                                 child: Image.asset(
                                   sendIcon,
+                                  color: whiteColor,
                                 ),
                               ),
                             ),
@@ -87,19 +90,27 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
   Widget topView() {
     return Row(
       children: <Widget>[
-        IconButton(
-          onPressed: () {
+        GestureDetector(
+          onTap: () {
             controller.socket
               ..disconnect()
               ..dispose();
             Get.back();
           },
-          padding: EdgeInsets.zero,
-          icon: Icon(
-            Platform.isIOS
-                ? Icons.arrow_back_ios_new_rounded
-                : Icons.arrow_back,
-            color: whiteColor,
+          child: Container(
+            margin: const EdgeInsets.only(left: 8),
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: lightGrey.withOpacity(0.30),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              Platform.isIOS
+                  ? Icons.arrow_back_ios_new_rounded
+                  : Icons.arrow_back,
+              color: whiteColor,
+              size: 18,
+            ),
           ),
         ),
         width10,
@@ -112,30 +123,42 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
             width: 40,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                '''${controller.currentChatRoom.user.firstName} ${controller.currentChatRoom.user.lastName}''',
-                style: mediumText20.copyWith(
-                  color: whiteColor,
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  '''${controller.currentChatRoom.user.firstName} ${controller.currentChatRoom.user.lastName}''',
+                  overflow: TextOverflow.ellipsis,
+                  style: mediumText20.copyWith(
+                    color: whiteColor,
+                  ),
                 ),
-              ),
-              Text(
-                'Online',
-                style: regularText16.copyWith(
-                  color: darkGrey,
+                Text(
+                  'Online',
+                  style: regularText16.copyWith(
+                    color: primary,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-        const Spacer(),
-        const Icon(
-          Icons.more_vert_rounded,
-          color: whiteColor,
+        // const Spacer(),
+        Container(
+          margin: const EdgeInsets.only(left: 8),
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: lightGrey.withOpacity(0.30),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: const Icon(
+            Icons.more_vert_rounded,
+            color: whiteColor,
+            size: 18,
+          ),
         ),
         width15,
       ],
@@ -148,9 +171,10 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
         alignment: Alignment.bottomCenter,
         child: Obx(
           () => ListView.builder(
-            itemCount: controller.messagesList.length,
             shrinkWrap: true,
             controller: controller.scrollController,
+            physics: const BouncingScrollPhysics(),
+            itemCount: controller.messagesList.length,
             padding: const EdgeInsets.all(10),
             itemBuilder: (BuildContext context, int index) {
               final bool isMe = controller.messagesList[index]['senderId'] !=
@@ -173,26 +197,26 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
                             horizontal: 12, vertical: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
-                            bottomLeft: const Radius.circular(20),
-                            bottomRight: const Radius.circular(20),
-                            topLeft:
+                            bottomLeft:
                                 isMe ? Radius.zero : const Radius.circular(20),
+                            bottomRight: const Radius.circular(20),
+                            topLeft: const Radius.circular(20),
                             topRight:
                                 isMe ? const Radius.circular(20) : Radius.zero,
                           ),
-                          color: isMe ? primary.withOpacity(0.8) : darkGrey,
+                          color: isMe ? primary.withOpacity(0.8) : lightGrey,
                         ),
                         child: Text(
                           controller.messagesList[index]['message'].toString(),
                           maxLines: 11000,
                           style: regularText14.copyWith(
-                            color: isMe ? whiteColor : blackColor,
+                            color: isMe ? whiteColor : darkGrey,
                           ),
                         ),
                       ),
                       Text(
                         '9:21 PM',
-                        style: regularText14.copyWith(
+                        style: regularText12.copyWith(
                           color: darkGrey,
                         ),
                       ),

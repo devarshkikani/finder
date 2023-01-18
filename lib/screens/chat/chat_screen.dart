@@ -1,4 +1,3 @@
-import 'package:finder/constant/default_images.dart';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/models/chat_room.dart';
 import 'package:finder/screens/chat/chat_screen_controller.dart';
@@ -12,15 +11,9 @@ class ChatScreen extends GetView<ChatScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: lightBlack,
       body: Stack(
         children: <Widget>[
-          Image.asset(
-            nightSky,
-            fit: BoxFit.cover,
-            height: Get.height,
-            width: Get.width,
-          ),
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,29 +30,14 @@ class ChatScreen extends GetView<ChatScreenController> {
                 ),
                 height20,
                 Expanded(
-                  child: Container(
+                  child: Padding(
                     padding: const EdgeInsets.only(
                       top: 20,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: <Color>[
-                          whiteColor,
-                          whiteColor.withOpacity(0.2)
-                        ],
-                        begin: const FractionalOffset(1, 0.9),
-                        end: const FractionalOffset(3, -3),
-                        stops: const <double>[0, 2],
-                        tileMode: TileMode.clamp,
-                      ),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
                     ),
                     child: Obx(
                       () => ListView.separated(
                         itemCount: controller.roomsList.length,
+                        physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
                         separatorBuilder: (BuildContext context, int index) {
                           return Container(
@@ -110,7 +88,10 @@ class ChatScreen extends GetView<ChatScreenController> {
                                           children: <Widget>[
                                             Text(
                                               '''${chatRoomDetails.user.firstName} ${chatRoomDetails.user.lastName}''',
-                                              style: regularText14,
+                                              style: mediumText14.copyWith(
+                                                color: whiteColor,
+                                                letterSpacing: 0.2,
+                                              ),
                                             ),
                                             Container(
                                               padding: const EdgeInsets.all(4),
@@ -134,13 +115,13 @@ class ChatScreen extends GetView<ChatScreenController> {
                                             Text(
                                               'plan is going to suffer',
                                               style: regularText14.copyWith(
-                                                color: greyColor,
+                                                color: lightGrey,
                                               ),
                                             ),
                                             Text(
                                               '5:45 PM',
                                               style: regularText12.copyWith(
-                                                color: greyColor,
+                                                color: lightGrey,
                                               ),
                                             ),
                                           ],

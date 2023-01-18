@@ -40,78 +40,67 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteColor,
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: <Color>[whiteColor, primary.withOpacity(0.4)],
-            begin: const FractionalOffset(1, 0.9),
-            end: const FractionalOffset(3, -3),
-            stops: const <double>[0, 2],
-            tileMode: TileMode.clamp,
-          ),
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                height30,
-                profileView(),
-                height20,
-                detailsSection(),
-                height30,
-                Container(
-                  height: 125,
-                  width: Get.width,
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    color: darkGrey.withOpacity(0.15),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Stack(
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 2),
-                          child: Image.asset(
-                            back,
-                            height: 100,
-                            color: darkGrey.withOpacity(0.1),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            height10,
-                            Text(
-                              'COMING SOON',
-                              style: boldText24.copyWith(
-                                color: primary,
-                              ),
-                            ),
-                            const Spacer(),
-                            Text(
-                              '''We are new here. so our developer is working hard for new functionality so till enjoy our current functionality.''',
-                              textAlign: TextAlign.center,
-                              style: regularText14.copyWith(
-                                color: blackColor,
-                              ),
-                            ),
-                            height15,
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+      backgroundColor: lightBlack,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              height30,
+              profileView(),
+              height20,
+              detailsSection(),
+              height30,
+              Container(
+                height: 125,
+                width: Get.width,
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  color: lightGrey.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                height20,
-                bottomView(),
-              ],
-            ),
+                child: Stack(
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 2),
+                        child: Image.asset(
+                          back,
+                          height: 100,
+                          color: lightGrey.withOpacity(0.1),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          height10,
+                          Text(
+                            'COMING SOON',
+                            style: boldText24.copyWith(
+                              color: primary,
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(
+                            '''We are new here. so our developer is working hard for new functionality so till enjoy our current functionality.''',
+                            textAlign: TextAlign.center,
+                            style: regularText14.copyWith(
+                              color: whiteColor,
+                            ),
+                          ),
+                          height15,
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              height30,
+              bottomView(),
+            ],
           ),
         ),
       ),
@@ -128,7 +117,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: blackColor,
+              color: lightGrey,
               width: 2,
             ),
           ),
@@ -156,7 +145,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           children: <Widget>[
             Text(
               '''${userModel.lastName}, ${age(userModel.birthDate.toString())}''',
-              style: mediumText24,
+              style: mediumText24.copyWith(
+                color: whiteColor,
+              ),
             ),
           ],
         ),
@@ -192,13 +183,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return Column(
       children: <Widget>[
         Image.asset(
-          appLogo,
-          height: 100,
+          appLogoTransparent,
+          height: 50,
         ),
+        height10,
         Text(
           'Version\n   1.0.1',
           style: mediumText14.copyWith(
-            color: darkGrey,
+            color: lightGrey,
           ),
         ),
       ],
@@ -219,20 +211,34 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.all(10),
+                // decoration: BoxDecoration(
+                //   color: lightGrey,
+                //   shape: BoxShape.circle,
+                // ),
                 decoration: const BoxDecoration(
-                  color: whiteColor,
+                  color: lightBlack,
                   shape: BoxShape.circle,
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: lightGrey,
+                      spreadRadius: 0.5,
+                      blurRadius: 10,
+                    ),
+                  ],
                 ),
                 child: Image.asset(
                   image,
                   height: 40,
                   width: 40,
+                  color: whiteColor,
                 ),
               ),
               height10,
               Text(
                 title,
-                style: mediumText16,
+                style: mediumText16.copyWith(
+                  color: whiteColor,
+                ),
               ),
             ],
           ),

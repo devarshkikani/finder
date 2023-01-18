@@ -28,12 +28,13 @@ class MainHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
+        backgroundColor: lightBlack,
         body: pages[selectedIndex.value],
         bottomNavigationBar: Container(
           height: 70,
           padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: const BoxDecoration(
-            color: whiteColor,
+            color: lightBlack,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
