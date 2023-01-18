@@ -10,8 +10,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class LanguageScreen extends StatelessWidget {
-  const LanguageScreen({super.key});
+  LanguageScreen({
+    super.key,
+    required this.isEdit,
+  });
 
+  RxBool isEdit = false.obs;
   static GetStorage box = GetStorage();
   static late UserModel userModel;
   static List<String> tongueList = <String>[
@@ -72,7 +76,13 @@ class LanguageScreen extends StatelessWidget {
                             StorageKey.currentUser,
                             userModel.toJson(),
                           );
-                          Get.to(() => const GraduationScreen());
+                          if (isEdit.value) {
+                            Get.back(result: true);
+                          } else {
+                            Get.to(() => GraduationScreen(
+                                  isEdit: false.obs,
+                                ));
+                          }
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

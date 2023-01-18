@@ -50,7 +50,7 @@ class UserModel {
             : null,
         gender: json['gender'].toString(),
         height: json['height'].toString(),
-        photos: List<dynamic>.from((json['photos'] as List).map((x) => x)),
+        photos: List<String?>.from((json['photos'] as List).map((x) => x)),
         isProfileCompleted: json['isProfileCompleted'] as bool,
         ethnicity: json['ethnicity'].toString(),
         sexuality: json['sexuality'].toString(),
@@ -80,7 +80,7 @@ class UserModel {
   DateTime? birthDate;
   String gender;
   String height;
-  List<dynamic> photos;
+  List<String?> photos;
   bool isProfileCompleted;
   String ethnicity;
   String sexuality;

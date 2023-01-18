@@ -87,7 +87,9 @@ class JobTitleScreen extends StatelessWidget {
                         userModel.jobTitle = jobTitleController.text;
                         userModel.work = jobPlaceController.text;
                         box.write(StorageKey.currentUser, userModel.toJson());
-                        Get.to(() => const DrinkingScreen());
+                        Get.to(() => DrinkingScreen(
+                              isEdit: false.obs,
+                            ));
                       }
                     : null,
               ),
@@ -102,7 +104,11 @@ class JobTitleScreen extends StatelessWidget {
                             userModel.work = jobPlaceController.text;
                             box.write(
                                 StorageKey.currentUser, userModel.toJson());
-                            Get.to(() => const DrinkingScreen());
+                            Get.to(
+                              () => DrinkingScreen(
+                                isEdit: false.obs,
+                              ),
+                            );
                           }
                         : null,
                   ),

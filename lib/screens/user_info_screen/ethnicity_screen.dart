@@ -11,8 +11,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class EthnicityScreen extends StatelessWidget {
-  const EthnicityScreen({super.key});
+  EthnicityScreen({
+    super.key,
+    required this.isEdit,
+  });
 
+  RxBool isEdit = false.obs;
   static RxString ethnicity = ''.obs;
   static GetStorage box = GetStorage();
   static late UserModel userModel;
@@ -79,7 +83,7 @@ class EthnicityScreen extends StatelessWidget {
                 Center(
                   child: Obx(
                     () => elevatedButton(
-                      title: 'Continue',
+                      title: isEdit.value ? 'Save' : 'Continue',
                       onTap: ethnicity.value != ''
                           ? () {
                               userModel.ethnicity = ethnicity.value;
@@ -87,7 +91,15 @@ class EthnicityScreen extends StatelessWidget {
                                 StorageKey.currentUser,
                                 userModel.toJson(),
                               );
-                              Get.to(() => const UserHeightScreen());
+                              if (isEdit.value) {
+                                Get.back(
+                                  result: true,
+                                );
+                              } else {
+                                Get.to(() => UserHeightScreen(
+                                      isEdit: false.obs,
+                                    ));
+                              }
                             }
                           : null,
                     ),

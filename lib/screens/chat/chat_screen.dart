@@ -1,3 +1,4 @@
+import 'package:finder/constant/divider.dart';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/models/chat_room.dart';
 import 'package:finder/screens/chat/chat_screen_controller.dart';
@@ -40,13 +41,7 @@ class ChatScreen extends GetView<ChatScreenController> {
                         physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
                         separatorBuilder: (BuildContext context, int index) {
-                          return Container(
-                            height: 1,
-                            color: darkGrey,
-                            margin: const EdgeInsets.symmetric(
-                              vertical: 10,
-                            ),
-                          );
+                          return dividers(10);
                         },
                         itemBuilder: (BuildContext context, int index) {
                           final ChatRoom chatRoomDetails = ChatRoom.fromJson(

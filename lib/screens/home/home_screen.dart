@@ -291,7 +291,7 @@ class HomeScreen extends GetView<HomeScreenController> {
       children: <Widget>[
         height20,
         Text(
-          '''${userModel.lastName}, ${age(userModel.birthDate.toString())}''',
+          '''${userModel.firstName}, ${age(userModel.birthDate.toString())}''',
           style: mediumText24.copyWith(
             color: whiteColor,
           ),

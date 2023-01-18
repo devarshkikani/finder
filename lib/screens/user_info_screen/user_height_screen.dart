@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
@@ -10,7 +12,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class UserHeightScreen extends StatelessWidget {
-  const UserHeightScreen({super.key});
+  UserHeightScreen({
+    super.key,
+    required this.isEdit,
+  });
+
+  RxBool isEdit = false.obs;
 
   static GetStorage box = GetStorage();
   static late UserModel userModel;
@@ -109,7 +116,13 @@ class UserHeightScreen extends StatelessWidget {
                             StorageKey.currentUser,
                             userModel.toJson(),
                           );
-                          Get.to(() => const ReligionScreen());
+                          if (isEdit.value) {
+                            Get.back(result: true);
+                          } else {
+                            Get.to(() => ReligionScreen(
+                                  isEdit: false.obs,
+                                ));
+                          }
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

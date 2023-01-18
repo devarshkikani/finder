@@ -11,8 +11,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class UserGenderScreen extends StatelessWidget {
-  const UserGenderScreen({super.key});
+  UserGenderScreen({
+    super.key,
+    required this.isEdit,
+  });
 
+  RxBool isEdit = false.obs;
   static RxString gender = ''.obs;
   static GetStorage box = GetStorage();
   static late UserModel userModel;
@@ -106,7 +110,7 @@ class UserGenderScreen extends StatelessWidget {
               Center(
                 child: Obx(
                   () => elevatedButton(
-                    title: 'Continue',
+                    title: isEdit.value ? 'Save' : 'Continue',
                     onTap: gender.value != ''
                         ? () {
                             userModel.gender = gender.value;
@@ -114,7 +118,15 @@ class UserGenderScreen extends StatelessWidget {
                               StorageKey.currentUser,
                               userModel.toJson(),
                             );
-                            Get.to(() => const SelectSexualScreen());
+                            if (isEdit.value) {
+                              Get.back(
+                                result: true,
+                              );
+                            } else {
+                              Get.to(() => SelectSexualScreen(
+                                    isEdit: false.obs,
+                                  ));
+                            }
                           }
                         : null,
                   ),

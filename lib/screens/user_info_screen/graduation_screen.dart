@@ -11,7 +11,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class GraduationScreen extends StatelessWidget {
-  const GraduationScreen({super.key});
+  GraduationScreen({
+    super.key,
+    required this.isEdit,
+  });
+
+  RxBool isEdit = false.obs;
   static GetStorage box = GetStorage();
   static late UserModel userModel;
   static RxString graduation = ''.obs;
@@ -72,7 +77,7 @@ class GraduationScreen extends StatelessWidget {
                 Center(
                   child: Obx(
                     () => elevatedButton(
-                      title: 'Continue',
+                      title: isEdit.value ? 'Save' : 'Continue',
                       onTap: graduation.value != ''
                           ? () {
                               userModel.educationLevel = graduation.value;
@@ -80,7 +85,13 @@ class GraduationScreen extends StatelessWidget {
                                 StorageKey.currentUser,
                                 userModel.toJson(),
                               );
-                              Get.to(() => JobTitleScreen());
+                              if (isEdit.value) {
+                                Get.back(
+                                  result: true,
+                                );
+                              } else {
+                                Get.to(() => JobTitleScreen());
+                              }
                             }
                           : null,
                     ),

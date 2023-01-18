@@ -11,8 +11,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class DrugsScreen extends StatelessWidget {
-  const DrugsScreen({super.key});
+  DrugsScreen({
+    super.key,
+    required this.isEdit,
+  });
 
+  RxBool isEdit = false.obs;
   static RxString areYouConsumeDrugs = ''.obs;
   static GetStorage box = GetStorage();
   static late UserModel userModel;
@@ -73,7 +77,7 @@ class DrugsScreen extends StatelessWidget {
                 Center(
                   child: Obx(
                     () => elevatedButton(
-                      title: 'Continue',
+                      title: isEdit.value ? 'Save' : 'Continue',
                       onTap: areYouConsumeDrugs.value != ''
                           ? () {
                               userModel.drugs = areYouConsumeDrugs.value;
@@ -81,7 +85,13 @@ class DrugsScreen extends StatelessWidget {
                                 StorageKey.currentUser,
                                 userModel.toJson(),
                               );
-                              Get.to(() => WriteAboutYouScreen());
+                              if (isEdit.value) {
+                                Get.back(
+                                  result: true,
+                                );
+                              } else {
+                                Get.to(() => WriteAboutYouScreen());
+                              }
                             }
                           : null,
                     ),

@@ -10,7 +10,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class ReligionScreen extends StatelessWidget {
-  const ReligionScreen({super.key});
+  ReligionScreen({
+    super.key,
+    required this.isEdit,
+  });
+
+  RxBool isEdit = false.obs;
 
   static GetStorage box = GetStorage();
   static late UserModel userModel;
@@ -63,7 +68,13 @@ class ReligionScreen extends StatelessWidget {
                             StorageKey.currentUser,
                             userModel.toJson(),
                           );
-                          Get.to(() => const StatusScreen());
+                          if (isEdit.value) {
+                            Get.back(result: true);
+                          } else {
+                            Get.to(() => StatusScreen(
+                                  isEdit: false.obs,
+                                ));
+                          }
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

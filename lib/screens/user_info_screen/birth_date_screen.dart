@@ -86,7 +86,9 @@ class _BirthDateScreenState extends State<BirthDateScreen> {
                               StorageKey.currentUser,
                               userModel.toJson(),
                             );
-                            Get.to(() => const UserGenderScreen());
+                            Get.to(() => UserGenderScreen(
+                                  isEdit: false.obs,
+                                ));
                           }
                         : null,
                   ),

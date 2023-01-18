@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
@@ -11,8 +13,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class SelectSexualScreen extends StatelessWidget {
-  const SelectSexualScreen({super.key});
+  SelectSexualScreen({
+    super.key,
+    required this.isEdit,
+  });
 
+  RxBool isEdit = false.obs;
   static RxString sexuality = ''.obs;
   static GetStorage box = GetStorage();
   static late UserModel userModel;
@@ -75,7 +81,7 @@ class SelectSexualScreen extends StatelessWidget {
               Center(
                 child: Obx(
                   () => elevatedButton(
-                    title: 'Continue',
+                    title: isEdit.value ? 'Save' : 'Continue',
                     onTap: sexuality.value != ''
                         ? () {
                             userModel.sexuality = sexuality.value;
@@ -83,7 +89,15 @@ class SelectSexualScreen extends StatelessWidget {
                               StorageKey.currentUser,
                               userModel.toJson(),
                             );
-                            Get.to(() => const EthnicityScreen());
+                            if (isEdit.value) {
+                              Get.back(
+                                result: true,
+                              );
+                            } else {
+                              Get.to(() => EthnicityScreen(
+                                    isEdit: false.obs,
+                                  ));
+                            }
                           }
                         : null,
                   ),

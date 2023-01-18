@@ -11,8 +11,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class DrinkingScreen extends StatelessWidget {
-  const DrinkingScreen({super.key});
+  DrinkingScreen({
+    super.key,
+    required this.isEdit,
+  });
 
+  RxBool isEdit = false.obs;
   static RxString areYouDrinking = ''.obs;
   static GetStorage box = GetStorage();
   static late UserModel userModel;
@@ -73,7 +77,7 @@ class DrinkingScreen extends StatelessWidget {
                 Center(
                   child: Obx(
                     () => elevatedButton(
-                      title: 'Continue',
+                      title: isEdit.value ? 'Save' : 'Continue',
                       onTap: areYouDrinking.value != ''
                           ? () {
                               userModel.drinking = areYouDrinking.value;
@@ -81,7 +85,15 @@ class DrinkingScreen extends StatelessWidget {
                                 StorageKey.currentUser,
                                 userModel.toJson(),
                               );
-                              Get.to(() => const SmokingScreen());
+                              if (isEdit.value) {
+                                Get.back(
+                                  result: true,
+                                );
+                              } else {
+                                Get.to(() => SmokingScreen(
+                                      isEdit: false.obs,
+                                    ));
+                              }
                             }
                           : null,
                     ),

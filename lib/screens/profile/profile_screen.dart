@@ -1,3 +1,5 @@
+// ignore_for_file: always_specify_types
+
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -5,6 +7,7 @@ import 'package:finder/constant/default_images.dart';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
+import 'package:finder/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
@@ -144,7 +147,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              '''${userModel.lastName}, ${age(userModel.birthDate.toString())}''',
+              '''${userModel.firstName}, ${age(userModel.birthDate.toString())}''',
               style: mediumText24.copyWith(
                 color: whiteColor,
               ),
@@ -163,17 +166,26 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         detailsSectionDecoration(
           title: 'Settings',
           image: settings,
+          onTap: () {},
         ),
         Padding(
           padding: const EdgeInsets.only(top: 30),
           child: detailsSectionDecoration(
             title: 'Edit profile',
             image: editIcon,
+            onTap: () {
+              Get.to(() => const EditProfileScreen())?.then((value) {
+                userModel = UserModel.fromJson(
+                    box.read(StorageKey.currentUser) as Map<String, dynamic>);
+                setState(() {});
+              });
+            },
           ),
         ),
         detailsSectionDecoration(
           title: 'Prefrence',
           image: prefrenceIcon,
+          onTap: () {},
         ),
       ],
     );
@@ -200,49 +212,45 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget detailsSectionDecoration({
     required String title,
     required String image,
+    required Function() onTap,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 20,
       ),
-      child: Row(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.all(10),
-                // decoration: BoxDecoration(
-                //   color: lightGrey,
-                //   shape: BoxShape.circle,
-                // ),
-                decoration: const BoxDecoration(
-                  color: lightBlack,
-                  shape: BoxShape.circle,
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: lightGrey,
-                      spreadRadius: 0.5,
-                      blurRadius: 10,
-                    ),
-                  ],
-                ),
-                child: Image.asset(
-                  image,
-                  height: 40,
-                  width: 40,
-                  color: whiteColor,
-                ),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                color: lightBlack,
+                shape: BoxShape.circle,
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: lightGrey,
+                    spreadRadius: 0.5,
+                    blurRadius: 10,
+                  ),
+                ],
               ),
-              height10,
-              Text(
-                title,
-                style: mediumText16.copyWith(
-                  color: whiteColor,
-                ),
+              child: Image.asset(
+                image,
+                height: 40,
+                width: 40,
+                color: whiteColor,
               ),
-            ],
-          ),
-        ],
+            ),
+            height10,
+            Text(
+              title,
+              style: mediumText16.copyWith(
+                color: whiteColor,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
