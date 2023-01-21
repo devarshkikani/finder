@@ -28,8 +28,8 @@ class HomeScreenController extends GetxController {
         users.add(UserModel.fromJson(element as Map<String, dynamic>));
       }
       usersList.value = users;
-      isLoading.value = false;
     }
+    isLoading.value = false;
   }
 
   Future<void> moveNextPage(String? reciverUserID) async {

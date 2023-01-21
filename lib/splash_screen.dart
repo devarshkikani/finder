@@ -23,13 +23,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: lightBlack,
       body: AnimatedSplashScreen(
         splashIconSize: 250,
         duration: 1000,
         pageTransitionType: PageTransitionType.fade,
         splash: Image.asset(
-          appLogo,
+          appLogoTransparent,
         ),
         nextScreen: box.read(StorageKey.isLogedIn) == true
             ? MainHomeScreen()

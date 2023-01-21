@@ -15,6 +15,7 @@ class MobileScreen extends GetView<MobileScreenController> {
     return GetBuilder<MobileScreenController>(
         init: MobileScreenController(),
         builder: (MobileScreenController controller) => Scaffold(
+              backgroundColor: lightBlack,
               appBar: AppBar(
                 elevation: 0,
                 backgroundColor: Colors.transparent,
@@ -26,7 +27,6 @@ class MobileScreen extends GetView<MobileScreenController> {
                     Platform.isIOS
                         ? Icons.arrow_back_ios_new_rounded
                         : Icons.arrow_back_rounded,
-                    color: blackColor,
                   ),
                 ),
               ),
@@ -38,7 +38,7 @@ class MobileScreen extends GetView<MobileScreenController> {
                     children: <Widget>[
                       Text(
                         'Get OTP',
-                        style: mediumText16,
+                        style: mediumText16.copyWith(color: darkGrey),
                       ),
                       height10,
                       Text(
@@ -50,7 +50,9 @@ class MobileScreen extends GetView<MobileScreenController> {
                       ),
                       height10,
                       InternationalPhoneNumberInput(
-                        selectorTextStyle: regularText14,
+                        selectorTextStyle: regularText14.copyWith(
+                          color: darkGrey,
+                        ),
                         initialValue: PhoneNumber(isoCode: 'US'),
                         textFieldController: controller.phoneController,
                         formatInput: false,
@@ -64,7 +66,9 @@ class MobileScreen extends GetView<MobileScreenController> {
                           ),
                         ),
                         autoFocus: true,
-                        textStyle: regularText16,
+                        textStyle: regularText16.copyWith(
+                          color: darkGrey,
+                        ),
                         inputDecoration: InputDecoration(
                           hintText: 'Enter your number here',
                           hintStyle: regularText14.copyWith(color: greyColor),
@@ -116,7 +120,8 @@ class MobileScreen extends GetView<MobileScreenController> {
                       Obx(() => ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: primary,
-                              disabledBackgroundColor: darkGrey,
+                              disabledBackgroundColor:
+                                  darkGrey.withOpacity(0.5),
                               padding: const EdgeInsets.symmetric(
                                 vertical: 12,
                                 horizontal: 20,

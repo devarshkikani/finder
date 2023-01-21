@@ -65,9 +65,8 @@ class ProcessIndicator extends StatelessWidget {
           color: Colors.transparent,
           child: Image.asset(
             spinnerGIF,
-            color: blackColor,
-            height: 50,
-            width: 50,
+            height: 100,
+            width: 100,
           ),
         ),
       ),

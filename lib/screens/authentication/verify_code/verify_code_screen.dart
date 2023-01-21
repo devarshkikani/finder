@@ -18,6 +18,7 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: lightBlack,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -31,7 +32,6 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
             Platform.isIOS
                 ? Icons.arrow_back_ios_new_rounded
                 : Icons.arrow_back_rounded,
-            color: blackColor,
           ),
         ),
       ),
@@ -46,7 +46,7 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
                   children: <Widget>[
                     Text(
                       controller.phoneNumber.toString(),
-                      style: mediumText16,
+                      style: mediumText16.copyWith(color: darkGrey),
                     ),
                     IconButton(
                       onPressed: () {
@@ -76,7 +76,9 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
                   fieldWidth: 45,
                   fieldStyle: FieldStyle.box,
                   outlineBorderRadius: 15,
-                  style: regularText18,
+                  style: regularText18.copyWith(
+                    color: darkGrey,
+                  ),
                   otpFieldStyle: OtpFieldStyle(
                     borderColor: primary,
                     enabledBorderColor: blackColor,
@@ -100,7 +102,7 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primary,
                         maximumSize: Size(Get.width / 2, 50),
-                        disabledBackgroundColor: darkGrey,
+                        disabledBackgroundColor: darkGrey.withOpacity(0.5),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                         ),

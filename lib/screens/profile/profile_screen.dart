@@ -7,6 +7,7 @@ import 'package:finder/constant/default_images.dart';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
+import 'package:finder/screens/prefrence/prefrence_screen.dart';
 import 'package:finder/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:finder/screens/settings/settings_screen.dart';
 import 'package:finder/theme/colors.dart';
@@ -188,7 +189,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         detailsSectionDecoration(
           title: 'Prefrence',
           image: prefrenceIcon,
-          onTap: () {},
+          onTap: () {
+            Get.to(() => const PrefrenceScreen());
+          },
         ),
       ],
     );

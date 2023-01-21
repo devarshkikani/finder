@@ -1,4 +1,4 @@
-const String appLogo = 'assets/images/finder_white.png';
+// const String appLogo = 'assets/images/finder_white.png';
 const String appLogoTransparent = 'assets/images/finder_transparent.png';
 const String authBackground = 'assets/images/auth_background.jpeg';
 const String googleLogo = 'assets/images/google_logo.jpg';
@@ -9,6 +9,7 @@ const String offline = 'assets/images/offline.jpeg';
 const String locationRequired = 'assets/images/location_required.png';
 const String checkGIF = 'assets/images/check.gif';
 const String spinnerGIF = 'assets/images/spinner.gif';
+const String comingSoon = 'assets/images/coming_soon.png';
 const String hamburgerMenu = 'assets/images/hamburger_menu.png';
 const String homeIcon = 'assets/images/home_icon.png';
 const String settings = 'assets/images/settings.png';
