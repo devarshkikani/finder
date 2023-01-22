@@ -5,7 +5,9 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:dotted_border/dotted_border.dart';
+import 'package:finder/constant/ads_id.dart';
 import 'package:finder/constant/app_endpoints.dart';
+import 'package:finder/constant/show_ads.dart';
 
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
@@ -16,6 +18,7 @@ import 'package:finder/theme/text_style.dart';
 import 'package:finder/utils/network_dio.dart';
 import 'package:finder/widget/app_bar_widget.dart';
 import 'package:finder/widget/elevated_button.dart';
+import 'package:finder/widget/show_banner_ads.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -174,6 +177,14 @@ class _AddPhotosState extends State<AddPhotos> {
                     onTap: images.length < 2
                         ? null
                         : () {
+                            final ShowAds showAds = ShowAds();
+                            if (showAds
+                                .placements[
+                                    AdsIds.interstitialVideoAdPlacementId]!
+                                .value) {
+                              showAds.showAd(
+                                  AdsIds.interstitialVideoAdPlacementId);
+                            }
                             userModel.photos = images;
                             box.write(
                               StorageKey.currentUser,
@@ -188,6 +199,7 @@ class _AddPhotosState extends State<AddPhotos> {
           ),
         ),
       ),
+      bottomNavigationBar: const ShowBannerAds(),
     );
   }
 

@@ -1,3 +1,5 @@
+import 'package:finder/constant/ads_id.dart';
+import 'package:finder/constant/show_ads.dart';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
@@ -5,6 +7,7 @@ import 'package:finder/screens/user_info_screen/status_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:finder/widget/app_bar_widget.dart';
+import 'package:finder/widget/show_banner_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -63,6 +66,14 @@ class ReligionScreen extends StatelessWidget {
                       religiousList.length,
                       (int index) => InkWell(
                         onTap: () {
+                          final ShowAds showAds = ShowAds();
+                          if (showAds
+                              .placements[
+                                  AdsIds.interstitialVideoAdPlacementId]!
+                              .value) {
+                            showAds
+                                .showAd(AdsIds.interstitialVideoAdPlacementId);
+                          }
                           userModel.religious = religiousList[index];
                           box.write(
                             StorageKey.currentUser,
@@ -105,6 +116,7 @@ class ReligionScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: const ShowBannerAds(),
     );
   }
 }

@@ -2,9 +2,11 @@ import 'package:finder/constant/divider.dart';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
+import 'package:finder/screens/authentication/mobile/mobile_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -274,7 +276,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       children: <Widget>[
         dividers(20),
         InkWell(
-          onTap: () {},
+          onTap: () {
+            GetStorage().erase();
+            Get.offAll(() => const MobileScreen());
+          },
           child: Text(
             'Log out',
             style: regularText20.copyWith(

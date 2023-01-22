@@ -61,6 +61,7 @@ dependencies:
   like_button: ^2.0.5
   socket_io_client: ^2.0.0
   intl: ^0.18.0
+  unity_ads_plugin: ^0.3.7
 
 dev_dependencies:
   flutter_test:

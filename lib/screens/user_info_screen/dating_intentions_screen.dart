@@ -6,6 +6,7 @@ import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:finder/widget/app_bar_widget.dart';
 import 'package:finder/widget/elevated_button.dart';
+import 'package:finder/widget/show_banner_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -102,6 +103,7 @@ class DatingIntentionsScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: const ShowBannerAds(),
     );
   }
 

@@ -2,15 +2,18 @@
 
 import 'dart:io';
 
+import 'package:finder/constant/ads_id.dart';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/screens/authentication/mobile/mobile_screen_controller.dart';
 import 'package:finder/screens/authentication/verify_code/verify_code_controller.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/widget/show_banner_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:unity_ads_plugin/unity_ads_plugin.dart';
 
 class VerifyCodeScreen extends GetView<VerifyCodeController> {
   const VerifyCodeScreen({super.key});
@@ -133,6 +136,7 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
                       maximumSize: Size(Get.width / 2, 50),
                     ),
                     onPressed: () {
+                      UnityAds.showVideoAd(placementId: 'Interstitial_Android');
                       Get.find<MobileScreenController>().sendOtp(context);
                       controller.otpController.clear();
                     },
@@ -151,6 +155,7 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
           ),
         ),
       ),
+      bottomNavigationBar: const ShowBannerAds(),
     );
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:finder/constant/ads_id.dart';
+import 'package:finder/constant/show_ads.dart';
 import 'package:finder/screens/authentication/mobile/mobile_screen.dart';
 import 'package:finder/screens/authentication/welcome/welcome_screen_controller.dart';
 import 'package:get/get.dart';
@@ -164,6 +166,12 @@ class SignUpScreen extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
+                        final ShowAds showAds = ShowAds();
+                        if (showAds
+                            .placements[AdsIds.interstitialVideoAdPlacementId]!
+                            .value) {
+                          showAds.showAd(AdsIds.interstitialVideoAdPlacementId);
+                        }
                         Get.to(
                           () => const MobileScreen(),
                         );

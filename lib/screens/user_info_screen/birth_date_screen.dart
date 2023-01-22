@@ -6,6 +6,7 @@ import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:finder/widget/app_bar_widget.dart';
 import 'package:finder/widget/elevated_button.dart';
+import 'package:finder/widget/show_banner_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:get/get.dart';
@@ -98,6 +99,7 @@ class _BirthDateScreenState extends State<BirthDateScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: const ShowBannerAds(),
     );
   }
 }

@@ -55,6 +55,10 @@ PODS:
     - Flutter
     - FMDB (>= 2.7.5)
   - TOCropViewController (2.6.1)
+  - unity_ads_plugin (0.0.1):
+    - Flutter
+    - UnityAds (= 4.4.1)
+  - UnityAds (4.4.1)
 
 DEPENDENCIES:
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
@@ -71,6 +75,7 @@ DEPENDENCIES:
   - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
   - sign_in_with_apple (from `.symlinks/plugins/sign_in_with_apple/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
+  - unity_ads_plugin (from `.symlinks/plugins/unity_ads_plugin/ios`)
 
 SPEC REPOS:
   trunk:
@@ -83,6 +88,7 @@ SPEC REPOS:
     - MTBBarcodeScanner
     - ReachabilitySwift
     - TOCropViewController
+    - UnityAds
 
 EXTERNAL SOURCES:
   connectivity_plus:
@@ -113,6 +119,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sign_in_with_apple/ios"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
+  unity_ads_plugin:
+    :path: ".symlinks/plugins/unity_ads_plugin/ios"
 
 SPEC CHECKSUMS:
   AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
@@ -138,6 +146,8 @@ SPEC CHECKSUMS:
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
+  unity_ads_plugin: 7b2b7a99b38046f613655ac23ac992f92a10fbbc
+  UnityAds: 1af6c4fdd7030c2593c58f520504e167561175ab
 
 PODFILE CHECKSUM: 04e2637d84a84fd018d6f5d9b1e8fcea7ea70beb
 

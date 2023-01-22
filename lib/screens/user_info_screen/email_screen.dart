@@ -6,6 +6,7 @@ import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:finder/widget/elevated_button.dart';
 import 'package:finder/widget/input_text_field.dart';
+import 'package:finder/widget/show_banner_ads.dart';
 import 'package:finder/widget/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -80,6 +81,7 @@ class EmailScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: const ShowBannerAds(),
     );
   }
 }

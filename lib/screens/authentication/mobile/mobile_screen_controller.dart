@@ -1,4 +1,8 @@
+// ignore_for_file: prefer_foreach
+
+import 'package:finder/constant/ads_id.dart';
 import 'package:finder/constant/app_endpoints.dart';
+import 'package:finder/constant/show_ads.dart';
 import 'package:finder/utils/network_dio.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +16,10 @@ class MobileScreenController extends GetxController {
   late PhoneNumber phoneNumber;
 
   Future<void> sendOtp(BuildContext context) async {
+    final ShowAds showAds = ShowAds();
+    if (showAds.placements[AdsIds.interstitialVideoAdPlacementId]!.value) {
+      showAds.showAd(AdsIds.interstitialVideoAdPlacementId);
+    }
     final Map<String, dynamic>? response = await NetworkDio.postDioHttpMethod(
       context: context,
       url: ApiEndPoints.apiEndPoint + ApiEndPoints.sendOtp,
