@@ -33,23 +33,26 @@ class ShowAds {
     );
   }
 
-  void showAd(String placementId) {
+  void showAd(String placementId, Function() nextStep) {
     placements[placementId]!.value = false;
     UnityAds.showVideoAd(
       placementId: placementId,
       onComplete: (String placementId) {
         print('Video Ad $placementId completed');
         _loadAd(placementId);
+        nextStep();
       },
       onFailed: (String placementId, UnityAdsShowError error, String message) {
         print('Video Ad $placementId failed: $error $message');
         _loadAd(placementId);
+        nextStep();
       },
       onStart: (String placementId) => print('Video Ad $placementId started'),
       onClick: (String placementId) => print('Video Ad $placementId click'),
       onSkipped: (String placementId) {
         print('Video Ad $placementId skipped');
         _loadAd(placementId);
+        nextStep();
       },
     );
   }

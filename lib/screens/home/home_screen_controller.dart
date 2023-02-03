@@ -22,7 +22,7 @@ class HomeScreenController extends GetxController {
       url: ApiEndPoints.apiEndPoint + ApiEndPoints.homeAPI,
     );
     if (resposnse != null) {
-      List<UserModel> users = <UserModel>[];
+      final List<UserModel> users = <UserModel>[];
       // ignore: always_specify_types
       for (final element in resposnse['data'] as List) {
         users.add(UserModel.fromJson(element as Map<String, dynamic>));

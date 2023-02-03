@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:finder/constant/ads_id.dart';
 import 'package:finder/constant/show_ads.dart';
 import 'package:finder/constant/sizedbox.dart';
@@ -89,21 +91,24 @@ class SmokingScreen extends StatelessWidget {
                                       AdsIds.interstitialVideoAdPlacementId]!
                                   .value) {
                                 showAds.showAd(
-                                    AdsIds.interstitialVideoAdPlacementId);
-                              }
-                              userModel.smoking = areYouSmoking.value;
-                              box.write(
-                                StorageKey.currentUser,
-                                userModel.toJson(),
-                              );
-                              if (isEdit.value) {
-                                Get.back(
-                                  result: true,
+                                  AdsIds.interstitialVideoAdPlacementId,
+                                  () {
+                                    userModel.smoking = areYouSmoking.value;
+                                    box.write(
+                                      StorageKey.currentUser,
+                                      userModel.toJson(),
+                                    );
+                                    if (isEdit.value) {
+                                      Get.back(
+                                        result: true,
+                                      );
+                                    } else {
+                                      Get.to(() => DrugsScreen(
+                                            isEdit: false.obs,
+                                          ));
+                                    }
+                                  },
                                 );
-                              } else {
-                                Get.to(() => DrugsScreen(
-                                      isEdit: false.obs,
-                                    ));
                               }
                             }
                           : null,

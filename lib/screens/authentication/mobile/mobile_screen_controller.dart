@@ -18,8 +18,16 @@ class MobileScreenController extends GetxController {
   Future<void> sendOtp(BuildContext context) async {
     final ShowAds showAds = ShowAds();
     if (showAds.placements[AdsIds.interstitialVideoAdPlacementId]!.value) {
-      showAds.showAd(AdsIds.interstitialVideoAdPlacementId);
+      showAds.showAd(
+        AdsIds.interstitialVideoAdPlacementId,
+        () async {
+          await nextFunction(context);
+        },
+      );
     }
+  }
+
+  Future<void> nextFunction(BuildContext context) async {
     final Map<String, dynamic>? response = await NetworkDio.postDioHttpMethod(
       context: context,
       url: ApiEndPoints.apiEndPoint + ApiEndPoints.sendOtp,

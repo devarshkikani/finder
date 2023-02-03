@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';

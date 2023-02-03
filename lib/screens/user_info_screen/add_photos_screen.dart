@@ -183,14 +183,17 @@ class _AddPhotosState extends State<AddPhotos> {
                                     AdsIds.interstitialVideoAdPlacementId]!
                                 .value) {
                               showAds.showAd(
-                                  AdsIds.interstitialVideoAdPlacementId);
+                                AdsIds.interstitialVideoAdPlacementId,
+                                () {
+                                  userModel.photos = images;
+                                  box.write(
+                                    StorageKey.currentUser,
+                                    userModel.toJson(),
+                                  );
+                                  Get.to(() => const CompleteProfileScreen());
+                                },
+                              );
                             }
-                            userModel.photos = images;
-                            box.write(
-                              StorageKey.currentUser,
-                              userModel.toJson(),
-                            );
-                            Get.to(() => const CompleteProfileScreen());
                           },
                   ),
                 ),

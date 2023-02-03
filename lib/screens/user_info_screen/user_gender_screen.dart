@@ -124,21 +124,24 @@ class UserGenderScreen extends StatelessWidget {
                                     AdsIds.interstitialVideoAdPlacementId]!
                                 .value) {
                               showAds.showAd(
-                                  AdsIds.interstitialVideoAdPlacementId);
-                            }
-                            userModel.gender = gender.value;
-                            box.write(
-                              StorageKey.currentUser,
-                              userModel.toJson(),
-                            );
-                            if (isEdit.value) {
-                              Get.back(
-                                result: true,
+                                AdsIds.interstitialVideoAdPlacementId,
+                                () {
+                                  userModel.gender = gender.value;
+                                  box.write(
+                                    StorageKey.currentUser,
+                                    userModel.toJson(),
+                                  );
+                                  if (isEdit.value) {
+                                    Get.back(
+                                      result: true,
+                                    );
+                                  } else {
+                                    Get.to(() => SelectSexualScreen(
+                                          isEdit: false.obs,
+                                        ));
+                                  }
+                                },
                               );
-                            } else {
-                              Get.to(() => SelectSexualScreen(
-                                    isEdit: false.obs,
-                                  ));
                             }
                           }
                         : null,

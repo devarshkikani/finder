@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:finder/constant/ads_id.dart';
 import 'package:finder/constant/show_ads.dart';
 import 'package:finder/constant/sizedbox.dart';
@@ -79,20 +81,23 @@ class LanguageScreen extends StatelessWidget {
                               .placements[
                                   AdsIds.interstitialVideoAdPlacementId]!
                               .value) {
-                            showAds
-                                .showAd(AdsIds.interstitialVideoAdPlacementId);
-                          }
-                          userModel.languageSpoken = tongueList[index];
-                          box.write(
-                            StorageKey.currentUser,
-                            userModel.toJson(),
-                          );
-                          if (isEdit.value) {
-                            Get.back(result: true);
-                          } else {
-                            Get.to(() => GraduationScreen(
-                                  isEdit: false.obs,
-                                ));
+                            showAds.showAd(
+                              AdsIds.interstitialVideoAdPlacementId,
+                              () {
+                                userModel.languageSpoken = tongueList[index];
+                                box.write(
+                                  StorageKey.currentUser,
+                                  userModel.toJson(),
+                                );
+                                if (isEdit.value) {
+                                  Get.back(result: true);
+                                } else {
+                                  Get.to(() => GraduationScreen(
+                                        isEdit: false.obs,
+                                      ));
+                                }
+                              },
+                            );
                           }
                         },
                         child: Column(

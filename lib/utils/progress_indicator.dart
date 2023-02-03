@@ -1,5 +1,4 @@
 import 'package:finder/constant/default_images.dart';
-import 'package:finder/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:finder/utils/internet_error.dart';
 

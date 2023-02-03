@@ -170,11 +170,15 @@ class SignUpScreen extends StatelessWidget {
                         if (showAds
                             .placements[AdsIds.interstitialVideoAdPlacementId]!
                             .value) {
-                          showAds.showAd(AdsIds.interstitialVideoAdPlacementId);
+                          showAds.showAd(
+                            AdsIds.interstitialVideoAdPlacementId,
+                            () {
+                              Get.to(
+                                () => const MobileScreen(),
+                              );
+                            },
+                          );
                         }
-                        Get.to(
-                          () => const MobileScreen(),
-                        );
                       },
                       child: Row(
                         children: <Widget>[

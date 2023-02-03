@@ -2,7 +2,6 @@
 
 import 'dart:io';
 
-import 'package:finder/constant/ads_id.dart';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/screens/authentication/mobile/mobile_screen_controller.dart';
 import 'package:finder/screens/authentication/verify_code/verify_code_controller.dart';
