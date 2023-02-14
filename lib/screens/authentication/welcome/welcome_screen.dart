@@ -1,15 +1,19 @@
 import 'dart:io';
+import 'dart:ui';
 
-import 'package:finder/constant/ads_id.dart';
-import 'package:finder/constant/show_ads.dart';
-import 'package:finder/screens/authentication/mobile/mobile_screen.dart';
-import 'package:finder/screens/authentication/welcome/welcome_screen_controller.dart';
 import 'package:get/get.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:finder/theme/colors.dart';
+import 'package:finder/constant/ads_id.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:finder/constant/sizedbox.dart';
+import 'package:finder/constant/show_ads.dart';
+import 'package:finder/widget/outline_button.dart';
+import 'package:finder/widget/elevated_button.dart';
 import 'package:finder/constant/default_images.dart';
+import 'package:finder/screens/authentication/email/email_screen.dart';
+import 'package:finder/screens/authentication/welcome/welcome_screen_controller.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -21,10 +25,22 @@ class SignUpScreen extends StatelessWidget {
       builder: (WelcomeScreenController controller) => Scaffold(
         body: Stack(
           children: <Widget>[
-            Image.asset(
-              authBackground,
-              height: Get.height,
-              fit: BoxFit.cover,
+            Container(
+              decoration: const BoxDecoration(
+                color: whiteColor,
+                image: DecorationImage(
+                  image: ExactAssetImage(authBackground),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0),
+                  ),
+                ),
+              ),
             ),
             Container(
               color: Colors.black.withOpacity(0.5),
@@ -33,139 +49,38 @@ class SignUpScreen extends StatelessWidget {
               width: Get.width,
               child: SafeArea(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+                    height30,
+                    Center(
+                      child: Image.asset(
+                        appLogoTransparent,
+                        height: 150,
+                        width: 150,
+                      ),
+                    ),
+                    height30,
                     Text(
-                      'Welcome, buddy!',
-                      style: blackText28.copyWith(
-                          color: whiteColor, fontFamily: 'source_serif_pro'),
+                      'Hello!',
+                      style: blackText34.copyWith(
+                        color: whiteColor,
+                        fontFamily: 'source_serif_pro',
+                      ),
                     ),
                     Text(
-                      'Click on continue to find your partner.',
+                      '''Welcome to our application. Find your \npartner here enjoy your life.''',
+                      textAlign: TextAlign.center,
                       style: boldText16.copyWith(
                         color: whiteColor,
                       ),
                     ),
                     height30,
-                    if (Platform.isIOS)
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: blackColor,
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 12,
-                            horizontal: 20,
-                          ),
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                        ),
-                        onPressed: () {
-                          controller.handleAppleButtonClick();
-                        },
-                        child: Row(
-                          children: <Widget>[
-                            Image.asset(
-                              appleLogo,
-                              height: 30,
-                              width: 30,
-                            ),
-                            Expanded(
-                              child: Center(
-                                child: Text(
-                                  'Continue with apple',
-                                  style: mediumText16.copyWith(
-                                    color: whiteColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            width30,
-                          ],
-                        ),
-                      ),
-                    if (Platform.isIOS) height15,
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: googleColor,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 20,
-                        ),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                      ),
-                      onPressed: () async {},
-                      child: Row(
-                        children: <Widget>[
-                          const CircleAvatar(
-                            radius: 15,
-                            backgroundImage: AssetImage(
-                              googleLogo,
-                            ),
-                          ),
-                          Expanded(
-                            child: Center(
-                              child: Text(
-                                'Continue with google',
-                                style: mediumText16.copyWith(
-                                  color: whiteColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                          width30,
-                        ],
-                      ),
-                    ),
-                    height15,
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: facebookColor,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 20,
-                        ),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Row(
-                        children: <Widget>[
-                          Image.asset(
-                            facebookLogo,
-                            height: 30,
-                            width: 30,
-                          ),
-                          Expanded(
-                            child: Center(
-                              child: Text(
-                                'Continue with facebook',
-                                style: mediumText16.copyWith(
-                                  color: whiteColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                          width30,
-                        ],
-                      ),
-                    ),
-                    height15,
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: whiteColor,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 20,
-                        ),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                      ),
-                      onPressed: () {
+                    elevatedButton(
+                      title: 'Login',
+                      backgroundColor: whiteColor,
+                      textColor: blackColor,
+                      onTap: () {
                         final ShowAds showAds = ShowAds();
                         if (showAds
                             .placements[AdsIds.interstitialVideoAdPlacementId]!
@@ -174,39 +89,98 @@ class SignUpScreen extends StatelessWidget {
                             AdsIds.interstitialVideoAdPlacementId,
                             () {
                               Get.to(
-                                () => const MobileScreen(),
+                                () => const EmailScreen(),
                               );
                             },
                           );
                         }
                       },
-                      child: Row(
-                        children: <Widget>[
-                          Image.asset(
-                            callIcon,
-                            height: 30,
-                            width: 30,
-                          ),
-                          Expanded(
-                            child: Center(
-                              child: Text(
-                                'Continue with number',
-                                style: mediumText16.copyWith(
-                                  color: blackColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                          width30,
-                        ],
-                      ),
                     ),
                     height30,
+                    outlinedButton(
+                      title: 'Sign Up',
+                      textColor: primary,
+                      onTap: () {
+                        final ShowAds showAds = ShowAds();
+                        if (showAds
+                            .placements[AdsIds.interstitialVideoAdPlacementId]!
+                            .value) {
+                          showAds.showAd(
+                            AdsIds.interstitialVideoAdPlacementId,
+                            () {
+                              Get.to(
+                                () => const EmailScreen(),
+                              );
+                            },
+                          );
+                        }
+                      },
+                    ),
+                    height30,
+                    orView(),
+                    height30,
+                    bottomSignUpOption(controller),
+                    height30,
                     Center(
-                      child: Text(
-                        'By logging in you agree with our Terms & privacy',
-                        style: regularText14.copyWith(
-                          color: whiteColor,
+                      child: RichText(
+                        textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                              text:
+                                  '''By tapping 'Login' or 'Sign Up', you agree to our ''',
+                              style: regularText16.copyWith(
+                                color: whiteColor,
+                                fontSize: 14,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Terms of Use',
+                              style: regularText16.copyWith(
+                                fontSize: 14,
+                                color: primary,
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.underline,
+                              ),
+                              recognizer: TapGestureRecognizer()..onTap = () {},
+                            ),
+                            TextSpan(
+                              text:
+                                  '''. Learn how we process your data in our ''',
+                              style: regularText16.copyWith(
+                                color: whiteColor,
+                                fontSize: 14,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Privacy Policy',
+                              style: regularText16.copyWith(
+                                fontSize: 14,
+                                color: primary,
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.underline,
+                              ),
+                              recognizer: TapGestureRecognizer()..onTap = () {},
+                            ),
+                            TextSpan(
+                              text: ''' and ''',
+                              style: regularText16.copyWith(
+                                color: whiteColor,
+                                fontSize: 14,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Cookie Policy',
+                              style: regularText16.copyWith(
+                                fontSize: 14,
+                                color: primary,
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.underline,
+                              ),
+                              recognizer: TapGestureRecognizer()..onTap = () {},
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -217,6 +191,111 @@ class SignUpScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget orView() {
+    return Row(
+      children: <Widget>[
+        width30,
+        const Expanded(
+          child: Divider(
+            color: whiteColor,
+          ),
+        ),
+        Text(
+          '''    OR    ''',
+          textAlign: TextAlign.center,
+          style: boldText16.copyWith(
+            color: whiteColor,
+          ),
+        ),
+        const Expanded(
+          child: Divider(
+            color: whiteColor,
+          ),
+        ),
+        width30,
+      ],
+    );
+  }
+
+  Widget bottomSignUpOption(WelcomeScreenController controller) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        if (Platform.isIOS)
+          GestureDetector(
+            onTap: () {
+              controller.handleAppleButtonClick();
+            },
+            child: Container(
+              height: 60,
+              width: 60,
+              decoration: const BoxDecoration(
+                color: blackColor,
+                shape: BoxShape.circle,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    appleLogo,
+                    height: 35,
+                    width: 35,
+                    color: whiteColor,
+                    fit: BoxFit.cover,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        GestureDetector(
+          onTap: () {},
+          child: Container(
+            height: 60,
+            width: 60,
+            decoration: const BoxDecoration(
+              color: whiteColor,
+              shape: BoxShape.circle,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  googleLogo,
+                  height: 35,
+                  width: 35,
+                  fit: BoxFit.cover,
+                ),
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {},
+          child: Container(
+            height: 60,
+            width: 60,
+            decoration: const BoxDecoration(
+              color: facebookColor,
+              shape: BoxShape.circle,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  facebookLogo,
+                  height: 35,
+                  width: 35,
+                  color: whiteColor,
+                  fit: BoxFit.cover,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
