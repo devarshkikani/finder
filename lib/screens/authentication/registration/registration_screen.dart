@@ -69,7 +69,8 @@ class RegistrationScreen extends GetView<RegistrationScreenController> {
                                 controller.email.text.trim()) ==
                             null &&
                         controller.password.text.length >= 6 &&
-                        controller.confirmPassword.text.length >= 6) {
+                        controller.confirmPassword.text.length >= 6 &&
+                        controller.isTermApply.value) {
                       controller.isValid.value = true;
                     } else {
                       controller.isValid.value = false;
@@ -93,7 +94,8 @@ class RegistrationScreen extends GetView<RegistrationScreenController> {
                                 controller.email.text.trim()) ==
                             null &&
                         controller.password.text.length >= 6 &&
-                        controller.confirmPassword.text.length >= 6) {
+                        controller.confirmPassword.text.length >= 6 &&
+                        controller.isTermApply.value) {
                       controller.isValid.value = true;
                     } else {
                       controller.isValid.value = false;
@@ -116,7 +118,8 @@ class RegistrationScreen extends GetView<RegistrationScreenController> {
                                 controller.email.text.trim()) ==
                             null &&
                         controller.password.text.length >= 6 &&
-                        controller.confirmPassword.text.length >= 6) {
+                        controller.confirmPassword.text.length >= 6 &&
+                        controller.isTermApply.value) {
                       controller.isValid.value = true;
                     } else {
                       controller.isValid.value = false;
