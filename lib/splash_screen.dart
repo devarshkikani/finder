@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
         nextScreen: box.read(StorageKey.isLogedIn) == true
             ? MainHomeScreen()
-            : const SignUpScreen(),
+            : const WelcomeScreen(),
       ),
     );
   }
