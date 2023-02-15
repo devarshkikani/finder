@@ -3,20 +3,25 @@ import 'package:finder/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-ElevatedButton elevatedButton({
+OutlinedButton outlinedButton({
   required String title,
   required Function()? onTap,
   Size? maximumSize,
   Color? backgroundColor,
   Color? textColor,
+  Color? borderColor,
 }) {
-  return ElevatedButton(
-    style: ElevatedButton.styleFrom(
-      backgroundColor: backgroundColor ?? primary,
+  return OutlinedButton(
+    style: OutlinedButton.styleFrom(
+      backgroundColor: backgroundColor ?? Colors.transparent,
       maximumSize: maximumSize ?? Size(Get.width / 2, 50),
-      disabledBackgroundColor: lightBlue,
+      side: BorderSide(
+        color: borderColor ?? primary,
+      ),
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(12)),
+        borderRadius: BorderRadius.all(
+          Radius.circular(12),
+        ),
       ),
     ),
     onPressed: onTap,
