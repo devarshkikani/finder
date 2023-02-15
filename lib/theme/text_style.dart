@@ -1,5 +1,20 @@
 import 'package:flutter/material.dart';
 
+TextStyle blackText40 = const TextStyle(
+  fontSize: 40,
+  fontWeight: FontWeight.w800,
+  color: Colors.black,
+);
+TextStyle blackText32 = const TextStyle(
+  fontSize: 32,
+  fontWeight: FontWeight.w800,
+  color: Colors.black,
+);
+TextStyle blackText30 = const TextStyle(
+  fontSize: 30,
+  fontWeight: FontWeight.w800,
+  color: Colors.black,
+);
 TextStyle blackText28 = const TextStyle(
   fontSize: 28,
   fontWeight: FontWeight.w800,

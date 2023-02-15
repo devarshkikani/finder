@@ -40,6 +40,7 @@ TextFormField textFormField({
   final BorderSide? border,
   final double? cursorHeight,
   final EdgeInsetsGeometry? contentPadding,
+  final Function()? onEditingComplete,
 }) {
   return TextFormField(
     key: fieldKey,
@@ -65,12 +66,13 @@ TextFormField textFormField({
     textAlign: textAlign,
     cursorColor: cursorColor ?? primary,
     cursorHeight: cursorHeight ?? 20,
-    style: style,
+    style: style ?? regularText18.copyWith(color: whiteColor),
     readOnly: readOnly ?? false,
+    onEditingComplete: onEditingComplete,
     decoration: InputDecoration(
       prefixIcon: prefixIcon,
-      contentPadding:
-          contentPadding ?? const EdgeInsets.symmetric(horizontal: 10),
+      contentPadding: contentPadding ??
+          const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       // border: const UnderlineInputBorder(),
       // enabledBorder: const UnderlineInputBorder(),
       // disabledBorder: const UnderlineInputBorder(),
@@ -112,7 +114,10 @@ TextFormField textFormField({
       errorMaxLines: 5,
       fillColor: filledColor ?? whiteColor,
       filled: true,
-      hintStyle: hintStyle,
+      hintStyle: hintStyle ??
+          regularText18.copyWith(
+            color: greyColor,
+          ),
       hintText: hintText,
       counterText: '',
       suffixIcon: suffixIcon,
@@ -139,6 +144,7 @@ class EmailWidget extends StatelessWidget {
     this.validator,
     this.onFieldSubmitted,
     this.borderSide,
+    this.onChanged,
   });
   final Key? fieldKey;
   final String? hintText;
@@ -152,6 +158,7 @@ class EmailWidget extends StatelessWidget {
   final BorderSide? borderSide;
   final TextInputType? keyboardType;
   final Function(String? value)? onFieldSubmitted;
+  final Function(String? value)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -165,6 +172,17 @@ class EmailWidget extends StatelessWidget {
       textInputAction: textInputAction,
       onFieldSubmitted: onFieldSubmitted,
       keyboardType: TextInputType.emailAddress,
+      filledColor: Colors.transparent,
+      onChanged: onChanged,
+      border: const BorderSide(
+        color: primary,
+      ),
+      focusBorder: const BorderSide(
+        color: primary,
+      ),
+      enabledBorder: const BorderSide(
+        color: greyColor,
+      ),
       validator: validator ??
           (String? value) => Validators.validateEmail(value!.trim()),
     );
@@ -185,6 +203,7 @@ class PasswordWidget extends StatefulWidget {
     this.textInputAction,
     this.showsuffixIcon,
     this.borderSide,
+    this.onChaged,
     this.onFieldSubmitted,
   });
 
@@ -198,6 +217,7 @@ class PasswordWidget extends StatefulWidget {
   final TextInputAction? textInputAction;
   final BorderSide? borderSide;
   final Function(String? value)? onFieldSubmitted;
+  final Function(String? value)? onChaged;
   bool? showsuffixIcon = true;
 
   @override
@@ -212,16 +232,28 @@ class PasswordWidgetState extends State<PasswordWidget> {
     return textFormField(
       fieldKey: widget.fieldKey,
       hintText: widget.hintText,
-      border: widget.borderSide,
+      border: widget.borderSide ??
+          BorderSide(
+            color: primary.withOpacity(0.8),
+          ),
       labelText: widget.labelText,
-      focusBorder: widget.borderSide,
-      enabledBorder: widget.borderSide,
+      focusBorder: widget.borderSide ??
+          BorderSide(
+            color: primary.withOpacity(0.8),
+          ),
+      enabledBorder: widget.borderSide ??
+          const BorderSide(
+            color: greyColor,
+          ),
       focusNode: widget.focusNode,
       controller: widget.controller,
       textInputAction: widget.textInputAction,
       cursorColor: primary,
       obscureText: _obscureText,
       onFieldSubmitted: widget.onFieldSubmitted,
+      keyboardType: TextInputType.emailAddress,
+      filledColor: Colors.transparent,
+      onChanged: widget.onChaged,
       validator: widget.validator ??
           (String? value) => Validators.validatePassword(
                 value!.trim(),
@@ -236,6 +268,7 @@ class PasswordWidgetState extends State<PasswordWidget> {
               },
               child: Icon(
                 _obscureText ? Icons.visibility : Icons.visibility_off,
+                color: primary,
               ),
             )
           : const SizedBox(),
