@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:finder/screens/authentication/registration/registration_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ import 'package:finder/constant/show_ads.dart';
 import 'package:finder/widget/outline_button.dart';
 import 'package:finder/widget/elevated_button.dart';
 import 'package:finder/constant/default_images.dart';
-import 'package:finder/screens/authentication/email/email_screen.dart';
+import 'package:finder/screens/authentication/login/login_screen.dart';
 import 'package:finder/screens/authentication/welcome/welcome_screen_controller.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -63,7 +64,7 @@ class SignUpScreen extends StatelessWidget {
                     height30,
                     Text(
                       'Hello!',
-                      style: blackText34.copyWith(
+                      style: blackText40.copyWith(
                         color: whiteColor,
                         fontFamily: 'source_serif_pro',
                       ),
@@ -89,7 +90,7 @@ class SignUpScreen extends StatelessWidget {
                             AdsIds.interstitialVideoAdPlacementId,
                             () {
                               Get.to(
-                                () => const EmailScreen(),
+                                () => const LoginScreen(),
                               );
                             },
                           );
@@ -109,7 +110,7 @@ class SignUpScreen extends StatelessWidget {
                             AdsIds.interstitialVideoAdPlacementId,
                             () {
                               Get.to(
-                                () => const EmailScreen(),
+                                () => const RegistrationScreen(),
                               );
                             },
                           );

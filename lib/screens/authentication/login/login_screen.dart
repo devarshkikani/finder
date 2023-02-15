@@ -3,11 +3,15 @@
 import 'dart:io';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/screens/authentication/login/login_screen_controller.dart';
+import 'package:finder/screens/authentication/registration/registration_screen.dart';
+import 'package:finder/screens/authentication/welcome/welcome_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:finder/utils/validator.dart';
+import 'package:finder/widget/elevated_button.dart';
 import 'package:finder/widget/input_text_field.dart';
 import 'package:finder/widget/show_banner_ads.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -93,39 +97,61 @@ class LoginScreen extends GetView<LoginScreenController> {
                     }
                   },
                 ),
-                Text(
-                  '''Finder will send you a text with a verification code.''',
-                  style: regularText14.copyWith(
-                    color: greyColor,
+                height15,
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    'Forgot Password?',
+                    style: mediumText14.copyWith(color: whiteColor),
                   ),
                 ),
-                height20,
-                Obx(() => ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: primary,
-                        disabledBackgroundColor: darkGrey.withOpacity(0.5),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 20,
-                        ),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                        ),
-                      ),
-                      onPressed: controller.isValid.value
+                height30,
+                height30,
+                Center(
+                  child: Obx(
+                    () => elevatedButton(
+                      title: 'Sign In',
+                      onTap: controller.isValid.value
                           ? () {
                               controller.sendOtp(context);
                             }
                           : null,
-                      child: Center(
-                        child: Text(
-                          'Continue',
-                          style: mediumText16.copyWith(
+                    ),
+                  ),
+                ),
+                height30,
+                Center(
+                  child: RichText(
+                    textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: '''You don't have an account? ''',
+                          style: regularText16.copyWith(
                             color: whiteColor,
+                            fontSize: 14,
                           ),
                         ),
-                      ),
-                    )),
+                        TextSpan(
+                          text: 'Sign up',
+                          style: regularText16.copyWith(
+                            fontSize: 14,
+                            color: primary,
+                            fontWeight: FontWeight.w500,
+                            decoration: TextDecoration.underline,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Get.to(
+                                () => const RegistrationScreen(),
+                              );
+                            },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
