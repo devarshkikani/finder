@@ -171,6 +171,7 @@ class EmailWidget extends StatelessWidget {
       labelText: labelText,
       textInputAction: textInputAction,
       onFieldSubmitted: onFieldSubmitted,
+      textCapitalization: TextCapitalization.none,
       keyboardType: TextInputType.emailAddress,
       filledColor: Colors.transparent,
       onChanged: onChanged,
