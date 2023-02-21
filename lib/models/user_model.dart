@@ -14,7 +14,6 @@ class UserModel {
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.phoneNumber,
     required this.birthDate,
     required this.gender,
     required this.height,
@@ -44,7 +43,6 @@ class UserModel {
         firstName: json['firstName'].toString(),
         lastName: json['lastName'].toString(),
         email: json['email'].toString(),
-        phoneNumber: json['phoneNumber'].toString(),
         birthDate: json['birthDate'] != null
             ? DateTime.parse(json['birthDate'] as String)
             : null,
@@ -76,7 +74,6 @@ class UserModel {
   String firstName;
   String lastName;
   String? email;
-  String phoneNumber;
   DateTime? birthDate;
   String gender;
   String height;
@@ -105,7 +102,6 @@ class UserModel {
         'firstName': firstName,
         'lastName': lastName,
         'email': email,
-        'phoneNumber': phoneNumber,
         'birthDate':
             birthDate != null ? birthDate!.toIso8601String() : birthDate,
         'gender': gender,

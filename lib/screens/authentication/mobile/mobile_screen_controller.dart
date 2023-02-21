@@ -30,7 +30,7 @@ class MobileScreenController extends GetxController {
   Future<void> nextFunction(BuildContext context) async {
     final Map<String, dynamic>? response = await NetworkDio.postDioHttpMethod(
       context: context,
-      url: ApiEndPoints.apiEndPoint + ApiEndPoints.sendOtp,
+      url: ApiEndPoints.apiEndPoint + ApiEndPoints.signIn,
       data: <String, dynamic>{
         'countryCode': phoneNumber.dialCode?.replaceAll('+', ''),
         'phoneNumber':
@@ -45,8 +45,9 @@ class MobileScreenController extends GetxController {
       Get.to(
         () => const VerifyCodeScreen(),
         binding: VerifyCodeBinding(
-          phoneNumber:
+          emailAddress:
               phoneNumber.phoneNumber?.replaceAll(phoneNumber.dialCode!, ''),
+          isForgot: false,
         ),
       );
     }
