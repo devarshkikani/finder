@@ -49,143 +49,151 @@ class WelcomeScreen extends StatelessWidget {
               height: Get.height,
               width: Get.width,
               child: SafeArea(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    height30,
-                    Center(
-                      child: Image.asset(
-                        appLogoTransparent,
-                        height: 150,
-                        width: 150,
-                      ),
-                    ),
-                    height30,
-                    Text(
-                      'Hello!',
-                      style: blackText40.copyWith(
-                        color: whiteColor,
-                        fontFamily: 'source_serif_pro',
-                      ),
-                    ),
-                    Text(
-                      '''Welcome to our application. Find your \npartner here enjoy your life.''',
-                      textAlign: TextAlign.center,
-                      style: boldText16.copyWith(
-                        color: whiteColor,
-                      ),
-                    ),
-                    height30,
-                    elevatedButton(
-                      title: 'Login',
-                      backgroundColor: whiteColor,
-                      textColor: blackColor,
-                      onTap: () {
-                        final ShowAds showAds = ShowAds();
-                        if (showAds
-                            .placements[AdsIds.interstitialVideoAdPlacementId]!
-                            .value) {
-                          showAds.showAd(
-                            AdsIds.interstitialVideoAdPlacementId,
-                            () {
-                              Get.to(
-                                () => const LoginScreen(),
-                              );
-                            },
-                          );
-                        }
-                      },
-                    ),
-                    height30,
-                    outlinedButton(
-                      title: 'Sign Up',
-                      textColor: primary,
-                      onTap: () {
-                        final ShowAds showAds = ShowAds();
-                        if (showAds
-                            .placements[AdsIds.interstitialVideoAdPlacementId]!
-                            .value) {
-                          showAds.showAd(
-                            AdsIds.interstitialVideoAdPlacementId,
-                            () {
-                              Get.to(
-                                () => const RegistrationScreen(),
-                              );
-                            },
-                          );
-                        }
-                      },
-                    ),
-                    height30,
-                    orView(),
-                    height30,
-                    bottomSignUpOption(controller),
-                    height30,
-                    Center(
-                      child: RichText(
-                        textScaleFactor: MediaQuery.of(context).textScaleFactor,
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text:
-                                  '''By tapping 'Login' or 'Sign Up', you agree to our ''',
-                              style: regularText16.copyWith(
-                                color: whiteColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                            TextSpan(
-                              text: 'Terms of Use',
-                              style: regularText16.copyWith(
-                                fontSize: 14,
-                                color: primary,
-                                fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.underline,
-                              ),
-                              recognizer: TapGestureRecognizer()..onTap = () {},
-                            ),
-                            TextSpan(
-                              text:
-                                  '''. Learn how we process your data in our ''',
-                              style: regularText16.copyWith(
-                                color: whiteColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                            TextSpan(
-                              text: 'Privacy Policy',
-                              style: regularText16.copyWith(
-                                fontSize: 14,
-                                color: primary,
-                                fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.underline,
-                              ),
-                              recognizer: TapGestureRecognizer()..onTap = () {},
-                            ),
-                            TextSpan(
-                              text: ''' and ''',
-                              style: regularText16.copyWith(
-                                color: whiteColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                            TextSpan(
-                              text: 'Cookie Policy',
-                              style: regularText16.copyWith(
-                                fontSize: 14,
-                                color: primary,
-                                fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.underline,
-                              ),
-                              recognizer: TapGestureRecognizer()..onTap = () {},
-                            ),
-                          ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      height30,
+                      Center(
+                        child: Image.asset(
+                          appLogoTransparent,
+                          height: 150,
+                          width: 150,
                         ),
                       ),
-                    ),
-                  ],
+                      height30,
+                      Text(
+                        'Hello!',
+                        style: blackText40.copyWith(
+                          color: whiteColor,
+                          fontFamily: 'source_serif_pro',
+                        ),
+                      ),
+                      Text(
+                        '''Welcome to our application. Find your \npartner here enjoy your life.''',
+                        textAlign: TextAlign.center,
+                        style: boldText16.copyWith(
+                          color: whiteColor,
+                        ),
+                      ),
+                      height30,
+                      elevatedButton(
+                        title: 'Login',
+                        backgroundColor: whiteColor,
+                        textColor: blackColor,
+                        onTap: () {
+                          final ShowAds showAds = ShowAds();
+                          if (showAds
+                              .placements[
+                                  AdsIds.interstitialVideoAdPlacementId]!
+                              .value) {
+                            showAds.showAd(
+                              AdsIds.interstitialVideoAdPlacementId,
+                              () {
+                                Get.to(
+                                  () => const LoginScreen(),
+                                );
+                              },
+                            );
+                          }
+                        },
+                      ),
+                      height30,
+                      outlinedButton(
+                        title: 'Sign Up',
+                        textColor: primary,
+                        onTap: () {
+                          final ShowAds showAds = ShowAds();
+                          if (showAds
+                              .placements[
+                                  AdsIds.interstitialVideoAdPlacementId]!
+                              .value) {
+                            showAds.showAd(
+                              AdsIds.interstitialVideoAdPlacementId,
+                              () {
+                                Get.to(
+                                  () => const RegistrationScreen(),
+                                );
+                              },
+                            );
+                          }
+                        },
+                      ),
+                      height30,
+                      orView(),
+                      height30,
+                      bottomSignUpOption(controller),
+                      height30,
+                      Center(
+                        child: RichText(
+                          textScaleFactor:
+                              MediaQuery.of(context).textScaleFactor,
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text:
+                                    '''By tapping 'Login' or 'Sign Up', you agree to our ''',
+                                style: regularText16.copyWith(
+                                  color: whiteColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'Terms of Use',
+                                style: regularText16.copyWith(
+                                  fontSize: 14,
+                                  color: primary,
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.underline,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {},
+                              ),
+                              TextSpan(
+                                text:
+                                    '''. Learn how we process your data in our ''',
+                                style: regularText16.copyWith(
+                                  color: whiteColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'Privacy Policy',
+                                style: regularText16.copyWith(
+                                  fontSize: 14,
+                                  color: primary,
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.underline,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {},
+                              ),
+                              TextSpan(
+                                text: ''' and ''',
+                                style: regularText16.copyWith(
+                                  color: whiteColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'Cookie Policy',
+                                style: regularText16.copyWith(
+                                  fontSize: 14,
+                                  color: primary,
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.underline,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {},
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
