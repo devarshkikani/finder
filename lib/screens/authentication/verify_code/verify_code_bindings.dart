@@ -3,13 +3,18 @@ import 'package:get/get.dart';
 
 class VerifyCodeBinding implements Bindings {
   VerifyCodeBinding({
-    required this.phoneNumber,
+    required this.emailAddress,
+    required this.isForgot,
   });
-  String? phoneNumber;
+  String? emailAddress;
+  bool? isForgot;
   @override
   void dependencies() {
-    Get.lazyPut<VerifyCodeController>(() => VerifyCodeController(
-          phoneNumber: phoneNumber,
-        ));
+    Get.lazyPut<VerifyCodeController>(
+      () => VerifyCodeController(
+        emailAddress: emailAddress,
+        isForgot: isForgot,
+      ),
+    );
   }
 }

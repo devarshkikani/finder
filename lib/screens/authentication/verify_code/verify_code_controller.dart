@@ -1,3 +1,8 @@
+// ignore_for_file: prefer_single_quotes
+
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:finder/screens/user_info_screen/name_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -11,14 +16,38 @@ import 'package:otp_text_field/otp_field.dart';
 
 class VerifyCodeController extends GetxController {
   VerifyCodeController({
-    required this.phoneNumber,
+    required this.emailAddress,
+    required this.isForgot,
   });
-  String? phoneNumber;
+  String? emailAddress;
+  bool? isForgot;
   RxBool isValid = false.obs;
   RxString otpValue = ''.obs;
   OtpFieldController otpController = OtpFieldController();
-
   GetStorage box = GetStorage();
+  late Timer timer;
+  RxInt resendOtpTimer = 120.obs;
+  Duration clockTimer = const Duration(seconds: 120);
+
+  @override
+  void onInit() {
+    timer = Timer.periodic(
+        const Duration(
+          seconds: 1,
+        ), (Timer timer) {
+      if (resendOtpTimer.value > 0) {
+        resendOtpTimer.value = resendOtpTimer.value - 1;
+        clockTimer = Duration(seconds: resendOtpTimer.value);
+      }
+    });
+    super.onInit();
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
 
   Future<void> verifyOtp({
     required BuildContext context,
@@ -27,17 +56,19 @@ class VerifyCodeController extends GetxController {
       context: context,
       url: ApiEndPoints.apiEndPoint + ApiEndPoints.otpVerify,
       data: <String, dynamic>{
-        'phoneOTP': int.parse(otpValue.value),
-        'phoneNumber': phoneNumber,
+        'emailOTP': int.parse(otpValue.value),
+        'email': emailAddress,
+        'isForgot': isForgot,
       },
     );
     if (response != null) {
+      log(response['userData'].toString());
       final UserModel model =
-          UserModel.fromJson(response['response'] as Map<String, dynamic>);
+          UserModel.fromJson(response['userData'] as Map<String, dynamic>);
       box
         ..write(StorageKey.apiToken, response['token'])
         ..write(StorageKey.currentUser, model.toJson())
-        ..write(StorageKey.userId, response['response']['_id'])
+        ..write(StorageKey.userId, response['userData']['_id'])
         ..write(StorageKey.isLogedIn, true);
       await NetworkDio.setDynamicHeader();
       if (model.isProfileCompleted) {
@@ -49,6 +80,27 @@ class VerifyCodeController extends GetxController {
           () => NameScreen(),
         );
       }
+    }
+  }
+
+  Future<void> resendOtp({
+    required BuildContext context,
+  }) async {
+    final Map<String, dynamic>? response = await NetworkDio.postDioHttpMethod(
+      context: context,
+      url: ApiEndPoints.apiEndPoint + ApiEndPoints.resendOTP,
+      data: <String, dynamic>{
+        'email': emailAddress,
+      },
+    );
+    if (response != null) {
+      NetworkDio.showSuccess(
+        title: 'Success',
+        sucessMessage: 'OTP has been sent successfully to your email',
+      );
+      otpController.clear();
+      resendOtpTimer.value = 120;
+      clockTimer = const Duration(seconds: 120);
     }
   }
 }
