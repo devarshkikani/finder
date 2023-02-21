@@ -41,136 +41,204 @@ class RegistrationScreen extends GetView<RegistrationScreenController> {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                height10,
-                Center(
-                  child: Text(
-                    'Register Account',
-                    style: blackText40.copyWith(
-                      color: primary,
-                      fontFamily: 'source_serif_pro',
-                    ),
-                  ),
-                ),
-                height30,
-                Text(
-                  'Email address',
-                  style: mediumText22.copyWith(color: whiteColor),
-                ),
-                height10,
-                EmailWidget(
-                  hintText: 'Enter your email here',
-                  controller: controller.email,
-                  textInputAction: TextInputAction.next,
-                  onChanged: (value) {
-                    if (Validators.validateEmail(
-                                controller.email.text.trim()) ==
-                            null &&
-                        controller.password.text.length >= 6 &&
-                        controller.confirmPassword.text.length >= 6 &&
-                        controller.isTermApply.value) {
-                      controller.isValid.value = true;
-                    } else {
-                      controller.isValid.value = false;
-                    }
-                  },
-                ),
-                height20,
-                Text(
-                  'Password',
-                  style: mediumText22.copyWith(color: whiteColor),
-                ),
-                height10,
-                PasswordWidget(
-                  hintText: 'Enter your password here',
-                  passType: 'Password',
-                  showsuffixIcon: true,
-                  textInputAction: TextInputAction.next,
-                  controller: controller.password,
-                  onChaged: (value) {
-                    if (Validators.validateEmail(
-                                controller.email.text.trim()) ==
-                            null &&
-                        controller.password.text.length >= 6 &&
-                        controller.confirmPassword.text.length >= 6 &&
-                        controller.isTermApply.value) {
-                      controller.isValid.value = true;
-                    } else {
-                      controller.isValid.value = false;
-                    }
-                  },
-                ),
-                height20,
-                Text(
-                  'Confirm Password',
-                  style: mediumText22.copyWith(color: whiteColor),
-                ),
-                height10,
-                PasswordWidget(
-                  hintText: 'Confirm password here',
-                  passType: 'Password',
-                  showsuffixIcon: true,
-                  controller: controller.confirmPassword,
-                  onChaged: (value) {
-                    if (Validators.validateEmail(
-                                controller.email.text.trim()) ==
-                            null &&
-                        controller.password.text.length >= 6 &&
-                        controller.confirmPassword.text.length >= 6 &&
-                        controller.isTermApply.value) {
-                      controller.isValid.value = true;
-                    } else {
-                      controller.isValid.value = false;
-                    }
-                  },
-                ),
-                height20,
-                Row(
-                  children: [
-                    width15,
-                    GestureDetector(
-                      onTap: () {
-                        controller.isTermApply.value =
-                            !controller.isTermApply.value;
-                      },
-                      child: Obx(
-                        () => Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: controller.isTermApply.value
-                                  ? primary
-                                  : darkGrey,
-                            ),
-                          ),
-                          child: controller.isTermApply.value
-                              ? const Icon(
-                                  Icons.check,
-                                  color: primary,
-                                )
-                              : const SizedBox(),
-                        ),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  height10,
+                  Center(
+                    child: Text(
+                      'Register Account',
+                      style: blackText40.copyWith(
+                        color: primary,
+                        fontFamily: 'source_serif_pro',
                       ),
                     ),
-                    width15,
-                    RichText(
+                  ),
+                  height30,
+                  Text(
+                    'Email address',
+                    style: mediumText22.copyWith(color: whiteColor),
+                  ),
+                  height10,
+                  EmailWidget(
+                    hintText: 'Enter your email here',
+                    controller: controller.email,
+                    textInputAction: TextInputAction.next,
+                    onChanged: (value) {
+                      if (Validators.validateEmail(
+                                  controller.email.text.trim()) ==
+                              null &&
+                          controller.password.text.length >= 6 &&
+                          controller.confirmPassword.text.length >= 6 &&
+                          controller.isTermApply.value) {
+                        controller.isValid.value = true;
+                      } else {
+                        controller.isValid.value = false;
+                      }
+                    },
+                  ),
+                  height20,
+                  Text(
+                    'Password',
+                    style: mediumText22.copyWith(color: whiteColor),
+                  ),
+                  height10,
+                  PasswordWidget(
+                    hintText: 'Enter your password here',
+                    passType: 'Password',
+                    showsuffixIcon: true,
+                    textInputAction: TextInputAction.next,
+                    controller: controller.password,
+                    onChaged: (value) {
+                      if (Validators.validateEmail(
+                                  controller.email.text.trim()) ==
+                              null &&
+                          controller.password.text.length >= 6 &&
+                          controller.confirmPassword.text.length >= 6 &&
+                          controller.isTermApply.value) {
+                        controller.isValid.value = true;
+                      } else {
+                        controller.isValid.value = false;
+                      }
+                    },
+                  ),
+                  height20,
+                  Text(
+                    'Confirm Password',
+                    style: mediumText22.copyWith(color: whiteColor),
+                  ),
+                  height10,
+                  PasswordWidget(
+                    hintText: 'Confirm password here',
+                    passType: 'Password',
+                    showsuffixIcon: true,
+                    controller: controller.confirmPassword,
+                    onChaged: (value) {
+                      if (Validators.validateEmail(
+                                  controller.email.text.trim()) ==
+                              null &&
+                          controller.password.text.length >= 6 &&
+                          controller.confirmPassword.text.length >= 6 &&
+                          controller.isTermApply.value) {
+                        controller.isValid.value = true;
+                      } else {
+                        controller.isValid.value = false;
+                      }
+                    },
+                  ),
+                  height20,
+                  Row(
+                    children: [
+                      width15,
+                      GestureDetector(
+                        onTap: () {
+                          controller.isTermApply.value =
+                              !controller.isTermApply.value;
+                          if (Validators.validateEmail(
+                                      controller.email.text.trim()) ==
+                                  null &&
+                              controller.password.text.length >= 6 &&
+                              controller.confirmPassword.text.length >= 6 &&
+                              controller.isTermApply.value) {
+                            controller.isValid.value = true;
+                          } else {
+                            controller.isValid.value = false;
+                          }
+                        },
+                        child: Obx(
+                          () => Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: controller.isTermApply.value
+                                    ? primary
+                                    : darkGrey,
+                              ),
+                            ),
+                            child: controller.isTermApply.value
+                                ? const Icon(
+                                    Icons.check,
+                                    color: primary,
+                                  )
+                                : const SizedBox(),
+                          ),
+                        ),
+                      ),
+                      width15,
+                      RichText(
+                        textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '''I agree with ''',
+                              style: regularText16.copyWith(
+                                color: whiteColor,
+                                fontSize: 14,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Terms & Conditions',
+                              style: regularText16.copyWith(
+                                fontSize: 14,
+                                color: primary,
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.underline,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Get.to(
+                                    () => const LoginScreen(),
+                                  );
+                                },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  height30,
+                  height20,
+                  Center(
+                    child: Obx(
+                      () => elevatedButton(
+                        title: 'Send Code',
+                        onTap: controller.isValid.value
+                            ? () {
+                                if (controller.password.value ==
+                                    controller.confirmPassword.value) {
+                                  controller.sendOtp(context);
+                                } else {
+                                  NetworkDio.showSuccess(
+                                    title: 'Warning',
+                                    sucessMessage:
+                                        '''Password not match with confirm password''',
+                                  );
+                                }
+                              }
+                            : null,
+                      ),
+                    ),
+                  ),
+                  height30,
+                  Center(
+                    child: RichText(
                       textScaleFactor: MediaQuery.of(context).textScaleFactor,
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                            text: '''I agree with ''',
+                            text: '''Already have an account? ''',
                             style: regularText16.copyWith(
                               color: whiteColor,
                               fontSize: 14,
                             ),
                           ),
                           TextSpan(
-                            text: 'Terms & Conditions',
+                            text: 'Sign in',
                             style: regularText16.copyWith(
                               fontSize: 14,
                               color: primary,
@@ -187,65 +255,9 @@ class RegistrationScreen extends GetView<RegistrationScreenController> {
                         ],
                       ),
                     ),
-                  ],
-                ),
-                height30,
-                height20,
-                Center(
-                  child: Obx(
-                    () => elevatedButton(
-                      title: 'Sign Up',
-                      onTap: controller.isValid.value
-                          ? () {
-                              if (controller.password.value ==
-                                  controller.confirmPassword.value) {
-                                controller.sendOtp(context);
-                              } else {
-                                NetworkDio.showSuccess(
-                                  title: 'Warning',
-                                  sucessMessage:
-                                      '''Password not match with confirm password''',
-                                );
-                              }
-                            }
-                          : null,
-                    ),
                   ),
-                ),
-                height30,
-                Center(
-                  child: RichText(
-                    textScaleFactor: MediaQuery.of(context).textScaleFactor,
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: '''Already have an account? ''',
-                          style: regularText16.copyWith(
-                            color: whiteColor,
-                            fontSize: 14,
-                          ),
-                        ),
-                        TextSpan(
-                          text: 'Sign in',
-                          style: regularText16.copyWith(
-                            fontSize: 14,
-                            color: primary,
-                            fontWeight: FontWeight.w500,
-                            decoration: TextDecoration.underline,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Get.to(
-                                () => const LoginScreen(),
-                              );
-                            },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

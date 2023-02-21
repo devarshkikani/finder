@@ -46,6 +46,7 @@ class RegistrationScreenController extends GetxController {
         () => const VerifyCodeScreen(),
         binding: VerifyCodeBinding(
           emailAddress: email.text.trim(),
+          isForgot: false,
         ),
       );
     }
