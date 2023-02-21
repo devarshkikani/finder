@@ -118,20 +118,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Phone & email',
+          'Email Address',
           style: regularText20.copyWith(
             color: primary,
           ),
         ),
         dividers(10),
         height20,
-        Text(
-          userModel.phoneNumber,
-          style: regularText18.copyWith(
-            color: whiteColor,
-          ),
-        ),
-        dividers(20),
         Text(
           userModel.email.toString(),
           style: regularText18.copyWith(
