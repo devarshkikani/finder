@@ -4,6 +4,7 @@ import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/user_info_screen/user_gender_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/utils/network_dio.dart';
 import 'package:finder/widget/app_bar_widget.dart';
 import 'package:finder/widget/elevated_button.dart';
 import 'package:finder/widget/show_banner_ads.dart';
@@ -34,6 +35,7 @@ class _BirthDateScreenState extends State<BirthDateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbarWidget(),
+      backgroundColor: lightBlack,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -62,7 +64,9 @@ class _BirthDateScreenState extends State<BirthDateScreen> {
                     },
                     pickerTheme: DateTimePickerTheme(
                       backgroundColor: Colors.transparent,
-                      itemTextStyle: regularText20,
+                      itemTextStyle: regularText20.copyWith(
+                        color: whiteColor,
+                      ),
                       dividerColor: darkGrey,
                     ),
                   ),
@@ -76,22 +80,26 @@ class _BirthDateScreenState extends State<BirthDateScreen> {
                         textAlign: TextAlign.center,
                       )
                     : const SizedBox(),
-                height20,
+                height30,
                 Center(
                   child: elevatedButton(
                     title: 'Continue',
-                    onTap: selectedDate != null
-                        ? () {
-                            userModel.birthDate = selectedDate;
-                            box.write(
-                              StorageKey.currentUser,
-                              userModel.toJson(),
-                            );
-                            Get.to(() => UserGenderScreen(
-                                  isEdit: false.obs,
-                                ));
-                          }
-                        : null,
+                    onTap: () {
+                      if (selectedDate != null) {
+                        userModel.birthDate = selectedDate;
+                        box.write(
+                          StorageKey.currentUser,
+                          userModel.toJson(),
+                        );
+                        Get.to(() => UserGenderScreen(
+                              isEdit: false.obs,
+                            ));
+                      } else {
+                        NetworkDio.showWarning(
+                          message: 'Select your birth date first',
+                        );
+                      }
+                    },
                   ),
                 ),
               ],

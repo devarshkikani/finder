@@ -13,7 +13,7 @@ AppBar appbarWidget({
   Color? backgroundColor,
 }) {
   return AppBar(
-    backgroundColor: backgroundColor ?? background,
+    backgroundColor: backgroundColor ?? lightBlack,
     elevation: 0,
     leading: IconButton(
       onPressed: onTap ??
@@ -24,7 +24,7 @@ AppBar appbarWidget({
         Platform.isAndroid
             ? Icons.arrow_back_rounded
             : Icons.arrow_back_ios_rounded,
-        color: blackColor,
+        color: whiteColor,
       ),
     ),
     centerTitle: centerTitle ?? true,

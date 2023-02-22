@@ -112,21 +112,18 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
                   ),
                 ),
                 height20,
-                Obx(
-                  () => Center(
-                    child: elevatedButton(
-                      onTap: () {
-                        if (controller.isValid.value) {
-                          controller.verifyOtp(context: context);
-                        } else {
-                          NetworkDio.showError(
-                            title: 'Warning',
-                            errorMessage: 'Enter 6 digit code first',
-                          );
-                        }
-                      },
-                      title: 'Verify',
-                    ),
+                Center(
+                  child: elevatedButton(
+                    onTap: () {
+                      if (controller.isValid.value) {
+                        controller.verifyOtp(context: context);
+                      } else {
+                        NetworkDio.showWarning(
+                          message: 'Enter 6 digit code first',
+                        );
+                      }
+                    },
+                    title: 'Verify',
                   ),
                 ),
               ],

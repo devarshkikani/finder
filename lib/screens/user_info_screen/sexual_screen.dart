@@ -6,6 +6,7 @@ import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/user_info_screen/ethnicity_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/utils/network_dio.dart';
 import 'package:finder/widget/app_bar_widget.dart';
 import 'package:finder/widget/elevated_button.dart';
 import 'package:finder/widget/show_banner_ads.dart';
@@ -38,73 +39,83 @@ class SelectSexualScreen extends StatelessWidget {
     userModel = UserModel.fromJson(
         box.read(StorageKey.currentUser) as Map<String, dynamic>);
     return Scaffold(
+      backgroundColor: lightBlack,
       appBar: appbarWidget(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "What's your sexual\norientation?",
-                style: boldText34.copyWith(
-                  color: primary,
-                  fontFamily: 'source_serif_pro',
-                ),
-              ),
-              height20,
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: lightBlue,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "What's your sexual\norientation?",
+                  style: boldText34.copyWith(
+                    color: primary,
+                    fontFamily: 'source_serif_pro',
                   ),
-                  borderRadius: BorderRadius.circular(10),
                 ),
-                child: Obx(
-                  () => Column(
-                    children: List<Widget>.generate(
-                      sexualityList.length,
-                      (int index) => Column(
-                        children: <Widget>[
-                          itemWidget(sexualityList[index]),
-                          if (index + 1 != sexualityList.length)
-                            Container(
-                              height: 0.5,
-                              color: lightBlue,
-                            ),
-                        ],
+                height20,
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: lightBlue,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Obx(
+                    () => Column(
+                      children: List<Widget>.generate(
+                        sexualityList.length,
+                        (int index) => Column(
+                          children: <Widget>[
+                            itemWidget(sexualityList[index]),
+                            if (index + 1 != sexualityList.length)
+                              Container(
+                                height: 0.5,
+                                color: lightBlue,
+                              ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              height30,
-              Center(
-                child: Obx(
-                  () => elevatedButton(
-                    title: isEdit.value ? 'Save' : 'Continue',
-                    onTap: sexuality.value != ''
-                        ? () {
-                            userModel.sexuality = sexuality.value;
-                            box.write(
-                              StorageKey.currentUser,
-                              userModel.toJson(),
+                height30,
+                Center(
+                  child: Obx(
+                    () => elevatedButton(
+                      title: isEdit.value ? 'Save' : 'Continue',
+                      onTap: () {
+                        if (sexuality.value != '') {
+                          userModel.sexuality = sexuality.value;
+                          box.write(
+                            StorageKey.currentUser,
+                            userModel.toJson(),
+                          );
+                          if (isEdit.value) {
+                            Get.back(
+                              result: true,
                             );
-                            if (isEdit.value) {
-                              Get.back(
-                                result: true,
-                              );
-                            } else {
-                              Get.to(() => EthnicityScreen(
-                                    isEdit: false.obs,
-                                  ));
-                            }
+                          } else {
+                            Get.to(
+                              () => EthnicityScreen(
+                                isEdit: false.obs,
+                              ),
+                            );
                           }
-                        : null,
+                        } else {
+                          NetworkDio.showWarning(
+                            message: 'Select your sexual orientation first',
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ),
-              ),
-            ],
+                height30,
+              ],
+            ),
           ),
         ),
       ),
@@ -121,6 +132,9 @@ class SelectSexualScreen extends StatelessWidget {
       ),
       visualDensity: VisualDensity.compact,
       activeColor: primary,
+      side: const BorderSide(
+        color: whiteColor,
+      ),
       checkboxShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(3),
       ),

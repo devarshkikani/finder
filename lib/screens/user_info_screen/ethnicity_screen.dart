@@ -6,6 +6,7 @@ import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/user_info_screen/user_height_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/utils/network_dio.dart';
 import 'package:finder/widget/app_bar_widget.dart';
 import 'package:finder/widget/elevated_button.dart';
 import 'package:finder/widget/show_banner_ads.dart';
@@ -41,6 +42,7 @@ class EthnicityScreen extends StatelessWidget {
     userModel = UserModel.fromJson(
         box.read(StorageKey.currentUser) as Map<String, dynamic>);
     return Scaffold(
+      backgroundColor: lightBlack,
       appBar: appbarWidget(),
       body: SafeArea(
         child: Padding(
@@ -87,27 +89,32 @@ class EthnicityScreen extends StatelessWidget {
                   child: Obx(
                     () => elevatedButton(
                       title: isEdit.value ? 'Save' : 'Continue',
-                      onTap: ethnicity.value != ''
-                          ? () {
-                              userModel.ethnicity = ethnicity.value;
-                              box.write(
-                                StorageKey.currentUser,
-                                userModel.toJson(),
-                              );
-                              if (isEdit.value) {
-                                Get.back(
-                                  result: true,
-                                );
-                              } else {
-                                Get.to(() => UserHeightScreen(
-                                      isEdit: false.obs,
-                                    ));
-                              }
-                            }
-                          : null,
+                      onTap: () {
+                        if (ethnicity.value != '') {
+                          userModel.ethnicity = ethnicity.value;
+                          box.write(
+                            StorageKey.currentUser,
+                            userModel.toJson(),
+                          );
+                          if (isEdit.value) {
+                            Get.back(
+                              result: true,
+                            );
+                          } else {
+                            Get.to(() => UserHeightScreen(
+                                  isEdit: false.obs,
+                                ));
+                          }
+                        } else {
+                          NetworkDio.showWarning(
+                            message: 'Select your ethnicity first',
+                          );
+                        }
+                      },
                     ),
                   ),
                 ),
+                height30,
               ],
             ),
           ),
@@ -126,6 +133,9 @@ class EthnicityScreen extends StatelessWidget {
       ),
       visualDensity: VisualDensity.compact,
       activeColor: primary,
+      side: const BorderSide(
+        color: whiteColor,
+      ),
       checkboxShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(3),
       ),

@@ -40,7 +40,9 @@ class HomeScreen extends GetView<HomeScreenController> {
                     child: Center(
                       child: Text(
                         'Remove',
-                        style: regularText16,
+                        style: regularText16.copyWith(
+                          color: darkBlack,
+                        ),
                       ),
                     ),
                   ),

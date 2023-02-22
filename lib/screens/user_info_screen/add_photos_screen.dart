@@ -69,6 +69,7 @@ class _AddPhotosState extends State<AddPhotos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: lightBlack,
       appBar: appbarWidget(),
       body: SafeArea(
         child: Padding(
@@ -169,34 +170,37 @@ class _AddPhotosState extends State<AddPhotos> {
                     ),
                   ),
                 ),
-                height20,
+                height30,
                 Center(
                   child: elevatedButton(
                     title: 'Continue',
-                    backgroundColor: Colors.green,
-                    onTap: images.length < 2
-                        ? null
-                        : () {
-                            final ShowAds showAds = ShowAds();
-                            if (showAds
-                                .placements[
-                                    AdsIds.interstitialVideoAdPlacementId]!
-                                .value) {
-                              showAds.showAd(
-                                AdsIds.interstitialVideoAdPlacementId,
-                                () {
-                                  userModel.photos = images;
-                                  box.write(
-                                    StorageKey.currentUser,
-                                    userModel.toJson(),
-                                  );
-                                  Get.to(() => const CompleteProfileScreen());
-                                },
+                    onTap: () {
+                      if (images.length < 2) {
+                        NetworkDio.showWarning(
+                          message: '''Minimum 2 photos are required''',
+                        );
+                      } else {
+                        final ShowAds showAds = ShowAds();
+                        if (showAds
+                            .placements[AdsIds.interstitialVideoAdPlacementId]!
+                            .value) {
+                          showAds.showAd(
+                            AdsIds.interstitialVideoAdPlacementId,
+                            () {
+                              userModel.photos = images;
+                              box.write(
+                                StorageKey.currentUser,
+                                userModel.toJson(),
                               );
-                            }
-                          },
+                              Get.to(() => const CompleteProfileScreen());
+                            },
+                          );
+                        }
+                      }
+                    },
                   ),
                 ),
+                height30,
               ],
             ),
           ),
@@ -215,7 +219,7 @@ class _AddPhotosState extends State<AddPhotos> {
             color: Colors.transparent,
             child: Container(
               decoration: const BoxDecoration(
-                color: whiteColor,
+                color: lightBlack,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -322,6 +326,7 @@ class _AddPhotosState extends State<AddPhotos> {
               type == 'Gallery'
                   ? Icons.photo_library_outlined
                   : Icons.add_a_photo_rounded,
+              color: whiteColor,
             ),
             height15,
             Text(

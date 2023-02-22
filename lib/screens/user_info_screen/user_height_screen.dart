@@ -89,6 +89,7 @@ class UserHeightScreen extends StatelessWidget {
     userModel = UserModel.fromJson(
         box.read(StorageKey.currentUser) as Map<String, dynamic>);
     return Scaffold(
+      backgroundColor: lightBlack,
       appBar: appbarWidget(),
       body: SafeArea(
         child: Padding(
@@ -134,13 +135,13 @@ class UserHeightScreen extends StatelessWidget {
                               child: Text(
                                 heightList[index],
                                 style: mediumText20.copyWith(
-                                  color: blackColor,
+                                  color: whiteColor,
                                 ),
                               ),
                             ),
                             Container(
                               height: 0.5,
-                              color: lightBlue,
+                              color: darkGrey,
                             ),
                           ],
                         ),

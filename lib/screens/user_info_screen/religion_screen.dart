@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:finder/constant/ads_id.dart';
-import 'package:finder/constant/show_ads.dart';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
@@ -45,6 +43,7 @@ class ReligionScreen extends StatelessWidget {
     userModel = UserModel.fromJson(
         box.read(StorageKey.currentUser) as Map<String, dynamic>);
     return Scaffold(
+      backgroundColor: lightBlack,
       appBar: appbarWidget(),
       body: SafeArea(
         child: Padding(
@@ -68,28 +67,17 @@ class ReligionScreen extends StatelessWidget {
                       religiousList.length,
                       (int index) => InkWell(
                         onTap: () {
-                          final ShowAds showAds = ShowAds();
-                          if (showAds
-                              .placements[
-                                  AdsIds.interstitialVideoAdPlacementId]!
-                              .value) {
-                            showAds.showAd(
-                              AdsIds.interstitialVideoAdPlacementId,
-                              () {
-                                userModel.religious = religiousList[index];
-                                box.write(
-                                  StorageKey.currentUser,
-                                  userModel.toJson(),
-                                );
-                                if (isEdit.value) {
-                                  Get.back(result: true);
-                                } else {
-                                  Get.to(() => StatusScreen(
-                                        isEdit: false.obs,
-                                      ));
-                                }
-                              },
-                            );
+                          userModel.religious = religiousList[index];
+                          box.write(
+                            StorageKey.currentUser,
+                            userModel.toJson(),
+                          );
+                          if (isEdit.value) {
+                            Get.back(result: true);
+                          } else {
+                            Get.to(() => StatusScreen(
+                                  isEdit: false.obs,
+                                ));
                           }
                         },
                         child: Column(
@@ -101,13 +89,13 @@ class ReligionScreen extends StatelessWidget {
                               child: Text(
                                 religiousList[index],
                                 style: mediumText20.copyWith(
-                                  color: blackColor,
+                                  color: whiteColor,
                                 ),
                               ),
                             ),
                             Container(
                               height: 0.5,
-                              color: lightBlue,
+                              color: darkGrey,
                             ),
                           ],
                         ),

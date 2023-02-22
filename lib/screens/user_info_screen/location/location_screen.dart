@@ -15,6 +15,7 @@ class LocationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: lightBlack,
       appBar: appbarWidget(),
       body: GetBuilder<LocationScreenController>(
         init: LocationScreenController(),

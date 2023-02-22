@@ -6,6 +6,7 @@ import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/user_info_screen/job_title_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/utils/network_dio.dart';
 import 'package:finder/widget/app_bar_widget.dart';
 import 'package:finder/widget/elevated_button.dart';
 import 'package:finder/widget/show_banner_ads.dart';
@@ -35,6 +36,7 @@ class GraduationScreen extends StatelessWidget {
     userModel = UserModel.fromJson(
         box.read(StorageKey.currentUser) as Map<String, dynamic>);
     return Scaffold(
+      backgroundColor: lightBlack,
       appBar: appbarWidget(),
       body: SafeArea(
         child: Padding(
@@ -81,22 +83,27 @@ class GraduationScreen extends StatelessWidget {
                   child: Obx(
                     () => elevatedButton(
                       title: isEdit.value ? 'Save' : 'Continue',
-                      onTap: graduation.value != ''
-                          ? () {
-                              userModel.educationLevel = graduation.value;
-                              box.write(
-                                StorageKey.currentUser,
-                                userModel.toJson(),
-                              );
-                              if (isEdit.value) {
-                                Get.back(
-                                  result: true,
-                                );
-                              } else {
-                                Get.to(() => JobTitleScreen());
-                              }
-                            }
-                          : null,
+                      onTap: () {
+                        if (graduation.value != '') {
+                          userModel.educationLevel = graduation.value;
+                          box.write(
+                            StorageKey.currentUser,
+                            userModel.toJson(),
+                          );
+                          if (isEdit.value) {
+                            Get.back(
+                              result: true,
+                            );
+                          } else {
+                            Get.to(() => JobTitleScreen());
+                          }
+                        } else {
+                          NetworkDio.showWarning(
+                            message:
+                                '''Select you highest level you attained first''',
+                          );
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -118,6 +125,9 @@ class GraduationScreen extends StatelessWidget {
       ),
       visualDensity: VisualDensity.compact,
       activeColor: primary,
+      side: const BorderSide(
+        color: whiteColor,
+      ),
       checkboxShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(3),
       ),

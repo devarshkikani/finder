@@ -55,6 +55,7 @@ class _LocationPermissionScreenState extends State<LocationPermissionScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: lightBlack,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -89,7 +90,7 @@ class _LocationPermissionScreenState extends State<LocationPermissionScreen>
                         await Geolocator.openAppSettings();
                       },
                     ),
-                    height10,
+                    height30,
                     TextButton(
                       style: TextButton.styleFrom(
                         shape: const RoundedRectangleBorder(
@@ -104,7 +105,7 @@ class _LocationPermissionScreenState extends State<LocationPermissionScreen>
                         child: Text(
                           'Close',
                           style: mediumText16.copyWith(
-                            color: blackColor,
+                            color: whiteColor,
                           ),
                         ),
                       ),

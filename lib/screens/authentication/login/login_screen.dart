@@ -1,6 +1,5 @@
 // ignore_for_file: always_specify_types
 
-import 'dart:io';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/screens/authentication/login/login_screen_controller.dart';
 import 'package:finder/screens/authentication/registration/registration_screen.dart';

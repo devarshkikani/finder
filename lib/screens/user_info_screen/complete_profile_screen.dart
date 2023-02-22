@@ -41,7 +41,9 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
       data: userModel.toJson(),
     );
     if (response != null) {
-      box.write(StorageKey.isLogedIn, true);
+      box
+        ..write(StorageKey.isLogedIn, true)
+        ..write(StorageKey.currentUser, userModel.toJson());
       Future<void>.delayed(const Duration(seconds: 5), () {
         Get.offAll(
           () => MainHomeScreen(),

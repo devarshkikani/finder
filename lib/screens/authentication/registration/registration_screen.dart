@@ -1,9 +1,7 @@
 // ignore_for_file: always_specify_types
 
-import 'dart:io';
 import 'package:finder/screens/authentication/login/login_screen.dart';
 import 'package:finder/utils/network_dio.dart';
-import 'package:finder/widget/validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:finder/constant/ads_id.dart';
-import 'package:finder/constant/show_ads.dart';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
@@ -53,6 +51,7 @@ class LanguageScreen extends StatelessWidget {
     userModel = UserModel.fromJson(
         box.read(StorageKey.currentUser) as Map<String, dynamic>);
     return Scaffold(
+      backgroundColor: lightBlack,
       appBar: appbarWidget(),
       body: SafeArea(
         child: Padding(
@@ -76,28 +75,17 @@ class LanguageScreen extends StatelessWidget {
                       tongueList.length,
                       (int index) => InkWell(
                         onTap: () {
-                          final ShowAds showAds = ShowAds();
-                          if (showAds
-                              .placements[
-                                  AdsIds.interstitialVideoAdPlacementId]!
-                              .value) {
-                            showAds.showAd(
-                              AdsIds.interstitialVideoAdPlacementId,
-                              () {
-                                userModel.languageSpoken = tongueList[index];
-                                box.write(
-                                  StorageKey.currentUser,
-                                  userModel.toJson(),
-                                );
-                                if (isEdit.value) {
-                                  Get.back(result: true);
-                                } else {
-                                  Get.to(() => GraduationScreen(
-                                        isEdit: false.obs,
-                                      ));
-                                }
-                              },
-                            );
+                          userModel.languageSpoken = tongueList[index];
+                          box.write(
+                            StorageKey.currentUser,
+                            userModel.toJson(),
+                          );
+                          if (isEdit.value) {
+                            Get.back(result: true);
+                          } else {
+                            Get.to(() => GraduationScreen(
+                                  isEdit: false.obs,
+                                ));
                           }
                         },
                         child: Column(
@@ -109,13 +97,13 @@ class LanguageScreen extends StatelessWidget {
                               child: Text(
                                 tongueList[index],
                                 style: mediumText20.copyWith(
-                                  color: blackColor,
+                                  color: whiteColor,
                                 ),
                               ),
                             ),
                             Container(
                               height: 0.5,
-                              color: lightBlue,
+                              color: darkGrey,
                             ),
                           ],
                         ),

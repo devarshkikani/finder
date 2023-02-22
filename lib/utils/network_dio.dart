@@ -4,6 +4,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:dio/src/response.dart' as dio;
+import 'package:finder/theme/colors.dart';
+import 'package:finder/theme/text_style.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -310,7 +312,24 @@ class NetworkDio {
       title,
       sucessMessage,
       margin: const EdgeInsets.all(15),
-      backgroundColor: Colors.greenAccent.withOpacity(0.5),
+      backgroundColor: success.withOpacity(0.9),
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
+
+  static void showWarning({
+    required String message,
+  }) {
+    Get.snackbar(
+      '',
+      '',
+      titleText: const SizedBox(),
+      messageText: Text(
+        message,
+        style: regularText16,
+      ),
+      margin: const EdgeInsets.all(15),
+      backgroundColor: secondary.withOpacity(0.9),
       snackPosition: SnackPosition.BOTTOM,
     );
   }
@@ -322,7 +341,8 @@ class NetworkDio {
     Get.snackbar(
       title,
       errorMessage,
-      backgroundColor: Colors.redAccent.withOpacity(0.5),
+      colorText: whiteColor,
+      backgroundColor: error.withOpacity(0.9),
       margin: const EdgeInsets.all(15),
       snackPosition: SnackPosition.BOTTOM,
     );

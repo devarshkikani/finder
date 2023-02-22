@@ -1,13 +1,12 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:finder/constant/ads_id.dart';
-import 'package:finder/constant/show_ads.dart';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/user_info_screen/drugs_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/utils/network_dio.dart';
 import 'package:finder/widget/app_bar_widget.dart';
 import 'package:finder/widget/elevated_button.dart';
 import 'package:finder/widget/show_banner_ads.dart';
@@ -37,6 +36,7 @@ class SmokingScreen extends StatelessWidget {
     userModel = UserModel.fromJson(
         box.read(StorageKey.currentUser) as Map<String, dynamic>);
     return Scaffold(
+      backgroundColor: lightBlack,
       appBar: appbarWidget(),
       body: SafeArea(
         child: Padding(
@@ -83,35 +83,28 @@ class SmokingScreen extends StatelessWidget {
                   child: Obx(
                     () => elevatedButton(
                       title: isEdit.value ? 'Save' : 'Continue',
-                      onTap: areYouSmoking.value != ''
-                          ? () {
-                              final ShowAds showAds = ShowAds();
-                              if (showAds
-                                  .placements[
-                                      AdsIds.interstitialVideoAdPlacementId]!
-                                  .value) {
-                                showAds.showAd(
-                                  AdsIds.interstitialVideoAdPlacementId,
-                                  () {
-                                    userModel.smoking = areYouSmoking.value;
-                                    box.write(
-                                      StorageKey.currentUser,
-                                      userModel.toJson(),
-                                    );
-                                    if (isEdit.value) {
-                                      Get.back(
-                                        result: true,
-                                      );
-                                    } else {
-                                      Get.to(() => DrugsScreen(
-                                            isEdit: false.obs,
-                                          ));
-                                    }
-                                  },
-                                );
-                              }
-                            }
-                          : null,
+                      onTap: () {
+                        if (areYouSmoking.value != '') {
+                          userModel.smoking = areYouSmoking.value;
+                          box.write(
+                            StorageKey.currentUser,
+                            userModel.toJson(),
+                          );
+                          if (isEdit.value) {
+                            Get.back(
+                              result: true,
+                            );
+                          } else {
+                            Get.to(() => DrugsScreen(
+                                  isEdit: false.obs,
+                                ));
+                          }
+                        } else {
+                          NetworkDio.showWarning(
+                            message: '''Answer do you smoking?''',
+                          );
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -133,6 +126,7 @@ class SmokingScreen extends StatelessWidget {
       ),
       visualDensity: VisualDensity.compact,
       activeColor: primary,
+      side: const BorderSide(color: whiteColor),
       checkboxShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(3),
       ),

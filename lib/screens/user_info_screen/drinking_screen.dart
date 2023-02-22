@@ -6,6 +6,7 @@ import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/user_info_screen/smoking_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/utils/network_dio.dart';
 import 'package:finder/widget/app_bar_widget.dart';
 import 'package:finder/widget/elevated_button.dart';
 import 'package:finder/widget/show_banner_ads.dart';
@@ -35,6 +36,7 @@ class DrinkingScreen extends StatelessWidget {
     userModel = UserModel.fromJson(
         box.read(StorageKey.currentUser) as Map<String, dynamic>);
     return Scaffold(
+      backgroundColor: lightBlack,
       appBar: appbarWidget(),
       body: SafeArea(
         child: Padding(
@@ -81,24 +83,28 @@ class DrinkingScreen extends StatelessWidget {
                   child: Obx(
                     () => elevatedButton(
                       title: isEdit.value ? 'Save' : 'Continue',
-                      onTap: areYouDrinking.value != ''
-                          ? () {
-                              userModel.drinking = areYouDrinking.value;
-                              box.write(
-                                StorageKey.currentUser,
-                                userModel.toJson(),
-                              );
-                              if (isEdit.value) {
-                                Get.back(
-                                  result: true,
-                                );
-                              } else {
-                                Get.to(() => SmokingScreen(
-                                      isEdit: false.obs,
-                                    ));
-                              }
-                            }
-                          : null,
+                      onTap: () {
+                        if (areYouDrinking.value != '') {
+                          userModel.drinking = areYouDrinking.value;
+                          box.write(
+                            StorageKey.currentUser,
+                            userModel.toJson(),
+                          );
+                          if (isEdit.value) {
+                            Get.back(
+                              result: true,
+                            );
+                          } else {
+                            Get.to(() => SmokingScreen(
+                                  isEdit: false.obs,
+                                ));
+                          }
+                        } else {
+                          NetworkDio.showWarning(
+                            message: '''Answer do you drinking?''',
+                          );
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -120,6 +126,9 @@ class DrinkingScreen extends StatelessWidget {
       ),
       visualDensity: VisualDensity.compact,
       activeColor: primary,
+      side: const BorderSide(
+        color: whiteColor,
+      ),
       checkboxShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(3),
       ),
