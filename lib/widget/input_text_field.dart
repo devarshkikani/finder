@@ -65,7 +65,7 @@ TextFormField textFormField({
     autofocus: autofocus,
     textAlign: textAlign,
     cursorColor: cursorColor ?? primary,
-    cursorHeight: cursorHeight ?? 20,
+    cursorHeight: cursorHeight ?? 22,
     style: style ?? regularText18.copyWith(color: whiteColor),
     readOnly: readOnly ?? false,
     onEditingComplete: onEditingComplete,

@@ -22,20 +22,6 @@ class LoginScreen extends GetView<LoginScreenController> {
       init: LoginScreenController(),
       builder: (LoginScreenController controller) => Scaffold(
         backgroundColor: lightBlack,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(
-              Platform.isIOS
-                  ? Icons.arrow_back_ios_new_rounded
-                  : Icons.arrow_back_rounded,
-            ),
-          ),
-        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(20),
