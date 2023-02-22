@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_foreach
 
-import 'package:finder/constant/ads_id.dart';
 import 'package:finder/constant/app_endpoints.dart';
-import 'package:finder/constant/show_ads.dart';
 import 'package:finder/utils/network_dio.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -12,19 +10,14 @@ import 'package:finder/screens/authentication/verify_code/verify_code_screen.dar
 class RegistrationScreenController extends GetxController {
   RxBool isValid = false.obs;
   RxBool isTermApply = false.obs;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
 
   Future<void> sendOtp(BuildContext context) async {
-    final ShowAds showAds = ShowAds();
-    if (showAds.placements[AdsIds.interstitialVideoAdPlacementId]!.value) {
-      showAds.showAd(
-        AdsIds.interstitialVideoAdPlacementId,
-        () async {
-          await nextFunction(context);
-        },
-      );
+    if (formKey.currentState!.validate()) {
+      await nextFunction(context);
     }
   }
 

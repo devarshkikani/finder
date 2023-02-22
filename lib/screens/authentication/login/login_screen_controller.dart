@@ -2,9 +2,7 @@
 
 import 'dart:developer';
 
-import 'package:finder/constant/ads_id.dart';
 import 'package:finder/constant/app_endpoints.dart';
-import 'package:finder/constant/show_ads.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/main_home/main_home_screen.dart';
@@ -17,15 +15,14 @@ import 'package:finder/screens/authentication/verify_code/verify_code_screen.dar
 import 'package:get_storage/get_storage.dart';
 
 class LoginScreenController extends GetxController {
-  RxBool isValid = false.obs;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GetStorage box = GetStorage();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
 
   Future<void> sendOtp(BuildContext context) async {
-    final ShowAds showAds = ShowAds();
-    if (showAds.placements[AdsIds.interstitialVideoAdPlacementId]!.value) {
+    if (formKey.currentState!.validate()) {
       await nextFunction(context);
     }
   }

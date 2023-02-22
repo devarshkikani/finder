@@ -6,10 +6,10 @@ import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:finder/theme/colors.dart';
-import 'package:finder/constant/ads_id.dart';
+// import 'package:finder/constant/ads_id.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:finder/constant/sizedbox.dart';
-import 'package:finder/constant/show_ads.dart';
+// import 'package:finder/constant/show_ads.dart';
 import 'package:finder/widget/outline_button.dart';
 import 'package:finder/widget/elevated_button.dart';
 import 'package:finder/constant/default_images.dart';
@@ -83,20 +83,20 @@ class WelcomeScreen extends StatelessWidget {
                         backgroundColor: whiteColor,
                         textColor: blackColor,
                         onTap: () {
-                          final ShowAds showAds = ShowAds();
-                          if (showAds
-                              .placements[
-                                  AdsIds.interstitialVideoAdPlacementId]!
-                              .value) {
-                            showAds.showAd(
-                              AdsIds.interstitialVideoAdPlacementId,
-                              () {
-                                Get.to(
-                                  () => const LoginScreen(),
-                                );
-                              },
-                            );
-                          }
+                          // final ShowAds showAds = ShowAds();
+                          // if (showAds
+                          //     .placements[
+                          //         AdsIds.interstitialVideoAdPlacementId]!
+                          //     .value) {
+                          //   showAds.showAd(
+                          //     AdsIds.interstitialVideoAdPlacementId,
+                          //     () {
+                          Get.to(
+                            () => const LoginScreen(),
+                          );
+                          //   },
+                          // );
+                          // }
                         },
                       ),
                       height30,
@@ -104,20 +104,20 @@ class WelcomeScreen extends StatelessWidget {
                         title: 'Sign Up',
                         textColor: primary,
                         onTap: () {
-                          final ShowAds showAds = ShowAds();
-                          if (showAds
-                              .placements[
-                                  AdsIds.interstitialVideoAdPlacementId]!
-                              .value) {
-                            showAds.showAd(
-                              AdsIds.interstitialVideoAdPlacementId,
-                              () {
-                                Get.to(
-                                  () => const RegistrationScreen(),
-                                );
-                              },
-                            );
-                          }
+                          // final ShowAds showAds = ShowAds();
+                          // if (showAds
+                          //     .placements[
+                          //         AdsIds.interstitialVideoAdPlacementId]!
+                          //     .value) {
+                          //   showAds.showAd(
+                          //     AdsIds.interstitialVideoAdPlacementId,
+                          //     () {
+                          Get.to(
+                            () => const RegistrationScreen(),
+                          );
+                          //   },
+                          // );
+                          // }
                         },
                       ),
                       height30,
