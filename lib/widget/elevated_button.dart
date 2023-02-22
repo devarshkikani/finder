@@ -3,28 +3,42 @@ import 'package:finder/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-ElevatedButton elevatedButton({
+GestureDetector elevatedButton({
   required String title,
   required Function()? onTap,
   Size? maximumSize,
   Color? backgroundColor,
   Color? textColor,
 }) {
-  return ElevatedButton(
-    style: ElevatedButton.styleFrom(
-      backgroundColor: backgroundColor ?? primary,
-      maximumSize: maximumSize ?? Size(Get.width / 2, 50),
-      disabledBackgroundColor: lightBlue,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(12)),
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      height: maximumSize == null ? 50 : maximumSize.height,
+      width: maximumSize == null ? (Get.width / 2) : maximumSize.width,
+      decoration: BoxDecoration(
+        color: backgroundColor ?? lightBlack,
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        boxShadow: <BoxShadow>[
+          const BoxShadow(
+            color: blackColor,
+            offset: Offset(5, 5),
+            blurRadius: 15,
+            spreadRadius: 5,
+          ),
+          BoxShadow(
+            color: Colors.grey.shade800,
+            offset: const Offset(-4, -4),
+            blurRadius: 15,
+            spreadRadius: 1,
+          ),
+        ],
       ),
-    ),
-    onPressed: onTap,
-    child: Center(
-      child: Text(
-        title,
-        style: mediumText18.copyWith(
-          color: textColor ?? whiteColor,
+      child: Center(
+        child: Text(
+          title,
+          style: mediumText18.copyWith(
+            color: textColor ?? whiteColor,
+          ),
         ),
       ),
     ),
