@@ -3,10 +3,10 @@
 import 'dart:io';
 
 import 'package:finder/constant/sizedbox.dart';
-import 'package:finder/screens/authentication/mobile/mobile_screen_controller.dart';
 import 'package:finder/screens/authentication/verify_code/verify_code_controller.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/utils/network_dio.dart';
 import 'package:finder/widget/elevated_button.dart';
 import 'package:finder/widget/outline_button.dart';
 import 'package:finder/widget/show_banner_ads.dart';
@@ -45,31 +45,6 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                // Row(
-                //   children: <Widget>[
-                //     Text(
-                //       controller.emailAddress.toString(),
-                //       style: mediumText16.copyWith(color: darkGrey),
-                //     ),
-                //     IconButton(
-                //       onPressed: () {
-                //         controller.isValid.value = false;
-                //         controller.otpValue.value = '';
-                //         Get.back();
-                //       },
-                //       iconSize: 18,
-                //       padding: EdgeInsets.zero,
-                //       icon: const Icon(Icons.mode_edit_outline_outlined),
-                //     ),
-                //   ],
-                // ),
-                // Text(
-                //   'Enter your\nVerification code?',
-                //   style: boldText28.copyWith(
-                //     color: primary,
-                //     fontFamily: 'source_serif_pro',
-                //   ),
-                // ),
                 height10,
                 Center(
                   child: Text(
@@ -114,11 +89,9 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
                   onCompleted: (String pin) async {
                     controller.isValid.value = true;
                     controller.otpValue.value = pin;
-                    await controller.verifyOtp(context: context);
                   },
                 ),
                 height30,
-
                 Obx(
                   () => Center(
                     child: controller.resendOtpTimer.value > 0
@@ -142,12 +115,17 @@ class VerifyCodeScreen extends GetView<VerifyCodeController> {
                 Obx(
                   () => Center(
                     child: elevatedButton(
-                      onTap: controller.isValid.value
-                          ? () {
-                              controller.verifyOtp(context: context);
-                            }
-                          : null,
-                      title: 'Continue',
+                      onTap: () {
+                        if (controller.isValid.value) {
+                          controller.verifyOtp(context: context);
+                        } else {
+                          NetworkDio.showError(
+                            title: 'Warning',
+                            errorMessage: 'Enter 6 digit code first',
+                          );
+                        }
+                      },
+                      title: 'Verify',
                     ),
                   ),
                 ),
