@@ -175,15 +175,6 @@ class EmailWidget extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       filledColor: Colors.transparent,
       onChanged: onChanged,
-      border: const BorderSide(
-        color: primary,
-      ),
-      focusBorder: const BorderSide(
-        color: primary,
-      ),
-      enabledBorder: const BorderSide(
-        color: greyColor,
-      ),
       validator: validator ??
           (String? value) => Validators.validateEmail(value!.trim()),
     );
@@ -403,7 +394,6 @@ class TextFormFieldWidget extends StatelessWidget {
       autofocus: autofocus ?? false,
       focusNode: focusNode,
       hintText: hintText,
-      filledColor: filledColor,
       style: style,
       readOnly: readOnly,
       textCapitalization: textCapitalization,
@@ -425,10 +415,20 @@ class TextFormFieldWidget extends StatelessWidget {
       enabled: enabled,
       onFieldSubmitted: onFieldSubmitted,
       onChanged: onChanged,
-      focusBorder: focusBorder,
-      border: border,
       contentPadding: contentPadding,
-      enabledBorder: enabledBorder,
+      filledColor: filledColor ?? Colors.transparent,
+      border: border ??
+          const BorderSide(
+            color: primary,
+          ),
+      focusBorder: focusBorder ??
+          const BorderSide(
+            color: primary,
+          ),
+      enabledBorder: enabledBorder ??
+          const BorderSide(
+            color: greyColor,
+          ),
     );
   }
 }
