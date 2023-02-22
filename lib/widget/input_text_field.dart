@@ -116,7 +116,7 @@ TextFormField textFormField({
       filled: true,
       hintStyle: hintStyle ??
           regularText18.copyWith(
-            color: greyColor,
+            color: lightGrey,
           ),
       hintText: hintText,
       counterText: '',
