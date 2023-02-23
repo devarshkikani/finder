@@ -2,7 +2,7 @@ import 'package:finder/constant/divider.dart';
 import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
-import 'package:finder/screens/authentication/login/login_screen.dart';
+import 'package:finder/screens/authentication/welcome/welcome_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:finder/widget/elevated_button.dart';
@@ -272,7 +272,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: 'Log out',
           onTap: () {
             GetStorage().erase();
-            Get.offAll(() => const LoginScreen());
+            Get.offAll(() => const WelcomeScreen());
           },
         ),
         height30,
