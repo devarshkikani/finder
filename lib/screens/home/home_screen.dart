@@ -309,11 +309,19 @@ class HomeScreen extends GetView<HomeScreenController> {
             ),
             child: CachedNetworkImage(
               imageUrl: userModel.photos[0].toString(),
-              placeholder: (BuildContext context, String url) => Padding(
-                padding: const EdgeInsets.all(70),
-                child: Platform.isAndroid
-                    ? const CircularProgressIndicator()
-                    : const CupertinoActivityIndicator(),
+              placeholder: (BuildContext context, String url) => Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 40,
+                      width: 40,
+                      child: Platform.isAndroid
+                          ? const CircularProgressIndicator()
+                          : const CupertinoActivityIndicator(),
+                    ),
+                  ],
+                ),
               ),
               errorWidget: (BuildContext context, String url, dynamic error) =>
                   const Icon(Icons.error),
