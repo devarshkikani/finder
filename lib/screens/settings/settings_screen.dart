@@ -5,6 +5,7 @@ import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/authentication/login/login_screen.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
+import 'package:finder/widget/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -266,30 +267,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget accountView() {
     return Column(
       children: <Widget>[
-        dividers(20),
-        InkWell(
+        height20,
+        elevatedButton(
+          title: 'Log out',
           onTap: () {
             GetStorage().erase();
             Get.offAll(() => const LoginScreen());
           },
-          child: Text(
-            'Log out',
-            style: regularText20.copyWith(
-              color: primary,
-            ),
-          ),
         ),
-        dividers(20),
-        InkWell(
+        height30,
+        height10,
+        elevatedButton(
+          title: 'Delete Account',
           onTap: () {},
-          child: Text(
-            'Delete or Pause Account',
-            style: regularText20.copyWith(
-              color: primary,
-            ),
-          ),
         ),
-        dividers(20),
+        height30,
       ],
     );
   }
