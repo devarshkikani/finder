@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:finder/constant/global_singleton.dart';
 import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/authentication/welcome/welcome_screen.dart';
 import 'package:finder/screens/main_home/main_home_screen.dart';
@@ -29,6 +30,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+  final FirebaseMessaging messaging = FirebaseMessaging.instance;
+
   GetStorage box = GetStorage();
   late UserModel currentUser;
 
@@ -44,6 +47,18 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> firebaseNotificationSetup() async {
     await Firebase.initializeApp();
+    await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    final String? token = await messaging.getToken();
+
+    GlobalSingleton().deviceToken = token.toString();
     const InitializationSettings initSetttings = InitializationSettings(
       android: AndroidInitializationSettings('@mipmap/ic_launcher'),
       iOS: IOSInitializationSettings(

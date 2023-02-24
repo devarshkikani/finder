@@ -5,6 +5,7 @@ class ApiEndPoints {
 
   static String signIn = 'user/signIn';
   static String signUp = 'user/signUp';
+  static String appleLogin = 'user/apple';
   static String otpVerify = 'user/otpVerification';
   static String resendOTP = 'user/resendOTP';
   static String registerUserDetails = 'user/register_user_details';

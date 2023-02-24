@@ -3,13 +3,12 @@
 import 'dart:developer';
 
 import 'package:finder/constant/app_endpoints.dart';
+import 'package:finder/constant/global_singleton.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/main_home/main_home_screen.dart';
 import 'package:finder/screens/user_info_screen/name_screen.dart';
 import 'package:finder/utils/network_dio.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:finder/screens/authentication/verify_code/verify_code_bindings.dart';
@@ -17,37 +16,16 @@ import 'package:finder/screens/authentication/verify_code/verify_code_screen.dar
 import 'package:get_storage/get_storage.dart';
 
 class LoginScreenController extends GetxController {
-  RxString fcmToken = ''.obs;
   GetStorage box = GetStorage();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
-  final FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-  @override
-  void onInit() {
-    setupSettings();
-    super.onInit();
-  }
-
-  Future<void> setupSettings() async {
-    await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-    final String? token = await messaging.getToken();
-
-    fcmToken.value = token.toString();
-    if (kDebugMode) {
-      print('Registration Token=$token');
-    }
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  // }
 
   Future<void> sendOtp(BuildContext context) async {
     if (formKey.currentState!.validate()) {
@@ -62,7 +40,7 @@ class LoginScreenController extends GetxController {
       data: <String, dynamic>{
         'email': email.text.trim(),
         'password': password.text.trim(),
-        'deviceToken': fcmToken.value,
+        'deviceToken': GlobalSingleton().deviceToken,
       },
     );
     if (response != null) {
