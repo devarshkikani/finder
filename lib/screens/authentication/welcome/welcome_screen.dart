@@ -239,7 +239,7 @@ class WelcomeScreen extends StatelessWidget {
         if (Platform.isIOS)
           GestureDetector(
             onTap: () {
-              controller.handleAppleButtonClick(context);
+              controller.appleLogin(context);
             },
             child: Container(
               height: 60,
@@ -263,7 +263,9 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            controller.googleLogin(context);
+          },
           child: Container(
             height: 60,
             width: 60,

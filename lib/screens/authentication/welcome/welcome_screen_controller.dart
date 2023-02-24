@@ -10,12 +10,51 @@ import 'package:finder/utils/network_dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class WelcomeScreenController extends GetxController {
   GetStorage box = GetStorage();
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: <String>[
+      'email',
+    ],
+  );
 
-  Future<void> handleAppleButtonClick(BuildContext context) async {
+  Future<void> googleLogin(BuildContext context) async {
+    _googleSignIn.disconnect();
+
+    final GoogleSignInAccount? data = await _googleSignIn.signIn();
+    if (data != null) {
+      final GoogleSignInAuthentication? authentication =
+          await data.authentication;
+      if (authentication != null) {
+        final Map<String, dynamic>? response =
+            await NetworkDio.postDioHttpMethod(
+          url: ApiEndPoints.apiEndPoint + ApiEndPoints.googleLogin,
+          context: context,
+          data: <String, dynamic>{
+            'accessToken': authentication.accessToken,
+            'idToken': authentication.idToken,
+            'deviceToken': GlobalSingleton().deviceToken,
+          },
+        );
+        if (response != null) {
+          handleLoginForAll(response);
+        }
+      } else {
+        NetworkDio.showError(
+            title: 'Error',
+            errorMessage: 'Something went wrong, try again later.');
+      }
+    } else {
+      NetworkDio.showError(
+          title: 'Error',
+          errorMessage: 'Something went wrong, try again later.');
+    }
+  }
+
+  Future<void> appleLogin(BuildContext context) async {
     final AuthorizationCredentialAppleID credential =
         await SignInWithApple.getAppleIDCredential(
       scopes: <AppleIDAuthorizationScopes>[
@@ -39,24 +78,28 @@ class WelcomeScreenController extends GetxController {
       },
     );
     if (response != null) {
-      log(response['userData'].toString());
-      final UserModel model =
-          UserModel.fromJson(response['userData'] as Map<String, dynamic>);
-      box
-        ..write(StorageKey.apiToken, response['token'])
-        ..write(StorageKey.currentUser, model.toJson())
-        ..write(StorageKey.userId, response['userData']['_id'])
-        ..write(StorageKey.isLogedIn, true);
-      await NetworkDio.setDynamicHeader();
-      if (model.isProfileCompleted) {
-        Get.offAll(
-          () => MainHomeScreen(),
-        );
-      } else {
-        Get.offAll(
-          () => NameScreen(),
-        );
-      }
+      handleLoginForAll(response);
+    }
+  }
+
+  Future<void> handleLoginForAll(Map<String, dynamic> response) async {
+    log(response['userData'].toString());
+    final UserModel model =
+        UserModel.fromJson(response['userData'] as Map<String, dynamic>);
+    box
+      ..write(StorageKey.apiToken, response['token'])
+      ..write(StorageKey.currentUser, model.toJson())
+      ..write(StorageKey.userId, response['userData']['_id'])
+      ..write(StorageKey.isLogedIn, true);
+    await NetworkDio.setDynamicHeader();
+    if (model.isProfileCompleted) {
+      Get.offAll(
+        () => MainHomeScreen(),
+      );
+    } else {
+      Get.offAll(
+        () => NameScreen(),
+      );
     }
   }
 }
