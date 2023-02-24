@@ -286,29 +286,6 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        GestureDetector(
-          onTap: () {},
-          child: Container(
-            height: 60,
-            width: 60,
-            decoration: const BoxDecoration(
-              color: facebookColor,
-              shape: BoxShape.circle,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Image.asset(
-                  facebookLogo,
-                  height: 35,
-                  width: 35,
-                  color: whiteColor,
-                  fit: BoxFit.cover,
-                ),
-              ],
-            ),
-          ),
-        ),
       ],
     );
   }
