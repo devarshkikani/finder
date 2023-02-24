@@ -30,6 +30,7 @@ class HomeScreenController extends GetxController {
       usersList.value = users;
     }
     isLoading.value = false;
+    update();
   }
 
   Future<void> moveNextPage(String? reciverUserID) async {

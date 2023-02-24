@@ -71,6 +71,7 @@ class ChatScreenController extends GetxController {
       roomsList.value = resposnse['data'] as List<dynamic>;
       isLoading.value = false;
     }
+    update();
   }
 
   Future<void> getMessages(BuildContext context) async {
@@ -83,6 +84,7 @@ class ChatScreenController extends GetxController {
     if (resposnse != null) {
       messagesList.value = resposnse['data'] as List<dynamic>;
     }
+    update();
   }
 
   void sendMessage(String message, String receiverId) {

@@ -15,8 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 
-class HomeScreen extends GetView<HomeScreenController> {
-  void showThreeDotDialog(UserModel userModel, BuildContext context) {
+class HomeScreen extends StatelessWidget {
+  void showThreeDotDialog(UserModel userModel, BuildContext context,
+      HomeScreenController controller) {
     showModalBottomSheet<int>(
       backgroundColor: Colors.transparent,
       context: context,
@@ -35,7 +36,8 @@ class HomeScreen extends GetView<HomeScreenController> {
                   child: InkWell(
                     onTap: () {
                       Navigator.pop(ctx);
-                      showReasonDialog('Remove', userModel, context);
+                      showReasonDialog(
+                          'Remove', userModel, context, controller);
                     },
                     child: Center(
                       child: Text(
@@ -55,7 +57,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                   child: InkWell(
                     onTap: () {
                       Navigator.pop(ctx);
-                      showReasonDialog('Block', userModel, context);
+                      showReasonDialog('Block', userModel, context, controller);
                     },
                     child: Center(
                       child: Text(
@@ -73,8 +75,8 @@ class HomeScreen extends GetView<HomeScreenController> {
     );
   }
 
-  void showReasonDialog(
-      String title, UserModel userModel, BuildContext context) {
+  void showReasonDialog(String title, UserModel userModel, BuildContext context,
+      HomeScreenController controller) {
     showModalBottomSheet<int>(
       backgroundColor: Colors.transparent,
       context: context,
@@ -155,14 +157,15 @@ class HomeScreen extends GetView<HomeScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: controller.navigatorKey,
-      backgroundColor: lightBlack,
-      body: SafeArea(
-        child: Obx(
-          () => Center(
+    return GetBuilder<HomeScreenController>(
+      init: HomeScreenController(),
+      builder: (HomeScreenController controller) => Center(
+        child: Scaffold(
+          key: controller.navigatorKey,
+          backgroundColor: lightBlack,
+          body: SafeArea(
             child: controller.isLoading.value
-                ? Image.asset(spinnerGIF)
+                ? Center(child: Image.asset(spinnerGIF))
                 : PageView.builder(
                     itemCount: controller.usersList.length,
                     controller: controller.pageController,
@@ -170,7 +173,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) =>
                         pageViewBuilderView(
-                            controller.usersList[index], context),
+                            controller.usersList[index], context, controller),
                   ),
           ),
         ),
@@ -178,7 +181,8 @@ class HomeScreen extends GetView<HomeScreenController> {
     );
   }
 
-  Widget pageViewBuilderView(UserModel userModel, BuildContext context) {
+  Widget pageViewBuilderView(UserModel userModel, BuildContext context,
+      HomeScreenController controller) {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
@@ -203,7 +207,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                 Center(
                   child: GestureDetector(
                     onTap: () {
-                      showThreeDotDialog(userModel, context);
+                      showThreeDotDialog(userModel, context, controller);
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(

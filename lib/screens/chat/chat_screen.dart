@@ -32,8 +32,9 @@ class ChatScreen extends GetView<ChatScreenController> {
                 dividers(10),
                 height10,
                 Expanded(
-                  child: Obx(
-                    () => controller.roomsList.isEmpty
+                  child: GetBuilder<ChatScreenController>(
+                    init: ChatScreenController(),
+                    builder: (_) => controller.roomsList.isEmpty
                         ? Center(
                             child: Text(
                               'There is no messgae yet.',
@@ -59,7 +60,10 @@ class ChatScreen extends GetView<ChatScreenController> {
                                       await controller.initSocket(controller
                                           .currentChatRoom.user.id
                                           .toString());
-                                      Get.to(() => ChatDetaisScreen());
+                                      Get.to(() => ChatDetaisScreen())
+                                          ?.then((_) {
+                                        controller.getRoomsFunction();
+                                      });
                                     },
                                     child: Container(
                                       margin: const EdgeInsets.symmetric(

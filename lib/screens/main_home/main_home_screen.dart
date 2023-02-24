@@ -1,26 +1,18 @@
-import 'package:finder/screens/chat/chat_screen.dart';
-import 'package:finder/screens/chat/chat_screen_controller.dart';
-import 'package:finder/screens/home/home_screen.dart';
-import 'package:finder/screens/home/home_screen_controller.dart';
-import 'package:finder/screens/profile/profile_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:finder/constant/default_images.dart';
+import 'package:flutter/material.dart';
 import 'package:finder/theme/colors.dart';
+import 'package:finder/screens/chat/chat_screen.dart';
+import 'package:finder/screens/home/home_screen.dart';
+import 'package:finder/constant/default_images.dart';
+import 'package:finder/screens/profile/profile_screen.dart';
 
 class MainHomeScreen extends StatelessWidget {
   MainHomeScreen({super.key});
 
   static RxInt selectedIndex = 0.obs;
   final List<Widget> pages = <Widget>[
-    GetBuilder<HomeScreenController>(
-      init: HomeScreenController(),
-      builder: (_) => HomeScreen(),
-    ),
-    GetBuilder<ChatScreenController>(
-      init: ChatScreenController(),
-      builder: (_) => ChatScreen(),
-    ),
+    HomeScreen(),
+    ChatScreen(),
     const UserProfileScreen(),
   ];
 
