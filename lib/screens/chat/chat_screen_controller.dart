@@ -48,12 +48,12 @@ class ChatScreenController extends GetxController {
       ..connect()
       ..onConnect((_) {})
       ..on('receive_message', (data) {
-        scrollController.animateTo(
-          scrollController.position.maxScrollExtent,
-          duration: const Duration(seconds: 1),
-          curve: Curves.fastOutSlowIn,
-        );
-        messagesList.add(data);
+        // scrollController.animateTo(
+        //   scrollController.position.minScrollExtent,
+        //   duration: const Duration(seconds: 1),
+        //   curve: Curves.fastOutSlowIn,
+        // );
+        messagesList.insert(0, data);
       })
       // ..onDisconnect((_) => print('Connection Disconnection'))
       // ..onConnectError((err) => print(err))
@@ -81,8 +81,7 @@ class ChatScreenController extends GetxController {
       context: context,
     );
     if (resposnse != null) {
-      messagesList.value =
-          (resposnse['data'] as List<dynamic>).reversed.toList();
+      messagesList.value = resposnse['data'] as List<dynamic>;
     }
   }
 

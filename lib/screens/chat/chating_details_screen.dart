@@ -33,49 +33,76 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
                   height5,
                   Container(
                     height: 50,
+                    margin: const EdgeInsets.all(20),
                     padding: const EdgeInsets.fromLTRB(10, 3, 10, 10),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: TextFormField(
-                            controller: controller.chatController,
-                            textCapitalization: TextCapitalization.sentences,
-                            textInputAction: TextInputAction.newline,
-                            maxLines: 11000,
-                            textAlignVertical: TextAlignVertical.center,
-                            textAlign: TextAlign.left,
-                            style: regularText14.copyWith(color: whiteColor),
-                            decoration: InputDecoration(
-                              isDense: true,
-                              border: InputBorder.none,
-                              fillColor: lightBlack,
-                              hintText: 'Type a message...',
-                              hintStyle: regularText14.copyWith(
-                                  color: lightGrey,
-                                  fontFamily: 'source_serif_pro'),
-                              contentPadding: const EdgeInsets.only(top: 8),
-                              suffixIconConstraints: const BoxConstraints(
-                                maxHeight: 26,
+                    decoration: BoxDecoration(
+                      color: lightBlack,
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
+                      boxShadow: <BoxShadow>[
+                        const BoxShadow(
+                          color: blackColor,
+                          offset: Offset(5, 5),
+                          blurRadius: 15,
+                          spreadRadius: 5,
+                        ),
+                        BoxShadow(
+                          color: Colors.grey.shade800,
+                          offset: const Offset(-4, -4),
+                          blurRadius: 15,
+                          spreadRadius: 1,
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: TextFormField(
+                              controller: controller.chatController,
+                              textCapitalization: TextCapitalization.sentences,
+                              textInputAction: TextInputAction.newline,
+                              maxLines: 11000,
+                              textAlignVertical: TextAlignVertical.center,
+                              textAlign: TextAlign.left,
+                              cursorHeight: 24,
+                              style: regularText14.copyWith(
+                                color: whiteColor,
                               ),
-                              suffixIcon: GestureDetector(
-                                onTap: () {
-                                  FocusScope.of(context).unfocus();
-                                  controller.sendMessage(
-                                    controller.chatController.text,
-                                    controller.currentChatRoom.user.id
-                                        .toString(),
-                                  );
-                                },
-                                child: Image.asset(
-                                  sendIcon,
-                                  color: whiteColor,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                border: InputBorder.none,
+                                fillColor: lightBlack,
+                                hintText: 'Type a message...',
+                                hintStyle: regularText14.copyWith(
+                                    color: lightGrey,
+                                    fontFamily: 'source_serif_pro'),
+                                contentPadding: const EdgeInsets.only(top: 8),
+                                suffixIconConstraints: const BoxConstraints(
+                                  maxHeight: 24,
+                                ),
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    FocusScope.of(context).unfocus();
+                                    if (controller
+                                        .chatController.text.isNotEmpty) {
+                                      controller.sendMessage(
+                                        controller.chatController.text,
+                                        controller.currentChatRoom.user.id
+                                            .toString(),
+                                      );
+                                    }
+                                  },
+                                  child: Image.asset(
+                                    sendIcon,
+                                    color: whiteColor,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        width5,
-                      ],
+                          width5,
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -172,6 +199,7 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
         child: Obx(
           () => ListView.builder(
             shrinkWrap: true,
+            reverse: true,
             controller: controller.scrollController,
             physics: const BouncingScrollPhysics(),
             itemCount: controller.messagesList.length,

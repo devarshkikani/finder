@@ -1,12 +1,12 @@
-import 'package:finder/constant/divider.dart';
-import 'package:finder/constant/sizedbox.dart';
-import 'package:finder/models/chat_room.dart';
-import 'package:finder/screens/chat/chat_screen_controller.dart';
-import 'package:finder/screens/chat/chating_details_screen.dart';
+import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:finder/constant/divider.dart';
+import 'package:finder/models/chat_room.dart';
+import 'package:finder/constant/sizedbox.dart';
+import 'package:finder/screens/chat/chat_screen_controller.dart';
+import 'package:finder/screens/chat/chating_details_screen.dart';
 
 class ChatScreen extends GetView<ChatScreenController> {
   @override
@@ -143,7 +143,14 @@ class ChatScreen extends GetView<ChatScreenController> {
                                       ),
                                     ),
                                   ),
-                                  dividers(10)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8),
+                                    child: dividers(
+                                      10,
+                                      color: greyColor.withOpacity(0.1),
+                                    ),
+                                  )
                                 ],
                               );
                             },
