@@ -75,7 +75,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                     height10,
                     Center(
                       child: elevatedButton(
-                        title: 'Send Code',
+                        title: 'Sign In',
                         onTap: () {
                           controller.sendOtp(context);
                         },
