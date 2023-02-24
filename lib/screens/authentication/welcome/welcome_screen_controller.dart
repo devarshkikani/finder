@@ -1,9 +1,21 @@
-import 'package:flutter/foundation.dart';
+import 'dart:developer';
+
+import 'package:finder/constant/app_endpoints.dart';
+import 'package:finder/constant/global_singleton.dart';
+import 'package:finder/constant/storage_key.dart';
+import 'package:finder/models/user_model.dart';
+import 'package:finder/screens/main_home/main_home_screen.dart';
+import 'package:finder/screens/user_info_screen/name_screen.dart';
+import 'package:finder/utils/network_dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class WelcomeScreenController extends GetxController {
-  Future<void> handleAppleButtonClick() async {
+  GetStorage box = GetStorage();
+
+  Future<void> handleAppleButtonClick(BuildContext context) async {
     final AuthorizationCredentialAppleID credential =
         await SignInWithApple.getAppleIDCredential(
       scopes: <AppleIDAuthorizationScopes>[
@@ -17,8 +29,34 @@ class WelcomeScreenController extends GetxController {
         ),
       ),
     );
-    if (kDebugMode) {
-      print(credential.email);
+    final Map<String, dynamic>? response = await NetworkDio.postDioHttpMethod(
+      url: ApiEndPoints.apiEndPoint + ApiEndPoints.appleLogin,
+      context: context,
+      data: <String, dynamic>{
+        'email': credential.email,
+        'appleAuthCode': <String?>[credential.identityToken],
+        'deviceToken': GlobalSingleton().deviceToken,
+      },
+    );
+    if (response != null) {
+      log(response['userData'].toString());
+      final UserModel model =
+          UserModel.fromJson(response['userData'] as Map<String, dynamic>);
+      box
+        ..write(StorageKey.apiToken, response['token'])
+        ..write(StorageKey.currentUser, model.toJson())
+        ..write(StorageKey.userId, response['userData']['_id'])
+        ..write(StorageKey.isLogedIn, true);
+      await NetworkDio.setDynamicHeader();
+      if (model.isProfileCompleted) {
+        Get.offAll(
+          () => MainHomeScreen(),
+        );
+      } else {
+        Get.offAll(
+          () => NameScreen(),
+        );
+      }
     }
   }
 }

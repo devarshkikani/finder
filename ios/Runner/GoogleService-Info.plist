@@ -3,12 +3,34 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>373802967662-gprmb9795gbl5adf54vlseg5r7c0c2t1.apps.googleusercontent.com</string>
+	<string>675949704068-qqmb30o3sl03ghvagotrf5o09lqolod8.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.373802967662-gprmb9795gbl5adf54vlseg5r7c0c2t1</string>
+	<string>com.googleusercontent.apps.675949704068-qqmb30o3sl03ghvagotrf5o09lqolod8</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>675949704068-nq8m0dte19c7fop3o2or313pfkpb3moo.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB-79Ytbol55tKoTQmO9bzsBv63tuiKVrs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>675949704068</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.find.partner</string>
+	<key>PROJECT_ID</key>
+	<string>finder-53111</string>
+	<key>STORAGE_BUCKET</key>
+	<string>finder-53111.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:675949704068:ios:8790e6f3098d37227723d1</string>
 </dict>
 </plist>

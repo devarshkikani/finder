@@ -123,7 +123,7 @@ class WelcomeScreen extends StatelessWidget {
                       height30,
                       orView(),
                       height30,
-                      bottomSignUpOption(controller),
+                      bottomSignUpOption(controller, context),
                       height30,
                       Center(
                         child: RichText(
@@ -229,14 +229,17 @@ class WelcomeScreen extends StatelessWidget {
     );
   }
 
-  Widget bottomSignUpOption(WelcomeScreenController controller) {
+  Widget bottomSignUpOption(
+    WelcomeScreenController controller,
+    BuildContext context,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         if (Platform.isIOS)
           GestureDetector(
             onTap: () {
-              controller.handleAppleButtonClick();
+              controller.handleAppleButtonClick(context);
             },
             child: Container(
               height: 60,
