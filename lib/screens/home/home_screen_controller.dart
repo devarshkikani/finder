@@ -33,13 +33,14 @@ class HomeScreenController extends GetxController {
     update();
   }
 
-  Future<void> moveNextPage(String? reciverUserID) async {
+  Future<void> moveNextPage(String? reciverUserID, int index) async {
     pageController.nextPage(
       duration: const Duration(
         seconds: 1,
       ),
       curve: Curves.easeOutSine,
     );
+    usersList.removeAt(index);
     if (reciverUserID != null) {
       await addRoom(reciverUserID);
     }

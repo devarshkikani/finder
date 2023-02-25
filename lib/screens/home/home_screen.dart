@@ -126,7 +126,7 @@ class HomeScreen extends StatelessWidget {
                               title: '$title!!',
                               errorMessage:
                                   '''You have been successfully $title ${userModel.firstName}''');
-                          controller.moveNextPage(null);
+                          controller.moveNextPage(null, index);
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -173,7 +173,11 @@ class HomeScreen extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) =>
                         pageViewBuilderView(
-                            controller.usersList[index], context, controller),
+                      userModel: controller.usersList[index],
+                      context: context,
+                      controller: controller,
+                      index: index,
+                    ),
                   ),
           ),
         ),
@@ -181,8 +185,12 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget pageViewBuilderView(UserModel userModel, BuildContext context,
-      HomeScreenController controller) {
+  Widget pageViewBuilderView({
+    required UserModel userModel,
+    required BuildContext context,
+    required HomeScreenController controller,
+    required int index,
+  }) {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
@@ -246,7 +254,7 @@ class HomeScreen extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: () {
-                  controller.moveNextPage(null);
+                  controller.moveNextPage(null, index);
                 },
                 child: Image.asset(
                   crossIcon,
@@ -279,7 +287,7 @@ class HomeScreen extends StatelessWidget {
                     milliseconds: 500,
                   ),
                   onTap: (bool isLiked) async {
-                    controller.moveNextPage(userModel.id);
+                    controller.moveNextPage(userModel.id, index);
                     return !isLiked;
                   },
                 ),
