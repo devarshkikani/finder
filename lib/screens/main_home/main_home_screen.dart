@@ -1,27 +1,17 @@
+import 'package:finder/screens/main_home/main_home_screen_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:finder/theme/colors.dart';
-import 'package:finder/screens/chat/chat_screen.dart';
-import 'package:finder/screens/home/home_screen.dart';
 import 'package:finder/constant/default_images.dart';
-import 'package:finder/screens/profile/profile_screen.dart';
 
 class MainHomeScreen extends StatelessWidget {
-  MainHomeScreen({super.key});
-
-  static RxInt selectedIndex = 0.obs;
-  final List<Widget> pages = <Widget>[
-    HomeScreen(),
-    ChatScreen(),
-    const UserProfileScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Scaffold(
+    return GetBuilder<MainHomeScreenController>(
+      init: MainHomeScreenController(),
+      builder: (MainHomeScreenController controller) => Scaffold(
         backgroundColor: lightBlack,
-        body: pages[selectedIndex.value],
+        body: controller.pages[controller.selectedIndex.value],
         bottomNavigationBar: Container(
           height: 70,
           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -38,33 +28,42 @@ class MainHomeScreen extends StatelessWidget {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    selectedIndex.value = 0;
+                    controller.selectedIndex.value = 0;
+                    controller.update();
                   },
                   child: Image.asset(
                     homeIcon,
-                    color: selectedIndex.value == 0 ? primary : darkGrey,
+                    color: controller.selectedIndex.value == 0
+                        ? primary
+                        : darkGrey,
                     height: 40,
                     width: 40,
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
-                    selectedIndex.value = 1;
+                    controller.selectedIndex.value = 1;
+                    controller.update();
                   },
                   child: Image.asset(
                     chatIcon,
-                    color: selectedIndex.value == 1 ? primary : darkGrey,
+                    color: controller.selectedIndex.value == 1
+                        ? primary
+                        : darkGrey,
                     height: 30,
                     width: 30,
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
-                    selectedIndex.value = 2;
+                    controller.selectedIndex.value = 2;
+                    controller.update();
                   },
                   child: Image.asset(
                     userPeople,
-                    color: selectedIndex.value == 2 ? primary : darkGrey,
+                    color: controller.selectedIndex.value == 2
+                        ? primary
+                        : darkGrey,
                     height: 40,
                     width: 40,
                   ),

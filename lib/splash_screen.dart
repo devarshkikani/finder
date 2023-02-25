@@ -103,6 +103,8 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     });
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+    updateUserStatus(isActive: true);
   }
 
   Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -134,6 +136,20 @@ class _SplashScreenState extends State<SplashScreen> {
   Future onSelectNotification(String? payloadData) async {
     final dynamic payload = await json.decode(payloadData ?? '');
     log(payload.toString());
+  }
+
+  Future<void> updateUserStatus({required bool isActive}) async {
+    // final Map<String, dynamic>? resposnse = await NetworkDio.postDioHttpMethod(
+    //   url: ApiEndPoints.apiEndPoint + ApiEndPoints.updateUserStatus,
+    //   context: navigatorKey.currentContext,
+    //   data: <String, dynamic>{
+    //     'status': isActive,
+    //   },
+    // );
+    // if (resposnse != null) {
+    //   currentUser.isActive = isActive;
+    //   box.write(StorageKey.currentUser, currentUser.toJson());
+    //  }
   }
 
   @override

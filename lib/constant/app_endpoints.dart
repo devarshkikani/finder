@@ -20,4 +20,6 @@ class ApiEndPoints {
   static String addRoom = 'user/room/add';
   static String getRooms = 'user/room';
   static String getMessage = 'user/message?roomId=';
+
+  static String updateUserStatus = 'user/online_offline';
 }
