@@ -3,6 +3,7 @@ import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/user_model.dart';
 import 'package:finder/screens/authentication/welcome/welcome_screen.dart';
+// import 'package:finder/screens/settings/push_notification/push_notification.dart';
 import 'package:finder/theme/colors.dart';
 import 'package:finder/theme/text_style.dart';
 import 'package:finder/widget/elevated_button.dart';
@@ -148,13 +149,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
         dividers(10),
-        height20,
-        Text(
-          'Push Notifications',
-          style: regularText18.copyWith(
-            color: whiteColor,
-          ),
+        // InkWell(
+        //   onTap: () {
+        //     Get.to(() => const PushNotificationScreen());
+        //   },
+        //   child:
+        Column(
+          children: <Widget>[
+            height20,
+            Text(
+              'Push Notifications',
+              style: regularText18.copyWith(
+                color: whiteColor,
+              ),
+            ),
+          ],
         ),
+        // ),
         dividers(20),
         Text(
           'Email',

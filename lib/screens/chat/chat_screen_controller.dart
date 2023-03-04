@@ -1,9 +1,13 @@
 // ignore_for_file: always_specify_types
 
 import 'package:finder/constant/app_endpoints.dart';
+import 'package:finder/constant/const_variable.dart';
+import 'package:finder/constant/sizedbox.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/models/chat_room.dart';
 import 'package:finder/models/user_model.dart';
+import 'package:finder/theme/colors.dart';
+import 'package:finder/theme/text_style.dart';
 import 'package:finder/utils/network_dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -100,5 +104,160 @@ class ChatScreenController extends GetxController {
       socket.emit('send_message', messageMap);
       chatController.clear();
     }
+  }
+
+  void showThreeDotDialog(
+    User userModel,
+    BuildContext context,
+  ) {
+    showModalBottomSheet<int>(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext ctx) {
+        return SafeArea(
+          child: Container(
+            height: 100,
+            margin: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: whiteColor,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pop(ctx);
+                      showReasonDialog('Remove', userModel, context);
+                    },
+                    child: Center(
+                      child: Text(
+                        'Remove',
+                        style: regularText16.copyWith(
+                          color: darkBlack,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 1,
+                  color: darkGrey,
+                ),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pop(ctx);
+                      showReasonDialog('Block', userModel, context);
+                    },
+                    child: Center(
+                      child: Text(
+                        'Block',
+                        style: regularText16.copyWith(color: primary),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void showReasonDialog(
+    String title,
+    User userModel,
+    BuildContext context,
+  ) {
+    showModalBottomSheet<int>(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext ctx) {
+        return SafeArea(
+          child: Container(
+            height: 380,
+            margin: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: lightBlack,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pop(ctx);
+                    },
+                    child: const Icon(
+                      Icons.close,
+                      color: whiteColor,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          title,
+                          style: mediumText24,
+                        ),
+                        Text(
+                          'Your reason is private',
+                          style: mediumText16.copyWith(
+                            color: darkGrey,
+                          ),
+                        ),
+                        height10,
+                        ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: ConstVariable.reasonsList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.pop(ctx);
+                                  NetworkDio.showError(
+                                      title: '$title!!',
+                                      errorMessage:
+                                          '''You have been successfully $title ${userModel.firstName}''');
+                                  Get.back();
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  margin: const EdgeInsets.only(
+                                    bottom: 10,
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 5,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: lightGrey.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    ConstVariable.reasonsList[index],
+                                    style: regularText14.copyWith(
+                                      color: darkGrey,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }

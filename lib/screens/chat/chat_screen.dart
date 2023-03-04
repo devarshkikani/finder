@@ -134,15 +134,16 @@ class ChatScreen extends StatelessWidget {
                       letterSpacing: 0.2,
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
-                        color: primary, shape: BoxShape.circle),
-                    child: Text(
-                      '3',
-                      style: regularText12.copyWith(color: whiteColor),
+                  if (1 == 0)
+                    Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                          color: primary, shape: BoxShape.circle),
+                      child: Text(
+                        '3',
+                        style: regularText12.copyWith(color: whiteColor),
+                      ),
                     ),
-                  ),
                 ],
               ),
               Row(
@@ -151,7 +152,7 @@ class ChatScreen extends StatelessWidget {
                   Text(
                     'plan is going to suffer',
                     style: regularText14.copyWith(
-                      color: lightGrey,
+                      color: darkGrey,
                     ),
                   ),
                   Text(

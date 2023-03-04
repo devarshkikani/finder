@@ -49,11 +49,11 @@ class _SplashScreenState extends State<SplashScreen> {
     await Firebase.initializeApp();
     await messaging.requestPermission(
       alert: true,
-      announcement: false,
+      announcement: true,
       badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
+      carPlay: true,
+      criticalAlert: true,
+      provisional: true,
       sound: true,
     );
     final String? token = await messaging.getToken();
@@ -118,6 +118,8 @@ class _SplashScreenState extends State<SplashScreen> {
       channelDescription: 'CHANNEL DESCRIPTION',
       priority: Priority.high,
       importance: Importance.max,
+      enableVibration: true,
+      fullScreenIntent: true,
       playSound: true,
     );
 

@@ -27,7 +27,7 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   height10,
-                  topView(),
+                  topView(context),
                   height20,
                   chatView(),
                   height5,
@@ -76,9 +76,9 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
                                 hintStyle: regularText14.copyWith(
                                     color: lightGrey,
                                     fontFamily: 'source_serif_pro'),
-                                contentPadding: const EdgeInsets.only(top: 8),
+                                contentPadding: const EdgeInsets.only(top: 10),
                                 suffixIconConstraints: const BoxConstraints(
-                                  maxHeight: 24,
+                                  maxHeight: 30,
                                 ),
                                 suffixIcon: GestureDetector(
                                   onTap: () {
@@ -92,9 +92,12 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
                                       );
                                     }
                                   },
-                                  child: Image.asset(
-                                    sendIcon,
-                                    color: whiteColor,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 6),
+                                    child: Image.asset(
+                                      sendIcon,
+                                      color: whiteColor,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -114,7 +117,7 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
     );
   }
 
-  Widget topView() {
+  Widget topView(BuildContext context) {
     return Row(
       children: <Widget>[
         GestureDetector(
@@ -174,17 +177,23 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
           ),
         ),
         // const Spacer(),
-        Container(
-          margin: const EdgeInsets.only(left: 8),
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: lightGrey.withOpacity(0.30),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: const Icon(
-            Icons.more_vert_rounded,
-            color: whiteColor,
-            size: 18,
+        GestureDetector(
+          onTap: () {
+            controller.showThreeDotDialog(
+                controller.currentChatRoom.user, context);
+          },
+          child: Container(
+            margin: const EdgeInsets.only(left: 8),
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: lightGrey.withOpacity(0.30),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Icon(
+              Icons.more_vert_rounded,
+              color: whiteColor,
+              size: 18,
+            ),
           ),
         ),
         width15,
@@ -232,7 +241,9 @@ class ChatDetaisScreen extends GetView<ChatScreenController> {
                             topRight:
                                 isMe ? const Radius.circular(20) : Radius.zero,
                           ),
-                          color: isMe ? primary.withOpacity(0.8) : lightGrey,
+                          color: isMe
+                              ? primary.withOpacity(0.8)
+                              : lightGrey.withOpacity(0.5),
                         ),
                         child: Text(
                           controller.messagesList[index]['message'].toString(),
