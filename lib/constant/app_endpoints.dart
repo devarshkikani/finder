@@ -21,5 +21,5 @@ class ApiEndPoints {
   static String getRooms = 'user/room';
   static String getMessage = 'user/message?roomId=';
 
-  static String updateUserStatus = 'user/online_offline';
+  static String updateUserStatus = 'user/onlineOfflineUser?isOnline=';
 }

@@ -1,11 +1,16 @@
-import 'package:finder/constant/storage_key.dart';
+import 'package:finder/constant/app_endpoints.dart';
+import 'package:finder/utils/network_dio.dart';
+import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+// import 'package:finder/finder_app.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:finder/models/user_model.dart';
+// import 'package:finder/utils/network_dio.dart';
+import 'package:finder/constant/storage_key.dart';
+// import 'package:finder/constant/app_endpoints.dart';
 import 'package:finder/screens/chat/chat_screen.dart';
 import 'package:finder/screens/home/home_screen.dart';
 import 'package:finder/screens/profile/profile_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class MainHomeScreenController extends FullLifeCycleController {
   RxInt selectedIndex = 0.obs;
@@ -13,6 +18,7 @@ class MainHomeScreenController extends FullLifeCycleController {
   late UserModel currentUser;
   final List<Widget> pages = <Widget>[
     HomeScreen(),
+    ChatScreen(),
     ChatScreen(),
     const UserProfileScreen(),
   ];
@@ -62,16 +68,13 @@ class MainHomeScreenController extends FullLifeCycleController {
   }
 
   Future<void> updateUserStatus({required bool isActive}) async {
-    //final Map<String, dynamic>? resposnse = await NetworkDio.postDioHttpMethod(
-    //   url: ApiEndPoints.apiEndPoint + ApiEndPoints.updateUserStatus,
-    //   context: navigatorKey.currentContext,
-    //   data: <String, dynamic>{
-    //     'status': isActive,
-    //   },
-    // );
-    // if (resposnse != null) {
-    //   currentUser.isActive = isActive;
-    //   box.write(StorageKey.currentUser, currentUser.toJson());
-    //  }
+    final Map<String, dynamic>? resposnse = await NetworkDio.getDioHttpMethod(
+      url:
+          '''${ApiEndPoints.apiEndPoint}${ApiEndPoints.updateUserStatus}$isActive''',
+    );
+    if (resposnse != null) {
+      currentUser.isActive = isActive;
+      box.write(StorageKey.currentUser, currentUser.toJson());
+    }
   }
 }

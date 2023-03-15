@@ -68,6 +68,20 @@ class MainHomeScreen extends StatelessWidget {
                     width: 40,
                   ),
                 ),
+                GestureDetector(
+                  onTap: () {
+                    controller.selectedIndex.value = 3;
+                    controller.update();
+                  },
+                  child: Image.asset(
+                    userPeople,
+                    color: controller.selectedIndex.value == 3
+                        ? primary
+                        : darkGrey,
+                    height: 40,
+                    width: 40,
+                  ),
+                ),
               ],
             ),
           ),

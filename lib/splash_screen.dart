@@ -1,24 +1,25 @@
 // ignore_for_file: always_specify_types
 
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
-import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:finder/constant/global_singleton.dart';
-import 'package:finder/models/user_model.dart';
-import 'package:finder/screens/authentication/welcome/welcome_screen.dart';
-import 'package:finder/screens/main_home/main_home_screen.dart';
-import 'package:finder/screens/user_info_screen/name_screen.dart';
-import 'package:finder/theme/colors.dart';
+import 'package:finder/constant/app_endpoints.dart';
+import 'package:finder/utils/network_dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:finder/theme/colors.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:finder/models/user_model.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:finder/constant/storage_key.dart';
 import 'package:finder/constant/default_images.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:finder/constant/global_singleton.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:finder/screens/main_home/main_home_screen.dart';
+import 'package:finder/screens/user_info_screen/name_screen.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:finder/screens/authentication/welcome/welcome_screen.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -72,7 +73,6 @@ class _SplashScreenState extends State<SplashScreen> {
         onSelectNotification: onSelectNotification);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage? message) async {
-      log('${message?.notification?.title}+++++');
       if (Platform.isIOS) {
         await showNotification(
           message!.notification!.title.toString(),
@@ -94,8 +94,6 @@ class _SplashScreenState extends State<SplashScreen> {
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage? message) {
-      log('${message?.notification?.title}-----');
-
       if (Platform.isIOS) {
         onSelectNotification(json.encode(message!.data));
       } else {
@@ -107,9 +105,8 @@ class _SplashScreenState extends State<SplashScreen> {
     updateUserStatus(isActive: true);
   }
 
-  Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-    log('Handling a background message ${message.notification?.title}');
-  }
+  static Future<void> firebaseMessagingBackgroundHandler(
+      RemoteMessage message) async {}
 
   Future showNotification(String title, String message, dynamic payload) async {
     const AndroidNotificationDetails android = AndroidNotificationDetails(
@@ -135,23 +132,17 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  Future onSelectNotification(String? payloadData) async {
-    final dynamic payload = await json.decode(payloadData ?? '');
-    log(payload.toString());
-  }
+  Future onSelectNotification(String? payloadData) async {}
 
   Future<void> updateUserStatus({required bool isActive}) async {
-    // final Map<String, dynamic>? resposnse = await NetworkDio.postDioHttpMethod(
-    //   url: ApiEndPoints.apiEndPoint + ApiEndPoints.updateUserStatus,
-    //   context: navigatorKey.currentContext,
-    //   data: <String, dynamic>{
-    //     'status': isActive,
-    //   },
-    // );
-    // if (resposnse != null) {
-    //   currentUser.isActive = isActive;
-    //   box.write(StorageKey.currentUser, currentUser.toJson());
-    //  }
+    final Map<String, dynamic>? resposnse = await NetworkDio.getDioHttpMethod(
+      url:
+          '''${ApiEndPoints.apiEndPoint}${ApiEndPoints.updateUserStatus}$isActive''',
+    );
+    if (resposnse != null) {
+      currentUser.isActive = isActive;
+      box.write(StorageKey.currentUser, currentUser.toJson());
+    }
   }
 
   @override
