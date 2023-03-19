@@ -116,37 +116,38 @@ class HomeScreen extends StatelessWidget {
                 ),
                 height10,
                 ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: ConstVariable.reasonsList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.pop(ctx);
-                          NetworkDio.showError(
-                              title: '$title!!',
-                              errorMessage:
-                                  '''You have been successfully $title ${userModel.firstName}''');
-                          controller.moveNextPage(null, index);
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.only(
-                            bottom: 10,
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 5,
-                          ),
-                          decoration: BoxDecoration(
-                            color: darkGrey,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            ConstVariable.reasonsList[index],
-                            style: regularText14,
-                          ),
+                  shrinkWrap: true,
+                  itemCount: ConstVariable.reasonsList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pop(ctx);
+                        NetworkDio.showError(
+                            title: '$title!!',
+                            errorMessage:
+                                '''You have been successfully $title ${userModel.firstName}''');
+                        controller.moveNextPage(null, index);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(
+                          bottom: 10,
                         ),
-                      );
-                    }),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: darkGrey,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          ConstVariable.reasonsList[index],
+                          style: regularText14,
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),

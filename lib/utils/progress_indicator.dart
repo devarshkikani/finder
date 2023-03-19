@@ -36,7 +36,7 @@ class Circle {
 
   Future<void> addOverlay(OverlayEntry entry, BuildContext context) async {
     try {
-      return Overlay.of(context)!.insert(entry);
+      return Overlay.of(context).insert(entry);
     } catch (e) {
       return Future.error(e);
     }

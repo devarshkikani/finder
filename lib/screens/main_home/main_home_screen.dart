@@ -60,12 +60,12 @@ class MainHomeScreen extends StatelessWidget {
                     controller.update();
                   },
                   child: Image.asset(
-                    userPeople,
+                    heartIcon,
                     color: controller.selectedIndex.value == 2
                         ? primary
                         : darkGrey,
-                    height: 40,
-                    width: 40,
+                    height: 30,
+                    width: 30,
                   ),
                 ),
                 GestureDetector(

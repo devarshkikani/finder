@@ -1,4 +1,5 @@
 import 'package:finder/constant/app_endpoints.dart';
+import 'package:finder/screens/likes/likes_screen.dart';
 import 'package:finder/utils/network_dio.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class MainHomeScreenController extends FullLifeCycleController {
   final List<Widget> pages = <Widget>[
     HomeScreen(),
     ChatScreen(),
-    ChatScreen(),
+    const LikesScreen(),
     const UserProfileScreen(),
   ];
 

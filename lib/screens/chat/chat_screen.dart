@@ -16,93 +16,86 @@ class ChatScreen extends StatelessWidget {
         builder: (ChatScreenController controller) {
           return Scaffold(
             backgroundColor: lightBlack,
-            body: Stack(
-              children: <Widget>[
-                SafeArea(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      height10,
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          "Message's",
-                          style: mediumText20.copyWith(
-                            color: whiteColor,
-                          ),
-                        ),
+            body: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  height10,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      "Message's",
+                      style: mediumText20.copyWith(
+                        color: whiteColor,
                       ),
-                      dividers(10),
-                      height10,
-                      Expanded(
-                        child: controller.roomsList.isEmpty
-                            ? Center(
-                                child: Text(
-                                  'There is no messgae yet.',
-                                  style: mediumText18,
-                                ),
-                              )
-                            : RefreshIndicator(
-                                onRefresh: controller.getRoomsFunction,
-                                color: whiteColor,
-                                triggerMode: RefreshIndicatorTriggerMode.onEdge,
-                                backgroundColor: success,
-                                child: ListView.builder(
-                                  itemCount: controller.roomsList.length,
-                                  physics: const BouncingScrollPhysics(
-                                    parent: AlwaysScrollableScrollPhysics(),
-                                  ),
-                                  shrinkWrap: false,
-                                  padding: EdgeInsets.zero,
-                                  itemBuilder: (BuildContext ctx, int index) {
-                                    final ChatRoom chatRoomDetails =
-                                        ChatRoom.fromJson(
-                                            controller.roomsList[index]
-                                                as Map<String, dynamic>);
-                                    return Column(
-                                      children: <Widget>[
-                                        GestureDetector(
-                                          onTap: () async {
-                                            controller.currentChatRoom =
-                                                chatRoomDetails;
-                                            await controller
-                                                .getMessages(context);
-                                            await controller.initSocket(
-                                                controller
-                                                    .currentChatRoom.user.id
-                                                    .toString());
-                                            Get.to(() => ChatDetaisScreen())
-                                                ?.then((_) {
-                                              controller.getRoomsFunction();
-                                            });
-                                          },
-                                          child: Container(
-                                            margin: const EdgeInsets.symmetric(
-                                              horizontal: 10,
-                                            ),
-                                            color: Colors.transparent,
-                                            child:
-                                                designListTile(chatRoomDetails),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8),
-                                          child: dividers(
-                                            10,
-                                            color: greyColor.withOpacity(0.1),
-                                          ),
-                                        )
-                                      ],
-                                    );
-                                  },
-                                ),
-                              ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ],
+                  dividers(10),
+                  height10,
+                  Expanded(
+                    child: controller.roomsList.isEmpty
+                        ? Center(
+                            child: Text(
+                              'There is no messgae yet.',
+                              style: mediumText18,
+                            ),
+                          )
+                        : RefreshIndicator(
+                            onRefresh: controller.getRoomsFunction,
+                            color: whiteColor,
+                            triggerMode: RefreshIndicatorTriggerMode.onEdge,
+                            backgroundColor: success,
+                            child: ListView.builder(
+                              itemCount: controller.roomsList.length,
+                              physics: const BouncingScrollPhysics(
+                                parent: AlwaysScrollableScrollPhysics(),
+                              ),
+                              shrinkWrap: false,
+                              padding: EdgeInsets.zero,
+                              itemBuilder: (BuildContext ctx, int index) {
+                                final ChatRoom chatRoomDetails =
+                                    ChatRoom.fromJson(
+                                        controller.roomsList[index]
+                                            as Map<String, dynamic>);
+                                return Column(
+                                  children: <Widget>[
+                                    GestureDetector(
+                                      onTap: () async {
+                                        controller.currentChatRoom =
+                                            chatRoomDetails;
+                                        await controller.getMessages(context);
+                                        await controller.initSocket(controller
+                                            .currentChatRoom.user.id
+                                            .toString());
+                                        Get.to(() => ChatDetaisScreen())
+                                            ?.then((_) {
+                                          controller.getRoomsFunction();
+                                        });
+                                      },
+                                      child: Container(
+                                        margin: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                        ),
+                                        color: Colors.transparent,
+                                        child: designListTile(chatRoomDetails),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      child: dividers(
+                                        10,
+                                        color: greyColor.withOpacity(0.1),
+                                      ),
+                                    )
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                  ),
+                ],
+              ),
             ),
           );
         });
