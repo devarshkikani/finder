@@ -62,15 +62,18 @@ class _SplashScreenState extends State<SplashScreen> {
     GlobalSingleton().deviceToken = token.toString();
     const InitializationSettings initSetttings = InitializationSettings(
       android: AndroidInitializationSettings('@mipmap/ic_launcher'),
-      iOS: IOSInitializationSettings(
+      iOS: DarwinInitializationSettings(
         requestAlertPermission: true,
         requestBadgePermission: true,
         requestSoundPermission: true,
       ),
     );
 
-    flutterLocalNotificationsPlugin.initialize(initSetttings,
-        onSelectNotification: onSelectNotification);
+    flutterLocalNotificationsPlugin.initialize(
+      initSetttings,
+      // onDidReceiveNotificationResponse: onSelectNotification,
+      // onDidReceiveBackgroundNotificationResponse: onSelectNotification,
+    );
 
     FirebaseMessaging.onMessage.listen((RemoteMessage? message) async {
       if (Platform.isIOS) {
@@ -120,7 +123,7 @@ class _SplashScreenState extends State<SplashScreen> {
       playSound: true,
     );
 
-    const iOS = IOSNotificationDetails();
+    const iOS = DarwinNotificationDetails();
 
     const platform = NotificationDetails(iOS: iOS, android: android);
     await flutterLocalNotificationsPlugin.show(
